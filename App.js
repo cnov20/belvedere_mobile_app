@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import AppOpen from './screens/App-Open';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Initialization Test!</Text>
+      <AppOpen/>
       <StatusBar style="auto" />
     </View>
   );
