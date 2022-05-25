@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
-import { Input } from "@rneui/themed";
+import { StyleSheet, Text, View, Image, ImageBackground, Stack} from 'react-native';
+// import { Input} from "@rneui/themed";
 import { TextInput } from 'react-native-element-textinput';
+import { Button } from "@rneui/base";
+// import { Button } from "@rneui/themed";
 
 
 
@@ -17,8 +19,8 @@ export default function AppOpen() {
             resizeMode="contain"
           >
           </Image>
-        <Input placeholder='SIGN IN'></Input>
-        <Input placeholder='CREATE ACCOUNT'></Input>
+          <Button style={styles.button} title={"SIGN IN"}/>
+          <Button style={styles.button} title={"CREATE ACCOUNT"}/>
         </View>
     </ImageBackground>
 
@@ -29,16 +31,24 @@ const styles = StyleSheet.create({
     background: {
       width: '100%',
       height: '100%',
-      opacity: 0.6
+      opacity: 0.5
     },
     logo:{
         width: 280,
         height: 280,
         marginLeft: '15%',
         marginTop: '10%',
-        shadowOpacity: 0.4
+        opacity: 0.25,
+        shadowOpacity: 0.5
       },
-    // input: {
-    //     alignItems: center;
-    // }
+      button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        color: 'rgba(25,138,183,255)'
+      },
+    
 });
