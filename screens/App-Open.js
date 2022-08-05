@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View, Image, ImageBackground, Stack} from 'react-native';
-// import { Input} from "@rneui/themed";
 import { TextInput } from 'react-native-element-textinput';
 import { Button } from "@rneui/base";
 // import { Button } from "@rneui/themed";
-
+// import { Input} from "@rneui/themed";
 
 
 export default function AppOpen() {
