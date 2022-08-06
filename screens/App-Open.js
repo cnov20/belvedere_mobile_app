@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View, Image, ImageBackground, Stack} from 'react-native';
-import { TextInput } from 'react-native-element-textinput';
+import React from 'react';
+import { StyleSheet, View, Image, ImageBackground } from 'react-native';
+// import { TextInput } from 'react-native-element-textinput';
 import { Button } from "@rneui/base";
 // import { Button } from "@rneui/themed";
 // import { Input} from "@rneui/themed";
