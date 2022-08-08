@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-paper';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import { Spacer } from '../../../components/spacer/spacer.component';
 import {
 	AccountBackground,
@@ -10,7 +8,7 @@ import {
 	AuthButton,
 } from '../components/account.styles';
 
-const AccountScreen = () => {
+const AccountScreen = ({ navigation }) => {
 	return (
 		<AccountBackground>
 			<AccountCover />

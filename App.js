@@ -1,10 +1,10 @@
-import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
-import { StyleSheet, SafeAreaView, StatusBar, View } from 'react-native';
 import React from 'react';
-import { Searchbar } from 'react-native-paper';
-import AccountScreen from './src/features/account/screens/account.screen';
+
+import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
+import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 
 import { ThemeProvider } from 'styled-components/native';
+import { Navigation } from './src/infrastructure/navigation';
 // import * as firebase from "firebase";
 
 // import {
@@ -20,10 +20,7 @@ export default function App() {
 		<>
 			<ThemeProvider theme={theme}>
 				<SafeAreaView style={styles.container}>
-					{/* <View>
-					<Searchbar style={styles.search} placeholder='Search' />
-				</View> */}
-					<AccountScreen />
+					<Navigation />
 				</SafeAreaView>
 				<ExpoStatusBar style='auto' />
 			</ThemeProvider>
