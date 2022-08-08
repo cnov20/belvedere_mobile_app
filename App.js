@@ -1,21 +1,32 @@
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import { StyleSheet, SafeAreaView, StatusBar, View } from 'react-native';
 import React from 'react';
-// import AppOpen from './src/screens/App-Open';
 import { Searchbar } from 'react-native-paper';
 import AccountScreen from './src/features/account/screens/account.screen';
-// import { Icon } from 'react-native-vector-icons';
+
+import { ThemeProvider } from 'styled-components/native';
+// import * as firebase from "firebase";
+
+// import {
+//   useFonts as useOswald,
+//   Oswald_400Regular,
+// } from "@expo-google-fonts/oswald";
+// import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
+
+import { theme } from './src/infrastructure/theme';
 
 export default function App() {
 	return (
 		<>
-			<SafeAreaView style={styles.container}>
-				{/* <View>
+			<ThemeProvider theme={theme}>
+				<SafeAreaView style={styles.container}>
+					{/* <View>
 					<Searchbar style={styles.search} placeholder='Search' />
 				</View> */}
-				<AccountScreen />
-			</SafeAreaView>
-			<ExpoStatusBar style='auto' />
+					<AccountScreen />
+				</SafeAreaView>
+				<ExpoStatusBar style='auto' />
+			</ThemeProvider>
 		</>
 	);
 }
