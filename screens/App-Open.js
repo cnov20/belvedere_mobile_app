@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, ImageBackground, Text } from 'react-native';
+import { StyleSheet, View, Image, ImageBackground } from 'react-native';
 // import { TextInput } from 'react-native-element-textinput';
 import { Button } from '@rneui/base';
 // import { Button } from "@rneui/themed";
@@ -15,7 +15,7 @@ export default function AppOpen() {
 					source={require('/Users/chris/Repos/belvedere_mobile_app/assets/Belvedere-Logo.png')}
 					style={styles.logo}
 					resizeMode='contain'></Image>
-				<Text>TEST</Text>
+				{/* <Text>TEST</Text> */}
 				<Button style={styles.button} title={'SIGN IN'} />
 				<Button style={styles.button} title={'CREATE ACCOUNT'} />
 			</View>
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 	background: {
 		width: '100%',
 		height: '100%',
-		opacity: 0.5,
+		opacity: 0.75,
 	},
 	logo: {
 		width: 280,
