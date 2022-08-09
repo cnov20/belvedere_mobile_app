@@ -6,12 +6,14 @@ import {
 	AccountContainer,
 	AccountCover,
 	AuthButton,
+	Title,
 } from '../components/account.styles';
 
 const AccountScreen = ({ navigation }) => {
 	return (
 		<AccountBackground>
 			<AccountCover />
+			<Title>Belvedere Vodka</Title>
 			<AccountContainer>
 				<AuthButton
 					icon='lock-open-outline'
