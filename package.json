@@ -19,6 +19,7 @@
     "@unimodules/react-native-adapter": "^6.3.9",
     "argon-react-native": "^1.5.0",
     "expo": "^46.0.0",
+    "expo-firebase-analytics": "~7.1.1",
     "expo-status-bar": "~1.4.0",
     "firebase": "^9.9.2",
     "react": "18.0.0",

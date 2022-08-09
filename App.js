@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
+import { initializeApp, getApps } from 'firebase/app';
+import { getAnalytics, logEvent } from 'firebase/analytics';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -27,6 +27,8 @@ import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
 import { Navigation } from './src/infrastructure/navigation';
 
+import { AuthenticationContextProvider } from './src/services/authentication/authentication.context';
+
 // import {
 //   useFonts as useOswald,
 //   Oswald_400Regular,
@@ -47,34 +49,28 @@ const firebaseConfig = {
 	measurementId: 'G-FFMLBM5V3M',
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase
+// if (getApps().length < 1) {
+// 	const app = initializeApp(firebaseConfig);
+// 	// initializeApp(firebaseConfig);
+// 	// Initialize other firebase products here
+// }
+
 const auth = getAuth(app);
 const analytics = getAnalytics(app);
 
 export default function App() {
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-	useEffect(() => {
-		setTimeout(() => {
-			createUserWithEmailAndPassword(auth, 'novellichris@gmail.com', '123456')
-				.then((user) => {
-					console.log(user);
-					setIsAuthenticated(true);
-					sendEmailVerification(auth.currentUser);
-				})
-				.catch((e) => {
-					console.error(e);
-				});
-		}, 5000);
-	}, []);
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<SafeAreaView style={styles.container}>
-					<Navigation />
-				</SafeAreaView>
-				<ExpoStatusBar style='auto' />
+				<AuthenticationContextProvider>
+					<SafeAreaView style={styles.container}>
+						<Navigation />
+					</SafeAreaView>
+					<ExpoStatusBar style='auto' />
+				</AuthenticationContextProvider>
 			</ThemeProvider>
 		</>
 	);
