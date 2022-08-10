@@ -5,6 +5,7 @@ import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	sendEmailVerification,
+	signOut,
 } from 'firebase/auth';
 
 import { loginRequest } from './authentication.service';
@@ -75,6 +76,27 @@ export const AuthenticationContextProvider = ({ children }) => {
 			});
 	};
 
+	const onLogout = () => {
+		signOut(auth)
+			.then(() => {
+				// Sign-out successful.
+				setUser(null);
+				setError(null);
+			})
+			.catch((error) => {
+				// An error happened.
+				setError(e.toString());
+			});
+	};
+
+	signOut(auth)
+		.then(() => {
+			// Sign-out successful.
+		})
+		.catch((error) => {
+			// An error happened.
+		});
+
 	return (
 		<AuthenticationContext.Provider
 			value={{
@@ -84,6 +106,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 				error,
 				onLogin,
 				onRegister,
+				onLogout,
 			}}>
 			{children}
 		</AuthenticationContext.Provider>
