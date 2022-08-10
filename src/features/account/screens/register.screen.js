@@ -15,16 +15,38 @@ import { AuthenticationContext } from '../../../services/authentication/authenti
 import { ActivityIndicator, Colors } from 'react-native-paper';
 
 export const RegisterScreen = ({ navigation }) => {
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [repeatedPassword, setRepeatedPassword] = useState('');
+
 	const { onRegister, isLoading, error } = useContext(AuthenticationContext);
 	console.log(email, password);
 	return (
 		<AccountBackground>
 			<AccountCover />
-			<Title>Meals To Go</Title>
+			<Title>Belvedere Vodka</Title>
 			<AccountContainer>
+				<AuthInput
+					label='First Name'
+					value={firstName}
+					textContentType='givenName'
+					keyboardType='default'
+					autoCapitalize='none'
+					onChangeText={(first) => setFirstName(first)}
+				/>
+				<Spacer size='large'>
+				<AuthInput
+					label='Last Name'
+					value={lastName}
+					textContentType='familyName'
+					keyboardType='default'
+					autoCapitalize='none'
+					onChangeText={(last) => setLastName(last)}
+					/>
+					</Spacer>
+				<Spacer size='large'>
 				<AuthInput
 					label='E-mail'
 					value={email}
@@ -32,7 +54,8 @@ export const RegisterScreen = ({ navigation }) => {
 					keyboardType='email-address'
 					autoCapitalize='none'
 					onChangeText={(u) => setEmail(u)}
-				/>
+						/>
+						</Spacer>
 				<Spacer size='large'>
 					<AuthInput
 						label='Password'
@@ -63,7 +86,8 @@ export const RegisterScreen = ({ navigation }) => {
 						<AuthButton
 							icon='email'
 							mode='contained'
-							onPress={() => onRegister(email, password, repeatedPassword)}>
+									onPress={() => onRegister(email, password, repeatedPassword)}
+								>
 							Register
 						</AuthButton>
 					) : (
