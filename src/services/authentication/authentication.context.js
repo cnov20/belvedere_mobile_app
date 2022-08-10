@@ -7,9 +7,34 @@ import {
 	sendEmailVerification,
 } from 'firebase/auth';
 
-import { getAnalytics, logEvent } from 'firebase/analytics';
-
 import { loginRequest } from './authentication.service';
+
+// Import the functions you need from the SDKs you need
+import { initializeApp, getApps } from 'firebase/app';
+import { getAnalytics, logEvent } from 'firebase/analytics';
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Optionally import the services that you want to use
+//import {...} from "firebase/auth";
+//import {...} from "firebase/database";
+//import {...} from "firebase/firestore";
+//import {...} from "firebase/functions";
+//import {...} from "firebase/storage";
+
+const firebaseConfig = {
+	apiKey: 'AIzaSyAN6cudr36kLBK5lf6ledbdt8ZsBGROn04',
+	authDomain: 'belvedere-mobile-app.firebaseapp.com',
+	projectId: 'belvedere-mobile-app',
+	storageBucket: 'belvedere-mobile-app.appspot.com',
+	messagingSenderId: '736588520002',
+	appId: '1:736588520002:web:9075ffb8be47a5e35b6bdb',
+	measurementId: 'G-FFMLBM5V3M',
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth();
 
 export const AuthenticationContext = createContext();
 
@@ -20,10 +45,28 @@ export const AuthenticationContextProvider = ({ children }) => {
 
 	const onLogin = (auth, email, password) => {
 		setIsLoading(true);
-		loginRequest(email, password)
+		loginRequest(auth, email, password)
 			.then((u) => {
 				setUser(u);
-				console.log(u);
+				console.log(auth, email, password);
+				setIsLoading(false);
+			})
+			.catch((e) => {
+				setIsLoading(false);
+				setError(e.toString());
+			});
+	};
+
+	const onRegister = (auth, email, password, repeatedPassword) => {
+		if (password !== repeatedPassword) {
+			setError('Error: Passwords do not match');
+			// return;
+		}
+		createUserWithEmailAndPassword(auth, email, password)
+			.then((u) => {
+				setUser(u);
+				console.log(auth, email, password);
+
 				setIsLoading(false);
 			})
 			.catch((e) => {
@@ -40,25 +83,9 @@ export const AuthenticationContextProvider = ({ children }) => {
 				isLoading,
 				error,
 				onLogin,
+				onRegister,
 			}}>
 			{children}
 		</AuthenticationContext.Provider>
 	);
 };
-
-// const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-// useEffect(() => {
-//     setTimeout(() => {
-
-//             .then((user) => {
-//                 console.log(user);
-//                 setIsAuthenticated(true);
-//                 sendEmailVerification(auth.currentUser);
-//                 logEvent(analytics, 'sign_up');
-//             })
-//             .catch((e) => {
-//                 console.error(e);
-//             });
-//     }, 5000);
-// }, []);
