@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 
+import { SafeArea } from './src/components/utility/safe-area.component';
+
 import { ThemeProvider } from 'styled-components/native';
 import { Navigation } from './src/infrastructure/navigation';
 
@@ -27,9 +29,9 @@ export default function App() {
 		<>
 			<ThemeProvider theme={theme}>
 				<AuthenticationContextProvider>
-					<SafeAreaView style={styles.container}>
+					<SafeArea>
 						<Navigation />
-					</SafeAreaView>
+					</SafeArea>
 					<ExpoStatusBar style='auto' />
 				</AuthenticationContextProvider>
 			</ThemeProvider>

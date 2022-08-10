@@ -37,28 +37,28 @@ export const RegisterScreen = ({ navigation }) => {
 					onChangeText={(first) => setFirstName(first)}
 				/>
 				<Spacer size='large'>
-				<AuthInput
-					label='Last Name'
-					value={lastName}
-					textContentType='familyName'
-					keyboardType='default'
-					autoCapitalize='none'
-					onChangeText={(last) => setLastName(last)}
+					<AuthInput
+						label='Last Name'
+						value={lastName}
+						textContentType='familyName'
+						keyboardType='default'
+						autoCapitalize='none'
+						onChangeText={(last) => setLastName(last)}
 					/>
-					</Spacer>
-				<Spacer size='large'>
-				<AuthInput
-					label='E-mail'
-					value={email}
-					textContentType='emailAddress'
-					keyboardType='email-address'
-					autoCapitalize='none'
-					onChangeText={(u) => setEmail(u)}
-						/>
-						</Spacer>
+				</Spacer>
 				<Spacer size='large'>
 					<AuthInput
-						label='Password'
+						label='Date Of Birth'
+						value={email}
+						textContentType='emailAddress'
+						keyboardType='email-address'
+						autoCapitalize='none'
+						onChangeText={(u) => setEmail(u)}
+					/>
+				</Spacer>
+				<Spacer size='large'>
+					<AuthInput
+						label='Zip Code'
 						value={password}
 						textContentType='password'
 						secureTextEntry
@@ -68,7 +68,7 @@ export const RegisterScreen = ({ navigation }) => {
 				</Spacer>
 				<Spacer size='large'>
 					<AuthInput
-						label='Repeat Password'
+						label='Country of Residence'
 						value={repeatedPassword}
 						textContentType='password'
 						secureTextEntry
@@ -81,20 +81,27 @@ export const RegisterScreen = ({ navigation }) => {
 						<Text variant='error'>{error}</Text>
 					</ErrorContainer>
 				)}
-				<Spacer size='large'>
-					{!isLoading ? (
+				{/* <Spacer size='large'> */}
+				{/* {!isLoading ? (
 						<AuthButton
 							icon='email'
 							mode='contained'
-									onPress={() => onRegister(email, password, repeatedPassword)}
-								>
+							onPress={() => onRegister(email, password, repeatedPassword)}>
 							Register
 						</AuthButton>
 					) : (
 						<ActivityIndicator animating={true} color={Colors.blue300} />
-					)}
-				</Spacer>
+					)} */}
+				{/* </Spacer> */}
 			</AccountContainer>
+			<Spacer size='large'>
+				<AuthButton
+					icon='email'
+					mode='contained'
+					onPress={() => navigation.navigate('Register Two')}>
+					Next
+				</AuthButton>
+			</Spacer>
 			<Spacer size='large'>
 				<AuthButton mode='contained' onPress={() => navigation.goBack()}>
 					Back
