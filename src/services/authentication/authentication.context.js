@@ -49,12 +49,14 @@ export const AuthenticationContextProvider = ({ children }) => {
 		loginRequest(auth, email, password)
 			.then((u) => {
 				setUser(u);
-				console.log(auth, email, password);
+				// const user = userCredential.user;
+				// console.log('USERRRRRRRRR: ', email);
 				setIsLoading(false);
 			})
 			.catch((e) => {
 				setIsLoading(false);
 				setError(e.toString());
+				console.error(e);
 			});
 	};
 
@@ -67,12 +69,14 @@ export const AuthenticationContextProvider = ({ children }) => {
 		createUserWithEmailAndPassword(auth, email, password)
 			.then((u) => {
 				setUser(u);
-				console.log(auth, email, password);
+				// const user = userCredential.user;
+				// console.log('USERRRRRRRRR: ', email);
 				setIsLoading(false);
 			})
 			.catch((e) => {
 				setIsLoading(false);
 				setError(e.toString());
+				console.error(e);
 			});
 	};
 
@@ -83,24 +87,18 @@ export const AuthenticationContextProvider = ({ children }) => {
 				setUser(null);
 				setError(null);
 			})
-			.catch((error) => {
+			.catch((e) => {
 				// An error happened.
 				setError(e.toString());
+				console.error(e);
 			});
 	};
-
-	signOut(auth)
-		.then(() => {
-			// Sign-out successful.
-		})
-		.catch((error) => {
-			// An error happened.
-		});
 
 	return (
 		<AuthenticationContext.Provider
 			value={{
 				isAuthenticated: !!user,
+				auth,
 				user,
 				isLoading,
 				error,
