@@ -7,7 +7,7 @@ import { SettingsNavigator } from './settings.navigator';
 
 // // import { RestaurantsNavigator } from "./restaurants.navigator";
 // // import { SettingsNavigator } from "./settings.navigator";
-// // import { MapScreen } from "../../features/map/screens/map.screen";
+import { MapScreen } from '../../features/map/screens/map.screen';
 
 // // import { RestaurantsContextProvider } from '../../services/restaurants/restaurants.context';
 // // import { LocationContextProvider } from '../../services/location/location.context';
@@ -38,7 +38,7 @@ export const AppNavigator = () => (
 			inactiveTintColor: 'gray',
 		}}>
 		{/* <Tab.Screen name='Restaurants' component={RestaurantsNavigator} />*/}
-		{/* <Tab.Screen name='Map' component={MapScreen} /> */}
+		<Tab.Screen name='Map' component={MapScreen} />
 		<Tab.Screen name='Settings' component={SettingsNavigator} />
 	</Tab.Navigator>
 );
