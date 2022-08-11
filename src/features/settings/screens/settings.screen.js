@@ -24,6 +24,7 @@ export const SettingsScreen = ({ navigation }) => {
 	return (
 		<SafeArea>
 			<AvatarContainer>
+				<Spacer position='top' size='large'></Spacer>
 				<Avatar.Icon size={180} icon='human' backgroundColor='#2182BD' />
 				<Spacer position='top' size='large'>
 					<Text variant='label'>{auth.currentUser.email}</Text>

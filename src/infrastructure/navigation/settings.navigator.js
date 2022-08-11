@@ -11,15 +11,17 @@ const SettingsStack = createStackNavigator();
 export const SettingsNavigator = ({ navigation }) => {
 	return (
 		<SettingsStack.Navigator
-			headerMode='screen'
+			// headerMode='screen'
 			screenOptions={{
 				cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
 			}}>
 			<SettingsStack.Screen
 				options={{
-					header: () => null,
+					header: () => {
+						return null;
+					},
 				}}
-				name='Settings'
+				name='Settings Tab'
 				component={SettingsScreen}
 			/>
 			<SettingsStack.Screen name='Favourites' component={() => null} />
