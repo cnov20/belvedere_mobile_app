@@ -23,9 +23,12 @@ export const SettingsScreen = ({ navigation }) => {
 	const { onLogout, user, auth } = useContext(AuthenticationContext);
 	const [photo, setPhoto] = useState(null);
 
-	if (user || auth) {
-		console.log(auth.currentUser);
-	}
+	// if (user || auth) {
+	// 	const currentUser = auth.currentUser;
+	// 	console.log(currentUser);
+	// }
+
+	const currentUser = auth.currentUser;
 
 	const getProfilePicture = async (currentUser) => {
 		const photoUri = await AsyncStorage.getItem(`${currentUser.uid}-photo`);
@@ -34,8 +37,8 @@ export const SettingsScreen = ({ navigation }) => {
 
 	useFocusEffect(
 		useCallback(() => {
-			getProfilePicture(user);
-		}, [user])
+			getProfilePicture(currentUser);
+		}, [currentUser])
 	);
 
 	return (

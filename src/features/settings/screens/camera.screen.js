@@ -23,13 +23,15 @@ const InnerSnap = styled.View`
 export const CameraScreen = ({ navigation }) => {
 	const [hasPermission, setHasPermission] = useState(null);
 	const cameraRef = useRef();
-	const { user } = useContext(AuthenticationContext);
+	const { user, auth } = useContext(AuthenticationContext);
+
+	const currentUser = auth.currentUser;
 
 	const snap = async () => {
 		if (cameraRef) {
 			const photo = await cameraRef.current.takePictureAsync();
 			console.log(photo);
-			AsyncStorage.setItem(`${user.uid}-photo`, photo.uri);
+			AsyncStorage.setItem(`${currentUser.uid}-photo`, photo.uri);
 			navigation.goBack();
 		}
 	};
