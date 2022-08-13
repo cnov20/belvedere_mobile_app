@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import { Ionicons } from '@expo/vector-icons';
 
 import { SettingsNavigator } from './settings.navigator';
+import DrawerNavigator from './drawer.navigator';
 
 // // import { RestaurantsNavigator } from "./restaurants.navigator";
 // // import { SettingsNavigator } from "./settings.navigator";
@@ -42,7 +43,7 @@ export const AppNavigator = () => (
 			inactiveTintColor: 'gray',
 		}}>
 		{/* <Tab.Screen name='Restaurants' component={RestaurantsNavigator} />*/}
-		<Tab.Screen name='Account Home' component={AccountHomeScreen} />
+		<Tab.Screen name='Account Home' component={DrawerNavigator} />
 		<Tab.Screen name='Map' component={MapScreen} />
 		<Tab.Screen name='Settings' component={SettingsNavigator} />
 	</Tab.Navigator>
