@@ -1,4 +1,5 @@
 import React, { useState, useContext, useCallback } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 import { Spacer } from '../../../components/spacer/spacer.component';
 import {
@@ -9,10 +10,18 @@ import {
 	CardContainer,
 } from './account.styles';
 
+// import { SocialIcon } from '@rneui/themed';
+
+// import Icon from 'react-native-vector-icons/FontAwesome';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
 
 import { useFocusEffect } from '@react-navigation/native';
+
+// import { SocialIcon } from 'react-native-elements';
+
+// import { Icon } from '@rneui/themed';
 
 const LeftContent = (props) => <Avatar.Icon {...props} icon='folder' />;
 
@@ -59,8 +68,37 @@ const AccountInfoCard = () => (
 					</CardButton>
 				</Spacer>
 			</Card.Actions>
+			{/* <Icon name='facebook' type='material' size={24} color='' /> */}
+			<View style={styles.iconContainer}>
+				{/* <SocialIcon type='facebook' /> */}
+				{/* <Icon name='rocket' size={30} color='#900' /> */}
+
+				<Avatar.Icon icon='folder' />
+				<Avatar.Icon icon='folder' />
+				<Avatar.Icon icon='folder' />
+				<Avatar.Icon icon='folder' />
+
+				{/* <Avatar.Text size={24} label='FB' /> */}
+			</View>
 		</Card>
 	</CardContainer>
 );
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		padding: 16,
+	},
+	iconTitle: {
+		textAlign: 'center',
+	},
+	iconContainer: {
+		flexDirection: 'row',
+		padding: 16,
+		justifyContent: 'space-between',
+	},
+});
 
 export default AccountInfoCard;

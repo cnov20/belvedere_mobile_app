@@ -34,6 +34,9 @@ const TAB_ICON = {
 export const AppNavigator = () => (
 	<Tab.Navigator
 		// screenOptions={createScreenOptions}
+		screenOptions={{
+			headerShown: false,
+		}}
 		tabBarOptions={{
 			activeTintColor: 'blue',
 			inactiveTintColor: 'gray',

@@ -15,12 +15,11 @@ export const SettingsNavigator = ({ navigation }) => {
 			// headerMode='screen'
 			screenOptions={{
 				cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+				headerShown: false,
 			}}>
 			<SettingsStack.Screen
-				options={{
-					header: () => {
-						return null;
-					},
+				screenOptions={{
+					headerShown: false,
 				}}
 				name='Settings Tab'
 				component={SettingsScreen}
