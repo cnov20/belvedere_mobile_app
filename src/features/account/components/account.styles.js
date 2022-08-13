@@ -10,6 +10,7 @@ export const AccountBackground = styled.ImageBackground.attrs({
 	align-items: center;
 	justify-content: center;
 `;
+
 export const AccountCover = styled.View`
 	position: absolute;
 	width: 100%;
@@ -57,4 +58,28 @@ export const AnimationWrapper = styled.View`
 	position: absolute;
 	top: 30px;
 	padding: ${(props) => props.theme.space[2]};
+`;
+
+export const AccountCardBackground = styled.ImageBackground.attrs({
+	source: require('../../../../assets/mwn-module-01-arm-with-bottle.jpeg'),
+})`
+	flex: 1;
+	// align-items: center;
+	// justify-content: center;
+`;
+
+export const CardButton = styled(Button).attrs({
+	color: colors.brand.primary,
+})`
+	padding: ${(props) => props.theme.space[2]};
+	width: 300px;
+	flex-direction: column;
+`;
+
+export const CardContainer = styled.View`
+	background-color: rgba(255, 255, 255, 0.25);
+	padding: ${(props) => props.theme.space[4]};
+	margin-top: ${(props) => props.theme.space[2]};
+	width: 100%;
+	height: 100%;
 `;
