@@ -1,11 +1,22 @@
-import * as React from 'react';
+import React, { useContext, useCallback, useState } from 'react';
 import { Button, View, TouchableOpacity, Image } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {
+	createDrawerNavigator,
+	DrawerContentScrollView,
+	DrawerItemList,
+	DrawerItem,
+} from '@react-navigation/drawer';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 
 import AccountHomeScreen from '../../features/account/screens/account-home.screen';
 import { SettingsScreen } from '../../features/settings/screens/settings.screen';
 import { Icon } from 'react-native-elements';
+
+import { List, Avatar } from 'react-native-paper';
+
+import SettingsItem from '../../features/settings/screens/settings.screen';
+
+import AccountDrawerContent from '../../features/account/components/account.drawer.content';
 
 import DrinkOrderScreen from '../../features/account/screens/drink-order.screen';
 import LocationFinderScreen from '../../features/account/screens/location-finder';
@@ -19,6 +30,7 @@ export default function DrawerNavigator({ navigation }) {
 	return (
 		// <NavigationContainer>
 		<Drawer.Navigator
+			drawerContent={(props) => <AccountDrawerContent {...props} />}
 			screenOptions={{
 				drawerPosition: 'left',
 				// headerLeftLabelVisible: false,
@@ -49,7 +61,7 @@ export default function DrawerNavigator({ navigation }) {
 					),
 				}}
 			/>
-			<Drawer.Screen name='Settings' component={SettingsScreen} />
+			{/* <Drawer.Screen name='Settings' component={SettingsScreen} /> */}
 			<Drawer.Screen name='Order A Drink' component={DrinkOrderScreen} />
 			<Drawer.Screen name='Location Finder' component={LocationFinderScreen} />
 			<Drawer.Screen name='How This Works' component={HowThisWorksScreen} />
