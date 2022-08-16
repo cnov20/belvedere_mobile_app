@@ -48,3 +48,5 @@ export const AppNavigator = () => (
 		<Tab.Screen name='Settings' component={SettingsNavigator} />
 	</Tab.Navigator>
 );
+
+// export default AppNavigator;
