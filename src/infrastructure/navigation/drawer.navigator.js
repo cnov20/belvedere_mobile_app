@@ -7,6 +7,12 @@ import AccountHomeScreen from '../../features/account/screens/account-home.scree
 import { SettingsScreen } from '../../features/settings/screens/settings.screen';
 import { Icon } from 'react-native-elements';
 
+import DrinkOrderScreen from '../../features/account/screens/drink-order.screen';
+import LocationFinderScreen from '../../features/account/screens/location-finder';
+import HowThisWorksScreen from '../../features/account/screens/how-this-works.screen';
+import PrivacyPolicyScreen from '../../features/account/screens/privacy-policy.screen';
+import TermsAndConditionsScreen from '../../features/account/screens/terms-and-conditions.screen';
+
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator({ navigation }) {
@@ -44,6 +50,14 @@ export default function DrawerNavigator({ navigation }) {
 				}}
 			/>
 			<Drawer.Screen name='Settings' component={SettingsScreen} />
+			<Drawer.Screen name='Order A Drink' component={DrinkOrderScreen} />
+			<Drawer.Screen name='Location Finder' component={LocationFinderScreen} />
+			<Drawer.Screen name='How This Works' component={HowThisWorksScreen} />
+			<Drawer.Screen name='Privacy Policy' component={PrivacyPolicyScreen} />
+			<Drawer.Screen
+				name='Terms & Conditions'
+				component={TermsAndConditionsScreen}
+			/>
 		</Drawer.Navigator>
 		// </NavigationContainer>
 	);
