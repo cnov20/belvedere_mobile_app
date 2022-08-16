@@ -65,6 +65,18 @@ export const SettingsScreen = ({ navigation }) => {
 			</AvatarContainer>
 			<List.Section>
 				<SettingsItem
+					title='Update — Profile Information'
+					description='Update/Change — email and password'
+					left={(props) => <List.Icon {...props} color='black' icon='heart' />}
+					onPress={() => navigation.navigate('Profile Information')}
+				/>
+				<SettingsItem
+					title='App Notification — Settings'
+					description='Push notifications and reminders'
+					left={(props) => <List.Icon {...props} color='black' icon='heart' />}
+					onPress={() => navigation.navigate('App Notifications Settings')}
+				/>
+				<SettingsItem
 					title='Favourites'
 					description='View your favourites'
 					left={(props) => <List.Icon {...props} color='black' icon='heart' />}
