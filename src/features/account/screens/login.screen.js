@@ -62,6 +62,13 @@ export const LoginScreen = ({ navigation }) => {
 				</Spacer>
 			</AccountContainer>
 			<Spacer size='large'>
+				<AuthButton
+					mode='contained'
+					onPress={() => navigation.navigate('Reset Password')}>
+					Forgot Password
+				</AuthButton>
+			</Spacer>
+			<Spacer size='large'>
 				<AuthButton mode='contained' onPress={() => navigation.goBack()}>
 					Back
 				</AuthButton>
