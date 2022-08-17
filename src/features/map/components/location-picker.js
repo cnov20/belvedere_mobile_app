@@ -1,5 +1,5 @@
-import React from 'react';
-import { Alert, View, StyleSheet, Button } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, View, StyleSheet, Image, Text } from 'react-native';
 import { AuthButton } from '../../account/components/account.styles';
 import {
 	getCurrentPositionAsync,
@@ -9,8 +9,12 @@ import {
 
 import { Colors } from '../../../constants/colors';
 // import OutlinedButton from '../../../components/UI/OutlinedButton';
+import { getMapPreview } from './location';
+import AccountInfoCard from '../../account/components/account-info-card.component';
 
 function LocationPicker() {
+	const [pickedLocation, setPickedLocation] = useState();
+
 	const [locationPermissionInformation, requestPermission] =
 		useForegroundPermissions();
 
@@ -42,14 +46,33 @@ function LocationPicker() {
 		}
 
 		const location = await getCurrentPositionAsync();
+		setPickedLocation({
+			lat: location.coords.latitude,
+			lng: location.coords.longitude,
+		});
 		console.log(location);
 	}
 
 	function pickOnMapHandler() {}
 
+	let locationPreview = <Text>No location picked yet.</Text>;
+
+	if (pickedLocation) {
+		locationPreview = (
+			// <AccountInfoCard>
+			<Image
+				style={styles.image}
+				source={{
+					uri: getMapPreview(pickedLocation.lat, pickedLocation.lng),
+				}}
+			/>
+			// </AccountInfoCard>
+		);
+	}
+
 	return (
 		<View>
-			<View style={styles.mapPreview}></View>
+			<View style={styles.mapPreview}>{locationPreview}</View>
 			<View style={styles.actions}>
 				<AuthButton
 					title='location'
@@ -81,5 +104,10 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		alignItems: 'center',
+	},
+	image: {
+		width: '100%',
+		height: '100%',
+		borderRadius: 4,
 	},
 });
