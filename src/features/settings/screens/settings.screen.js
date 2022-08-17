@@ -68,7 +68,7 @@ export const SettingsScreen = ({ navigation }) => {
 					title='Update — Profile Information'
 					description='Update/Change — email and password'
 					left={(props) => <List.Icon {...props} color='black' icon='heart' />}
-					onPress={() => navigation.navigate('Profile Information')}
+					onPress={() => navigation.navigate('Edit Profile')}
 				/>
 				<SettingsItem
 					title='App Notification — Settings'
@@ -80,7 +80,9 @@ export const SettingsScreen = ({ navigation }) => {
 					title='Location — Notification — Settings'
 					description='Location/bar-proximity notifications'
 					left={(props) => <List.Icon {...props} color='black' icon='heart' />}
-					onPress={() => navigation.navigate('Favourites')}
+					onPress={() =>
+						navigation.navigate('FavouLocation Notifications Settings')
+					}
 				/>
 				<SettingsItem
 					title='Logout'

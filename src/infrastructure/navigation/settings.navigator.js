@@ -7,6 +7,9 @@ import {
 	CardStyleInterpolators,
 } from '@react-navigation/stack';
 
+// import EditProfileScreen from '../../features/settings/screens/edit-profile.screen';
+import EditProfileScreen from '../../features/settings/screens/edit-profile.screen';
+
 const SettingsStack = createStackNavigator();
 
 export const SettingsNavigator = ({ navigation }) => {
@@ -26,6 +29,7 @@ export const SettingsNavigator = ({ navigation }) => {
 			/>
 			<SettingsStack.Screen name='Favourites' component={() => null} />
 			<SettingsStack.Screen name='Camera' component={CameraScreen} />
+			<SettingsStack.Screen name='Edit Profile' component={EditProfileScreen} />
 		</SettingsStack.Navigator>
 	);
 };
