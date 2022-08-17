@@ -81,18 +81,6 @@ export const RegisterScreen = ({ navigation }) => {
 						<Text variant='error'>{error}</Text>
 					</ErrorContainer>
 				)}
-				{/* <Spacer size='large'> */}
-				{/* {!isLoading ? (
-						<AuthButton
-							icon='email'
-							mode='contained'
-							onPress={() => onRegister(email, password, repeatedPassword)}>
-							Register
-						</AuthButton>
-					) : (
-						<ActivityIndicator animating={true} color={Colors.blue300} />
-					)} */}
-				{/* </Spacer> */}
 			</AccountContainer>
 			<Spacer size='large'>
 				<AuthButton

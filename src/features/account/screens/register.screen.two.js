@@ -55,7 +55,7 @@ export const RegisterScreenTwo = ({ navigation }) => {
 						textContentType='password'
 						secureTextEntry
 						autoCapitalize='none'
-						onChangeText={(p) => setRepeatedPassword(p)}
+						onChangeText={(rp) => setRepeatedPassword(rp)}
 					/>
 				</Spacer>
 				{error && (
@@ -68,7 +68,11 @@ export const RegisterScreenTwo = ({ navigation }) => {
 						<AuthButton
 							icon='email'
 							mode='contained'
-							onPress={() => onRegister(email, password, repeatedPassword)}>
+							onPress={() => {
+								if (password === repeatedPassword) {
+									onRegister(email, repeatedPassword);
+								}
+							}}>
 							Register
 						</AuthButton>
 					) : (

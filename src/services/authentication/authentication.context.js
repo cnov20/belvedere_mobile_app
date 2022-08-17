@@ -36,6 +36,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth();
+auth.useDeviceLanguage();
 
 export const AuthenticationContext = createContext();
 
@@ -72,6 +73,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 				// const user = userCredential.user;
 				// console.log('USERRRRRRRRR: ', email);
 				setIsLoading(false);
+				sendEmailVerification(auth.currentUser);
 			})
 			.catch((e) => {
 				setIsLoading(false);
