@@ -37,6 +37,7 @@ export const AppNavigator = () => (
 		// screenOptions={createScreenOptions}
 		screenOptions={{
 			headerShown: false,
+			// header
 		}}
 		tabBarOptions={{
 			activeTintColor: 'blue',
@@ -44,7 +45,11 @@ export const AppNavigator = () => (
 		}}>
 		{/* <Tab.Screen name='Restaurants' component={RestaurantsNavigator} />*/}
 		<Tab.Screen name='Account Home' component={DrawerNavigator} />
-		<Tab.Screen name='Map' component={MapScreen} />
+		<Tab.Screen
+			name='Map'
+			component={MapScreen}
+			options={{ headerShown: true }}
+		/>
 		<Tab.Screen name='Settings' component={SettingsNavigator} />
 	</Tab.Navigator>
 );
