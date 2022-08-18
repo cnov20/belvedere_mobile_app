@@ -1,18 +1,45 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, View, Text } from 'react-native';
+import { StyleSheet, Button, View } from 'react-native';
 import * as Notifications from 'expo-notifications';
-import { useIsFocused, useFocusEffect } from '@react-navigation/native';
+import {
+	useIsFocused,
+	useFocusEffect,
+	useNavigation,
+} from '@react-navigation/native';
 
-// Notifications.getPermissionsAsync({
-// 	ios: {
-// 		settings.granted ||
-// 			settings.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL
-// 	}
-// });
+import ToggleSwitch from '../../../components/UI/ToggleSwitch';
+import Toggle from 'react-native-toggle-element';
+import { Title } from '../../account/components/account.styles';
+import { Text } from '../../../components/typography/text.component';
+import { Spacer } from '../../../components/spacer/spacer.component';
+import { SafeArea } from '../../../components/utility/safe-area.component';
 
-export default function AppNotifications() {
+import { AuthButton } from '../../account/components/account.styles';
+
+import { List, Avatar } from 'react-native-paper';
+import styled from 'styled-components/native';
+
+const SettingsItem = styled(List.Item)`
+	padding: ${(props) => props.theme.space[3]};
+`;
+const AvatarContainer = styled.View`
+	align-items: center;
+`;
+
+export default function AppNotifications({ handleChange }) {
 	const isFocused = useIsFocused();
+	const [toggleValue, setToggleValue] = useState(false);
+
+	const navigation = useNavigation();
+
+	async function allowsNotificationsAsync() {
+		const settings = await Notifications.getPermissionsAsync();
+		return (
+			settings.granted ||
+			settings.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL
+		);
+	}
 
 	useFocusEffect(
 		React.useCallback(() => {
@@ -34,7 +61,7 @@ export default function AppNotifications() {
 					};
 				},
 			});
-		}, [isFocused])
+		}, [])
 	);
 
 	useEffect(() => {
@@ -60,36 +87,73 @@ export default function AppNotifications() {
 			subscription1.remove();
 			subscription2.remove();
 		};
-	}, []);
+	}, [toggleValue]);
 
 	function scheduleNotificationHandler() {
+		// if (toggleValue === true) {
 		Notifications.scheduleNotificationAsync({
 			content: {
-				title: 'My first local notification',
-				body: 'This is the body of the notification.',
+				title: 'My first App notification',
+				body: 'You will now receive: reminders/incentives/brand messages!',
 				data: { userName: 'Chris' },
 			},
 			trigger: {
 				seconds: 5,
 			},
 		});
+		// }
 	}
 
 	return (
-		<View style={styles.container}>
-			<Text>{isFocused ? 'focused' : 'unfocused'}</Text>
-			<Button
-				title='Schedule Notification'
-				onPress={scheduleNotificationHandler}
-			/>
-			<StatusBar style='auto' />
-		</View>
+		<SafeArea>
+			<View style={styles.container}>
+				{/* <Text>{isFocused ? 'focused' : 'unfocused'}</Text> */}
+				<Spacer size='xlarge'>
+					<Title>App Notifications</Title>
+				</Spacer>
+				{/* <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}> */}
+			</View>
+			<List.Section>
+				{/* <SettingsItem>
+						<Button title='Reminders' onPress={scheduleNotificationHandler} />
+						<ToggleSwitch></ToggleSwitch>
+					</SettingsItem> */}
+
+				<SettingsItem
+					title='Reminders'
+					description='Toggle Reminder Notifications'
+					left={(props) => (
+						<ToggleSwitch handleChange={scheduleNotificationHandler()} />
+					)}
+				/>
+				<SettingsItem
+					title='Incentive Alerts'
+					description='Alerts for deals!'
+					left={(props) => (
+						<ToggleSwitch handleChange={scheduleNotificationHandler()} />
+					)}
+				/>
+				<SettingsItem
+					title='Brand Messaging'
+					description='Belvedere — general alerts'
+					left={(props) => (
+						<ToggleSwitch handleChange={scheduleNotificationHandler()} />
+					)}
+				/>
+			</List.Section>
+			<Spacer size='large'>
+				<AuthButton mode='contained' onPress={() => navigation.goBack()}>
+					Back
+				</AuthButton>
+			</Spacer>
+		</SafeArea>
+		// <StatusBar style='auto' />
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		// flex: 1,
 		backgroundColor: '#fff',
 		alignItems: 'center',
 		justifyContent: 'center',

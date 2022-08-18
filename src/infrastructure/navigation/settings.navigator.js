@@ -10,6 +10,7 @@ import {
 // import EditProfileScreen from '../../features/settings/screens/edit-profile.screen';
 import EditProfileScreen from '../../features/settings/screens/edit-profile.screen';
 import AppNotifications from '../../features/settings/components/account.notifications.component';
+import LocationNotifications from '../../features/settings/components/location.notifications.component';
 
 const SettingsStack = createStackNavigator();
 
@@ -34,6 +35,10 @@ export const SettingsNavigator = ({ navigation }) => {
 			<SettingsStack.Screen
 				name='App Notifications'
 				component={AppNotifications}
+			/>
+			<SettingsStack.Screen
+				name='Location Notifications Settings'
+				component={LocationNotifications}
 			/>
 		</SettingsStack.Navigator>
 	);
