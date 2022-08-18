@@ -74,15 +74,13 @@ export const SettingsScreen = ({ navigation }) => {
 					title='App Notification — Settings'
 					description='Push notifications and reminders'
 					left={(props) => <List.Icon {...props} color='black' icon='heart' />}
-					onPress={() => navigation.navigate('App Notifications Settings')}
+					onPress={() => navigation.navigate('App Notifications')}
 				/>
 				<SettingsItem
 					title='Location — Notification — Settings'
 					description='Location/bar-proximity notifications'
 					left={(props) => <List.Icon {...props} color='black' icon='heart' />}
-					onPress={() =>
-						navigation.navigate('FavouLocation Notifications Settings')
-					}
+					onPress={() => navigation.navigate('Location Notifications Settings')}
 				/>
 				<SettingsItem
 					title='Logout'
