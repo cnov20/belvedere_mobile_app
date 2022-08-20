@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 // import Images from '../config/Images';
 // import {
 // 	Button,
@@ -30,22 +30,48 @@ import styled from 'styled-components';
 
 import { List, Avatar } from 'react-native-paper';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
+
+import { AuthenticationContext } from '../../../services/authentication/authentication.context';
+
 const AvatarContainer = styled.View`
 	align-items: center;
 `;
-export default function EditProfileScreen({ navigation, photo }) {
+export default function EditProfileScreen({ navigation }) {
 	const [nameFieldValue, setNameFieldValue] = useState(undefined);
 	const [emailFieldValue, setEmailFieldValue] = useState(undefined);
 	const [passwordFieldValue, setPasswordFieldValue] = useState(undefined);
+	const [photo, setPhoto] = useState(null);
 
 	// const { theme } = props;
-
-	console.log(photo);
-	// console.log(pho)
 
 	React.useEffect(() => {
 		StatusBar.setBarStyle('dark-content');
 	}, []);
+
+	const { onLogout, user, auth } = useContext(AuthenticationContext);
+
+	// const navigation = useNavigation();
+
+	if (user || auth) {
+		const currentUser = auth.currentUser;
+		console.log(currentUser);
+	}
+
+	const currentUser = auth.currentUser;
+
+	const getProfilePicture = async (currentUser) => {
+		const photoUri = await AsyncStorage.getItem(`${currentUser.uid}-photo`);
+		setPhoto(photoUri);
+		console.log(photo);
+	};
+
+	useFocusEffect(
+		useCallback(() => {
+			getProfilePicture(currentUser);
+		}, [currentUser])
+	);
 
 	return (
 		// <ScreenContainer scrollable={true} hasSafeArea={true}>
