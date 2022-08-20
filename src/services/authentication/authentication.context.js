@@ -19,7 +19,7 @@ import { getAnalytics, logEvent } from 'firebase/analytics';
 // Optionally import the services that you want to use
 //import {...} from "firebase/auth";
 //import {...} from "firebase/database";
-//import {...} from "firebase/firestore";
+import { doc, setDoc } from 'firebase/firestore';
 //import {...} from "firebase/functions";
 //import {...} from "firebase/storage";
 
@@ -61,7 +61,16 @@ export const AuthenticationContextProvider = ({ children }) => {
 			});
 	};
 
-	const onRegister = (email, password, repeatedPassword) => {
+	const onRegister = (
+		email,
+		password,
+		repeatedPassword,
+		firstName,
+		lastName,
+		country,
+		zipCode,
+		dateOfBirth
+	) => {
 		setIsLoading(true);
 		if (password !== repeatedPassword) {
 			setError('Error: Passwords do not match');
@@ -74,6 +83,20 @@ export const AuthenticationContextProvider = ({ children }) => {
 				// console.log('USERRRRRRRRR: ', email);
 				setIsLoading(false);
 				sendEmailVerification(auth.currentUser);
+			})
+			.then((u) => {
+				setDoc(doc(db, 'users', user.uid), {
+					displayName: firstName,
+					lastName: lastName,
+					// photoURL: image,
+					password: password,
+					email: email,
+				});
+
+				u.user.updateProfile({
+					displayName: firstName,
+					// photoURL: image,
+				});
 			})
 			.catch((e) => {
 				setIsLoading(false);

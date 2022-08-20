@@ -17,12 +17,12 @@ import { ActivityIndicator, Colors } from 'react-native-paper';
 export const RegisterScreen = ({ navigation }) => {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [repeatedPassword, setRepeatedPassword] = useState('');
+	const [dateOfBirth, setDateOfBirth] = useState('');
+	const [zipCode, setZipCode] = useState('');
+	const [country, setCountry] = useState('');
 
 	const { onRegister, isLoading, error } = useContext(AuthenticationContext);
-	console.log(email, password);
+	// console.log(email, password);
 	return (
 		<AccountBackground>
 			<AccountCover />
@@ -49,31 +49,31 @@ export const RegisterScreen = ({ navigation }) => {
 				<Spacer size='large'>
 					<AuthInput
 						label='Date Of Birth'
-						value={email}
-						textContentType='emailAddress'
-						keyboardType='email-address'
+						value={dateOfBirth}
+						textContentType='date'
+						keyboardType='date'
 						autoCapitalize='none'
-						onChangeText={(u) => setEmail(u)}
+						onChangeText={(date) => setDateOfBirth(date)}
 					/>
 				</Spacer>
 				<Spacer size='large'>
 					<AuthInput
 						label='Zip Code'
-						value={password}
-						textContentType='password'
-						secureTextEntry
+						value={zipCode}
+						textContentType='number'
+						// secureTextEntry
 						autoCapitalize='none'
-						onChangeText={(p) => setPassword(p)}
+						onChangeText={(zip) => setZipCode(zip)}
 					/>
 				</Spacer>
 				<Spacer size='large'>
 					<AuthInput
 						label='Country of Residence'
-						value={repeatedPassword}
-						textContentType='password'
+						value={country}
+						textContentType='country'
 						secureTextEntry
 						autoCapitalize='none'
-						onChangeText={(p) => setRepeatedPassword(p)}
+						onChangeText={(c) => setCountry(c)}
 					/>
 				</Spacer>
 				{error && (
@@ -86,7 +86,15 @@ export const RegisterScreen = ({ navigation }) => {
 				<AuthButton
 					icon='email'
 					mode='contained'
-					onPress={() => navigation.navigate('Register Two')}>
+					onPress={() =>
+						navigation.navigate('Register Two', {
+							firstName: firstName,
+							lastName: lastName,
+							zipCode: zipCode,
+							dateOfBirth: dateOfBirth,
+							country: country,
+						})
+					}>
 					Next
 				</AuthButton>
 			</Spacer>

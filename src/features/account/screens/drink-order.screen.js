@@ -17,13 +17,11 @@ const DrinkOrderScreen = () => {
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<View style={styles.container}>
-				<Text style={styles.titleStyle}>React Native Tutorials: Part 1</Text>
-				<Text style={styles.titleStyle}>
-					React Native Tutorials: Generation of QR Code in React Native
-				</Text>
+				<Text style={styles.titleStyle}>That's The Ticket!</Text>
+				<Text style={styles.titleStyle}>QR Code — Drink Order — Generator</Text>
 				<QRCode
 					value={qrvalue ? qrvalue : 'NA'}
-					size={250}
+					size={200}
 					color='black'
 					backgroundColor='white'
 					logo={{
@@ -48,6 +46,9 @@ const DrinkOrderScreen = () => {
 					onPress={() => setQrvalue(inputText)}>
 					<Text style={styles.buttonTextStyle}>Generate QR Code</Text>
 				</TouchableOpacity>
+				<Text style={styles.titleStyle}>
+					Present this QR Code — to the — Belvedere Mobile Bar — to begin!
+				</Text>
 			</View>
 		</SafeAreaView>
 	);

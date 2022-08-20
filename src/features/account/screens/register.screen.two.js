@@ -14,13 +14,17 @@ import { AuthenticationContext } from '../../../services/authentication/authenti
 
 import { ActivityIndicator, Colors } from 'react-native-paper';
 
-export const RegisterScreenTwo = ({ navigation }) => {
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
+import { doc, setDoc } from 'firebase/firestore';
+
+export const RegisterScreenTwo = ({ route, navigation }) => {
+	// const [firstName, setFirstName] = useState('');
+	// const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [repeatedPassword, setRepeatedPassword] = useState('');
 
+	const { firstName, lastName, zipCode, dateOfBirth, country } = route.params;
+	console.log(route);
 	const { onRegister, isLoading, error } = useContext(AuthenticationContext);
 	console.log(email, password);
 	return (
@@ -71,6 +75,21 @@ export const RegisterScreenTwo = ({ navigation }) => {
 							onPress={() => {
 								if (password === repeatedPassword) {
 									onRegister(email, repeatedPassword);
+
+									// 	.then((u) => {
+									// 	setDoc(doc(db, 'users', user.uid), {
+									// 		displayName: firstName,
+									// 		lastName: lastName,
+									// 		// photoURL: image,
+									// 		password: password,
+									// 		email: email,
+									// 	});
+
+									// 	u.user.updateProfile({
+									// 		displayName: firstName,
+									// 		// photoURL: image,
+									// 	});
+									// });
 								}
 							}}>
 							Register

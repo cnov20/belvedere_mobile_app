@@ -105,7 +105,7 @@ const AccountInfoCard = () => {
 						<CardButton
 							icon='lock-open-outline'
 							mode='contained'
-							onPress={() => navigation.navigate('Login')}>
+							onPress={() => navigation.navigate('Order A Drink')}>
 							Yes, Let's Order A Drink!
 						</CardButton>
 					</Spacer>
@@ -113,7 +113,7 @@ const AccountInfoCard = () => {
 						<CardButton
 							icon='email'
 							mode='contained'
-							onPress={() => navigation.navigate('Register')}>
+							onPress={() => navigation.navigate('Location Finder')}>
 							Mobile Bar Experience — Locations
 						</CardButton>
 					</Spacer>
@@ -121,7 +121,7 @@ const AccountInfoCard = () => {
 						<CardButton
 							icon='email'
 							mode='contained'
-							onPress={() => navigation.navigate('Register')}>
+							onPress={() => navigation.navigate('How This Works')}>
 							How Does This Work?
 						</CardButton>
 					</Spacer>
