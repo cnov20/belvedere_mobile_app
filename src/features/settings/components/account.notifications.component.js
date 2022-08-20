@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Button, View } from 'react-native';
 import * as Notifications from 'expo-notifications';
@@ -8,7 +8,7 @@ import {
 	useNavigation,
 } from '@react-navigation/native';
 
-import ToggleSwitch from '../../../components/UI/ToggleSwitch';
+import { ToggleSwitch } from '../../../components/UI/ToggleSwitch';
 import Toggle from 'react-native-toggle-element';
 import { Title } from '../../account/components/account.styles';
 import { Text } from '../../../components/typography/text.component';
@@ -20,6 +20,13 @@ import { AuthButton } from '../../account/components/account.styles';
 import { List, Avatar } from 'react-native-paper';
 import styled from 'styled-components/native';
 
+import { registerForPushNotificationsAsync } from '../../../services/notifications/push-notifications.service';
+import {
+	sendPushNotification,
+	title,
+	body,
+} from '../../../services/notifications/push-notifications.service';
+
 const SettingsItem = styled(List.Item)`
 	padding: ${(props) => props.theme.space[3]};
 `;
@@ -27,114 +34,40 @@ const AvatarContainer = styled.View`
 	align-items: center;
 `;
 
-export default function AppNotifications({ handleChange }) {
+export default function AppNotifications({ handleChange, value }) {
 	const isFocused = useIsFocused();
 	const [toggleValue, setToggleValue] = useState(false);
 
+	const [expoPushToken, setExpoPushToken] = useState('');
+	const [notification, setNotification] = useState(false);
+	const notificationListener = useRef();
+	const responseListener = useRef();
 	const navigation = useNavigation();
 
 	useEffect(() => {
-		async function configurePushNotifications() {
-			const { status } = await Notifications.getPermissionsAsync();
-			let finalStatus = status;
-
-			if (finalStatus !== 'granted') {
-				const { status } = await Notifications.requestPermissionsAsync();
-				finalStatus = status;
-			}
-
-			if (finalStatus !== 'granted') {
-				Alert.alert(
-					'Permission required',
-					'Push notifications need the appropriate permissions.'
-				);
-				return;
-			}
-
-			const pushTokenData = await Notifications.getExpoPushTokenAsync();
-			console.log(pushTokenData);
-
-			if (Platform.OS === 'android') {
-				Notifications.setNotificationChannelAsync('default', {
-					name: 'default',
-					importance: Notifications.AndroidImportance.DEFAULT,
-				});
-			}
-		}
-
-		configurePushNotifications();
-	}, []);
-
-	async function allowsNotificationsAsync() {
-		const settings = await Notifications.getPermissionsAsync();
-		return (
-			settings.granted ||
-			settings.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL
-		);
-	}
-
-	useFocusEffect(
-		React.useCallback(() => {
-			Notifications.requestPermissionsAsync({
-				ios: {
-					allowAlert: true,
-					allowBadge: true,
-					allowSound: true,
-					allowAnnouncements: true,
-				},
-			});
-
-			Notifications.setNotificationHandler({
-				handleNotification: async () => {
-					return {
-						shouldPlaySound: false,
-						shouldSetBadge: false,
-						shouldShowAlert: true,
-					};
-				},
-			});
-		}, [])
-	);
-
-	useEffect(() => {
-		const subscription1 = Notifications.addNotificationReceivedListener(
-			(notification) => {
-				console.log('NOTIFICATION RECEIVED');
-				console.log(notification);
-				const userName = notification.request.content.data.userName;
-				console.log(userName);
-			}
+		registerForPushNotificationsAsync().then((token) =>
+			setExpoPushToken(token)
 		);
 
-		const subscription2 = Notifications.addNotificationResponseReceivedListener(
-			(response) => {
-				console.log('NOTIFICATION RESPONSE RECEIVED');
+		// This listener is fired whenever a notification is received while the app is foregrounded
+		notificationListener.current =
+			Notifications.addNotificationReceivedListener((notification) => {
+				setNotification(notification);
+			});
+
+		// This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+		responseListener.current =
+			Notifications.addNotificationResponseReceivedListener((response) => {
 				console.log(response);
-				const userName = response.notification.request.content.data.userName;
-				console.log(userName);
-			}
-		);
+			});
 
 		return () => {
-			subscription1.remove();
-			subscription2.remove();
+			Notifications.removeNotificationSubscription(
+				notificationListener.current
+			);
+			Notifications.removeNotificationSubscription(responseListener.current);
 		};
-	}, [toggleValue]);
-
-	function scheduleNotificationHandler() {
-		// if (toggleValue === true) {
-		Notifications.scheduleNotificationAsync({
-			content: {
-				title: 'My first App notification',
-				body: 'You will now receive: reminders/incentives/brand messages!',
-				data: { userName: 'Chris' },
-			},
-			trigger: {
-				seconds: 5,
-			},
-		});
-		// }
-	}
+	}, []);
 
 	return (
 		<SafeArea>
@@ -143,34 +76,39 @@ export default function AppNotifications({ handleChange }) {
 				<Spacer size='xlarge'>
 					<Title>App Notifications</Title>
 				</Spacer>
-				{/* <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}> */}
 			</View>
 			<List.Section>
-				{/* <SettingsItem>
-						<Button title='Reminders' onPress={scheduleNotificationHandler} />
-						<ToggleSwitch></ToggleSwitch>
-					</SettingsItem> */}
-
 				<SettingsItem
 					title='Reminders'
 					description='Toggle Reminder Notifications'
-					left={(props) => (
-						<ToggleSwitch handleChange={scheduleNotificationHandler()} />
-					)}
+					left={(props) => <ToggleSwitch />}
 				/>
 				<SettingsItem
 					title='Incentive Alerts'
 					description='Alerts for deals!'
-					left={(props) => (
-						<ToggleSwitch handleChange={scheduleNotificationHandler()} />
-					)}
+					left={(props) => <ToggleSwitch />}
 				/>
 				<SettingsItem
 					title='Brand Messaging'
 					description='Belvedere — general alerts'
-					left={(props) => (
-						<ToggleSwitch handleChange={scheduleNotificationHandler()} />
-					)}
+					left={(props) => <ToggleSwitch />}
+				/>
+				{/* <Text>Your expo push token: {expoPushToken}</Text>
+				<View style={{ alignItems: 'center', justifyContent: 'center' }}>
+					<Text>
+						Title: {notification && notification.request.content.title}{' '}
+					</Text>
+					<Text>Body: {notification && notification.request.content.body}</Text>
+					<Text>
+						Data:{' '}
+						{notification && JSON.stringify(notification.request.content.data)}
+					</Text>
+				</View> */}
+				<Button
+					title='Press to Send Notification'
+					onPress={async () => {
+						await sendPushNotification(expoPushToken);
+					}}
 				/>
 			</List.Section>
 			<Spacer size='large'>

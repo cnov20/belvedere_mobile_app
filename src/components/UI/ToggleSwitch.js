@@ -10,11 +10,11 @@ import Toggle from 'react-native-toggle-element';
 				/> */
 }
 
-const ToggleSwitch = () => {
+export const ToggleSwitch = () => {
 	const [isEnabled, setIsEnabled] = useState(false);
 	const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
-	const handleChange = (isEnabled) => {};
+	// const handleChange = (isEnabled) => {};
 
 	return (
 		<View style={styles.container}>
@@ -24,7 +24,7 @@ const ToggleSwitch = () => {
 				ios_backgroundColor='#3e3e3e'
 				onValueChange={toggleSwitch}
 				value={isEnabled}
-				handleChange={handleChange(isEnabled)}
+				// handleChange={handleChange(isEnabled)}
 			/>
 		</View>
 	);
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default ToggleSwitch;
+// export default ToggleSwitch;

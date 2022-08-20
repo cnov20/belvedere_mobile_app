@@ -14,7 +14,6 @@ import {
 } from '@react-navigation/native';
 
 import { Colors } from '../../../constants/colors';
-// import OutlinedButton from '../../../components/UI/OutlinedButton';
 import { getMapPreview } from './location';
 import AccountInfoCard from '../../account/components/account-info-card.component';
 
