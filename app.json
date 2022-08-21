@@ -18,16 +18,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      // "googleServicesFile": "./GoogleService-Info.plist",
+      "bundleIdentifier": "com.cnov20.belvedere-mobile-app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      // "googleServicesFile": "./google-services.json",
+      "package": "com.cnov20.belvedere_mobile_app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    // "plugins": [
+    //   "@react-native-google-signin/google-signin"
+    // ]
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LottieView from 'lottie-react-native';
 
 import { Spacer } from '../../../components/spacer/spacer.component';
@@ -40,6 +40,13 @@ const AccountScreen = ({ navigation }) => {
 						Register
 					</AuthButton>
 				</Spacer>
+				{/* <GoogleSigninButton
+					style={{ width: 192, height: 48 }}
+					size={GoogleSigninButton.Size.Wide}
+					color={GoogleSigninButton.Color.Dark}
+					onPress={this._signIn}
+					disabled={this.state.isSigninInProgress}
+				/> */}
 			</AccountContainer>
 		</AccountBackground>
 	);
