@@ -12,6 +12,8 @@ import { SafeArea } from '../../../components/utility/safe-area.component';
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
 // import { EmailAuthCredential } from 'firebase/auth';
 
+import EditProfileScreen from '../../account/screens/account-edit-profile.screen';
+
 const SettingsItem = styled(List.Item)`
 	padding: ${(props) => props.theme.space[3]};
 `;
