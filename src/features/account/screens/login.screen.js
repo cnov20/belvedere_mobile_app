@@ -14,12 +14,18 @@ import { Spacer } from '../../../components/spacer/spacer.component';
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
 
 import { ActivityIndicator, Colors } from 'react-native-paper';
+// import { auth } from 'firebaseui';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export const LoginScreen = ({ navigation }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [errorMessage, setErrorMessage] = useState(error);
-	const { onLogin, error, isLoading } = useContext(AuthenticationContext);
+	const { onLogin, error, isLoading, auth } = useContext(AuthenticationContext);
+
+	if (auth.currentUser) {
+		navigation.navigate('Account Home');
+	}
 	return (
 		<AccountBackground>
 			<AccountCover />

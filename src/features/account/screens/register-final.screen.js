@@ -47,12 +47,27 @@ export const RegisterFinalScreen = ({ route, navigation }) => {
 	};
 
 	const { firstName, lastName, zipCode, dateOfBirth, country } = route.params;
-	console.log('DESTRCTURED: ', firstName, lastName);
+	// console.log('DESTRCTURED: ', firstName, lastName);
 	const { onRegister, onLogin, error, isLoading, addUserToDb } = useContext(
 		AuthenticationContext
 	);
 
-	const onPress = () => {
+	const onPress = async () => {
+		try {
+			const docRef = await addDoc(collection(db, 'users'), {
+				first: firstName,
+				last: lastName,
+				country: country,
+				zip: zipCode,
+				dob: dateOfBirth,
+				email: email,
+				password: password,
+			});
+			console.log('DOCUMENT REFERENCE IS: ', docRef);
+			console.log('Document written with ID: ', docRef.id);
+		} catch (e) {
+			console.error('Error adding document: ', e);
+		}
 		if (password === confirmPassword) {
 			onRegister(email, password);
 		}

@@ -6,6 +6,7 @@ import { AppNavigator } from './app.navigator';
 import { AccountNavigator } from './account.navigator';
 
 import { AuthenticationContext } from '../../services/authentication/authentication.context';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export const Navigation = () => {
 	const { auth, user, isAuthenticated, sendEmailVerification } = useContext(
@@ -24,6 +25,16 @@ export const Navigation = () => {
 			</View>
 		);
 	};
+
+	if (auth.currentUser) {
+		<AppNavigator />;
+	} else {
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				<AppNavigator />;
+			}
+		});
+	}
 
 	return (
 		<NavigationContainer>

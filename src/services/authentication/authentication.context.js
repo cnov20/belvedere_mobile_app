@@ -83,7 +83,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 		createUserWithEmailAndPassword(auth, email, password)
 			.then((u) => {
 				setUser(u);
-				addUserToDb();
+				// addUserToDb(u);
 				setIsLoading(false);
 			})
 			// sendEmailVerification(auth.currentUser)
@@ -121,27 +121,27 @@ export const AuthenticationContextProvider = ({ children }) => {
 			});
 	};
 
-	const addUserToDb = async (
-		firstName,
-		lastName,
-		country,
-		zipCode,
-		dateOfBirth
-	) => {
-		try {
-			const docRef = await addDoc(collection(db, 'users'), {
-				first: firstName,
-				last: lastName,
-				country: country,
-				zip: zipCode,
-				dob: dateOfBirth,
-			});
-			console.log('DOCUMENT REFERENCE IS: ', docRef);
-			console.log('Document written with ID: ', docRef.id);
-		} catch (e) {
-			console.error('Error adding document: ', e);
-		}
-	};
+	// const addUserToDb = async (
+	// 	firstName,
+	// 	lastName,
+	// 	country,
+	// 	zipCode,
+	// 	dateOfBirth
+	// ) => {
+	// 	try {
+	// 		const docRef = await addDoc(collection(db, 'users'), {
+	// 			first: firstName,
+	// 			last: lastName,
+	// 			country: country,
+	// 			zip: zipCode,
+	// 			dob: dateOfBirth,
+	// 		});
+	// 		console.log('DOCUMENT REFERENCE IS: ', docRef);
+	// 		console.log('Document written with ID: ', docRef.id);
+	// 	} catch (e) {
+	// 		console.error('Error adding document: ', e);
+	// 	}
+	// };
 	return (
 		<AuthenticationContext.Provider
 			value={{
@@ -152,7 +152,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 				isLoading,
 				error,
 				emailVerified,
-				addUserToDb,
+				// addUserToDb,
 				onLogin,
 				onRegister,
 				onLogout,

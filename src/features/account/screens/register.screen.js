@@ -34,6 +34,17 @@ export const RegisterScreen = ({ navigation }) => {
 
 	const { onRegister, isLoading, error } = useContext(AuthenticationContext);
 	// console.log(email, password);
+
+	const onPress = () => {
+		navigation.navigate('Register Final', {
+			firstName: firstName,
+			lastName: lastName,
+			zipCode: zipCode,
+			dateOfBirth: dateOfBirth,
+			country: country,
+		});
+	};
+
 	return (
 		<AccountBackground>
 			<AccountCover />
@@ -105,27 +116,4 @@ export const RegisterScreen = ({ navigation }) => {
 			</Spacer>
 		</AccountBackground>
 	);
-};
-
-const onPress = async () => {
-	try {
-		const docRef = await addDoc(collection(db, 'users'), {
-			first: firstName,
-			last: lastName,
-			country: country,
-			zip: zipCode,
-			dob: dateOfBirth,
-		});
-		console.log('DOCUMENT REFERENCE IS: ', docRef);
-		console.log('Document written with ID: ', docRef.id);
-	} catch (e) {
-		console.error('Error adding document: ', e);
-	}
-	navigation.navigate('Register Final', {
-		firstName: firstName,
-		lastName: lastName,
-		zipCode: zipCode,
-		dateOfBirth: dateOfBirth,
-		country: country,
-	});
 };
