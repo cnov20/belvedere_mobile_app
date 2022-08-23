@@ -10,6 +10,7 @@ import DrawerNavigator from './drawer.navigator';
 // // import { SettingsNavigator } from "./settings.navigator";
 import { MapScreen } from '../../features/map/screens/map.screen';
 import AccountHomeScreen from '../../features/account/screens/account-home.screen';
+import ProfileScreen from '../../features/account/screens/ProfileScreen';
 
 // // import { RestaurantsContextProvider } from '../../services/restaurants/restaurants.context';
 // // import { LocationContextProvider } from '../../services/location/location.context';
@@ -51,6 +52,7 @@ export const AppNavigator = () => (
 			options={{ headerShown: true }}
 		/>
 		<Tab.Screen name='Settings' component={SettingsNavigator} />
+		<Tab.Screen name='Profile' component={ProfileScreen} />
 	</Tab.Navigator>
 );
 
