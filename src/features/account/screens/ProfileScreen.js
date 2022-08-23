@@ -15,7 +15,7 @@ import FormButton from '../../../components/UI/FormButton';
 // import firestore from '@react-native-firebase/firestore';
 // import PostCard from '../components/PostCard';
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation, route }) => {
 	// const [user, logout] = useContext(AuthContext);
 
 	return (
@@ -35,12 +35,29 @@ const ProfileScreen = () => {
 					Harry Truman, Dorris Day, Red China, Johnny Ray, South Pacific, etc...
 				</Text>
 				<View style={styles.userBtnWrapper}>
-					<TouchableOpacity style={styles.userBtn} onPress={() => {}}>
-						<Text style={styles.userBtnTxt}>Message </Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.userBtn} onPress={() => {}}>
-						<Text style={styles.userBtnTxt}>Follow </Text>
-					</TouchableOpacity>
+					{route.params ? (
+						<>
+							<TouchableOpacity style={styles.userBtn} onPress={() => {}}>
+								<Text style={styles.userBtnTxt}>Message</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.userBtn} onPress={() => {}}>
+								<Text style={styles.userBtnTxt}>Follow</Text>
+							</TouchableOpacity>
+						</>
+					) : (
+						<>
+							<TouchableOpacity
+								style={styles.userBtn}
+								onPress={() => {
+									navigation.navigate('Profile Edit');
+								}}>
+								<Text style={styles.userBtnTxt}>Edit</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.userBtn} onPress={() => logout()}>
+								<Text style={styles.userBtnTxt}>Logout</Text>
+							</TouchableOpacity>
+						</>
+					)}
 				</View>
 				<View style={styles.userInfoWrapper}>
 					<View style={styles.userInfoItem}>

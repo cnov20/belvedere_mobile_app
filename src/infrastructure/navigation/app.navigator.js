@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { SettingsNavigator } from './settings.navigator';
 import DrawerNavigator from './drawer.navigator';
-
+import { ProfileNavigator } from './profile.navigator';
 // // import { RestaurantsNavigator } from "./restaurants.navigator";
 // // import { SettingsNavigator } from "./settings.navigator";
 import { MapScreen } from '../../features/map/screens/map.screen';
@@ -52,7 +52,19 @@ export const AppNavigator = () => (
 			options={{ headerShown: true }}
 		/>
 		<Tab.Screen name='Settings' component={SettingsNavigator} />
-		<Tab.Screen name='Profile' component={ProfileScreen} />
+		{/* <Tab.Screen name='Profile' component={ProfileScreen} /> */}
+		<Tab.Screen
+			name='Profile'
+			component={ProfileNavigator}
+			options={
+				{
+					// tabBarLabel: 'Home',
+					// tabBarIcon: ({ color, size }) => (
+					// <Ionicons name='person-outline' color={color} size={size} />
+					// ),
+				}
+			}
+		/>
 	</Tab.Navigator>
 );
 
