@@ -18,8 +18,8 @@ import { ActivityIndicator, Colors } from 'react-native-paper';
 export const LoginScreen = ({ navigation }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [errorMessage, setErrorMessage] = useState(error);
 	const { onLogin, error, isLoading } = useContext(AuthenticationContext);
-	console.log(error);
 	return (
 		<AccountBackground>
 			<AccountCover />
@@ -43,17 +43,24 @@ export const LoginScreen = ({ navigation }) => {
 						onChangeText={(p) => setPassword(p)}
 					/>
 				</Spacer>
-				{error && (
-					<ErrorContainer size='large'>
-						<Text variant='error'>{error}</Text>
-					</ErrorContainer>
-				)}
+
 				<Spacer size='large'>
 					{!isLoading ? (
 						<AuthButton
 							icon='lock-open-outline'
 							mode='contained'
-							onPress={() => onLogin(email, password)}>
+							onPress={() => {
+								if (email != '' && password != '') {
+									onLogin(email, password);
+								} else {
+									error && (
+										<ErrorContainer size='large'>
+											<Text variant='error'>{errorMessage}</Text>
+										</ErrorContainer>
+									);
+									console.log('ERROR: ', error);
+								}
+							}}>
 							Login
 						</AuthButton>
 					) : (

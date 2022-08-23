@@ -1,13 +1,13 @@
-// import React, { useEffect, useContext, useState } from 'react';
-// import {
-// 	View,
-// 	Text,
-// 	TouchableOpacity,
-// 	ImageBackground,
-// 	TextInput,
-// 	StyleSheet,
-// 	Alert,
-// } from 'react-native';
+import React, { useEffect, useContext, useState } from 'react';
+import {
+	View,
+	Text,
+	TouchableOpacity,
+	ImageBackground,
+	TextInput,
+	StyleSheet,
+	Alert,
+} from 'react-native';
 
 // import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 // import FontAwesome from 'react-native-vector-icons/FontAwesome';

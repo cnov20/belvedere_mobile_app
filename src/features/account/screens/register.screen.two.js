@@ -11,27 +11,51 @@ import {
 import { Text } from '../../../components/typography/text.component';
 import { Spacer } from '../../../components/spacer/spacer.component';
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
+import { AuthContext } from '../../../infrastructure/navigation/AuthPovider';
 
 import { ActivityIndicator, Colors } from 'react-native-paper';
 
 import { doc, setDoc } from 'firebase/firestore';
+import { KeyboardAvoidingView } from 'react-native';
+// import firestore from '@react-native-firebase/firestore';
 
 export const RegisterScreenTwo = ({ route, navigation }) => {
 	// const [firstName, setFirstName] = useState('');
 	// const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [repeatedPassword, setRepeatedPassword] = useState('');
+	let [confirmPassword, setConfirmPassword] = useState('');
+	let [validationMessage, setValidationMessage] = useState('');
+
+	const validateAndSet = (value, valueToCompare, setValue) => {
+		if (value !== valueToCompare) {
+			setValidationMessage('Passwords do not match.');
+		} else {
+			setValidationMessage('');
+		}
+		setValue(value);
+	};
+
+	const onPress = () => {
+		if (password === confirmPassword) {
+			onRegister(email, password);
+		}
+	};
 
 	const { firstName, lastName, zipCode, dateOfBirth, country } = route.params;
 	console.log(route);
-	const { onRegister, isLoading, error } = useContext(AuthenticationContext);
+	const { onRegister, onLogin, error, isLoading, addUserToDb } = useContext(
+		AuthenticationContext
+	);
+
 	console.log(email, password);
 	return (
+		// <KeyboardAvoidingView>
 		<AccountBackground>
 			<AccountCover />
 			<Title>Belvedere Vodka</Title>
 			<AccountContainer>
+				<Text variant='error'>{validationMessage}</Text>
 				<Spacer size='large'>
 					<AuthInput
 						label='E-mail'
@@ -49,17 +73,21 @@ export const RegisterScreenTwo = ({ route, navigation }) => {
 						textContentType='password'
 						secureTextEntry
 						autoCapitalize='none'
-						onChangeText={(p) => setPassword(p)}
+						onChangeText={(p) =>
+							validateAndSet(p, confirmPassword, setPassword)
+						}
 					/>
 				</Spacer>
 				<Spacer size='large'>
 					<AuthInput
 						label='Repeat Password'
-						value={repeatedPassword}
+						value={confirmPassword}
 						textContentType='password'
 						secureTextEntry
 						autoCapitalize='none'
-						onChangeText={(rp) => setRepeatedPassword(rp)}
+						onChangeText={(cp) =>
+							validateAndSet(cp, password, setConfirmPassword)
+						}
 					/>
 				</Spacer>
 				{error && (
@@ -72,26 +100,22 @@ export const RegisterScreenTwo = ({ route, navigation }) => {
 						<AuthButton
 							icon='email'
 							mode='contained'
-							onPress={() => {
-								if (password === repeatedPassword) {
-									onRegister(email, repeatedPassword);
-
-									// 	.then((u) => {
-									// 	setDoc(doc(db, 'users', user.uid), {
-									// 		displayName: firstName,
-									// 		lastName: lastName,
-									// 		// photoURL: image,
-									// 		password: password,
-									// 		email: email,
-									// 	});
-
-									// 	u.user.updateProfile({
-									// 		displayName: firstName,
-									// 		// photoURL: image,
-									// 	});
-									// });
-								}
-							}}>
+							onPress={onPress}
+							// register()
+							// 	.then((u) => {
+							// 	setDoc(doc(db, 'users', user.uid), {
+							// 		displayName: firstName,
+							// 		lastName: lastName,
+							// 		// photoURL: image,
+							// 		password: password,
+							// 		email: email,
+							// 	});
+							// 	u.user.updateProfile({
+							// 		displayName: firstName,
+							// 		// photoURL: image,
+							// 	});
+							// });
+						>
 							Register
 						</AuthButton>
 					) : (
@@ -105,5 +129,6 @@ export const RegisterScreenTwo = ({ route, navigation }) => {
 				</AuthButton>
 			</Spacer>
 		</AccountBackground>
+		/* </KeyboardAvoidingView> */
 	);
 };
