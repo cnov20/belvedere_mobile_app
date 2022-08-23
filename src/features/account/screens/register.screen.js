@@ -14,6 +14,17 @@ import { AuthenticationContext } from '../../../services/authentication/authenti
 
 import { ActivityIndicator, Colors } from 'react-native-paper';
 
+import {
+	doc,
+	setDoc,
+	getFirestore,
+	collection,
+	addDoc,
+} from 'firebase/firestore';
+import { async } from '@firebase/util';
+
+const db = getFirestore();
+
 export const RegisterScreen = ({ navigation }) => {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
@@ -83,18 +94,7 @@ export const RegisterScreen = ({ navigation }) => {
 				)}
 			</AccountContainer>
 			<Spacer size='large'>
-				<AuthButton
-					icon='email'
-					mode='contained'
-					onPress={() =>
-						navigation.navigate('Register Two', {
-							firstName: firstName,
-							lastName: lastName,
-							zipCode: zipCode,
-							dateOfBirth: dateOfBirth,
-							country: country,
-						})
-					}>
+				<AuthButton icon='email' mode='contained' onPress={onPress}>
 					Next
 				</AuthButton>
 			</Spacer>
@@ -105,4 +105,27 @@ export const RegisterScreen = ({ navigation }) => {
 			</Spacer>
 		</AccountBackground>
 	);
+};
+
+const onPress = async () => {
+	try {
+		const docRef = await addDoc(collection(db, 'users'), {
+			first: firstName,
+			last: lastName,
+			country: country,
+			zip: zipCode,
+			dob: dateOfBirth,
+		});
+		console.log('DOCUMENT REFERENCE IS: ', docRef);
+		console.log('Document written with ID: ', docRef.id);
+	} catch (e) {
+		console.error('Error adding document: ', e);
+	}
+	navigation.navigate('Register Final', {
+		firstName: firstName,
+		lastName: lastName,
+		zipCode: zipCode,
+		dateOfBirth: dateOfBirth,
+		country: country,
+	});
 };

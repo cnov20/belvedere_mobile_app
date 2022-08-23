@@ -73,14 +73,6 @@ export const AuthenticationContextProvider = ({ children }) => {
 				console.error(e);
 			});
 	};
-	// email,
-	// password,
-	// repeatedPassword,
-	// firstName,
-	// lastName,
-	// country,
-	// zipCode,
-	// dateOfBirth
 	// const onRegister = () => {};
 	// if (password !== repeatedPassword) {
 	// 	// setError('Error: Passwords do not match');
@@ -129,12 +121,20 @@ export const AuthenticationContextProvider = ({ children }) => {
 			});
 	};
 
-	const addUserToDb = async () => {
+	const addUserToDb = async (
+		firstName,
+		lastName,
+		country,
+		zipCode,
+		dateOfBirth
+	) => {
 		try {
 			const docRef = await addDoc(collection(db, 'users'), {
-				first: 'Ada',
-				last: 'Lovelace',
-				born: 1815,
+				first: firstName,
+				last: lastName,
+				country: country,
+				zip: zipCode,
+				dob: dateOfBirth,
 			});
 			console.log('DOCUMENT REFERENCE IS: ', docRef);
 			console.log('Document written with ID: ', docRef.id);
@@ -233,3 +233,17 @@ export const AuthenticationContextProvider = ({ children }) => {
 // 			createdAt: firestore.Timestamp.fromDate(new Date()),
 // 			userImg: null,
 // 		});
+// firstName,
+// lastName,
+// country,
+// zipCode,
+// dateOfBirth,
+// email,
+// password
+// 			firstName,
+// 			lastName,
+// 			country,
+// 			zipCode,
+// 			dateOfBirth,
+// 			email,
+// 			password

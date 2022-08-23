@@ -15,17 +15,27 @@ import { AuthContext } from '../../../infrastructure/navigation/AuthPovider';
 
 import { ActivityIndicator, Colors } from 'react-native-paper';
 
-import { doc, setDoc } from 'firebase/firestore';
 import { KeyboardAvoidingView } from 'react-native';
 // import firestore from '@react-native-firebase/firestore';
 
-export const RegisterScreenTwo = ({ route, navigation }) => {
+import {
+	doc,
+	setDoc,
+	getFirestore,
+	collection,
+	addDoc,
+} from 'firebase/firestore';
+import { async } from '@firebase/util';
+
+const db = getFirestore();
+
+export const RegisterFinalScreen = ({ route, navigation }) => {
 	// const [firstName, setFirstName] = useState('');
 	// const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	let [confirmPassword, setConfirmPassword] = useState('');
-	let [validationMessage, setValidationMessage] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [validationMessage, setValidationMessage] = useState('');
 
 	const validateAndSet = (value, valueToCompare, setValue) => {
 		if (value !== valueToCompare) {
@@ -36,19 +46,20 @@ export const RegisterScreenTwo = ({ route, navigation }) => {
 		setValue(value);
 	};
 
+	const { firstName, lastName, zipCode, dateOfBirth, country } = route.params;
+	console.log('DESTRCTURED: ', firstName, lastName);
+	const { onRegister, onLogin, error, isLoading, addUserToDb } = useContext(
+		AuthenticationContext
+	);
+
 	const onPress = () => {
 		if (password === confirmPassword) {
 			onRegister(email, password);
 		}
 	};
 
-	const { firstName, lastName, zipCode, dateOfBirth, country } = route.params;
-	console.log(route);
-	const { onRegister, onLogin, error, isLoading, addUserToDb } = useContext(
-		AuthenticationContext
-	);
+	console.log('ROUTE PARAMS: ', route.params);
 
-	console.log(email, password);
 	return (
 		// <KeyboardAvoidingView>
 		<AccountBackground>
