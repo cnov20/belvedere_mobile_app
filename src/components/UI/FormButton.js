@@ -15,12 +15,12 @@ export default FormButton;
 const styles = StyleSheet.create({
 	buttonContainer: {
 		marginTop: 10,
-		width: '50%',
+		width: '45%',
 		height: windowHeight / 15,
 		backgroundColor: '#2e64e5',
 		padding: 10,
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'space-between',
 		borderRadius: 3,
 	},
 	buttonText: {

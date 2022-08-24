@@ -42,6 +42,7 @@ import {
 import {
 	signOut,
 	updatePassword,
+	updateEmail,
 	signInWithEmailAndPassword,
 	deleteUser,
 } from 'firebase/auth';
@@ -60,6 +61,9 @@ const ProfileEditScreen = () => {
 	let [newPassword, setNewPassword] = React.useState('');
 	let [currentPassword, setCurrentPassword] = React.useState('');
 	let [errorMessage, setErrorMessage] = React.useState('');
+	let [newEmail, setNewEmail] = React.useState('');
+	let [currentEmail, setCurrentEmail] = React.useState('');
+	// let [errorMessage, setErrorMessage] = React.useState('');
 
 	// const uid = auth.currentUser.uid; //
 
@@ -109,12 +113,47 @@ const ProfileEditScreen = () => {
 				setErrorMessage(error.message);
 			})
 			.then(() => {
-				console.log('User Updated!');
+				console.log('User — Password — Updated!');
 				Alert.alert(
 					'Profile Updated!',
 					'Your profile has been updated successfully.'
 				);
 			});
+	};
+
+	let updateUserEmail = () => {
+		// signInWithEmailAndPassword(auth, auth.currentUser.email, currentPassword)
+		// 	.then(() => {
+		// const user = userCredential.user;
+		updateEmail(auth.currentUser, newEmail)
+			.then(() => {
+				setNewEmail('');
+				setErrorMessage('');
+				setCurrentEmail('');
+			})
+			.catch((error) => {
+				setErrorMessage(error.message);
+			})
+			// })
+			.catch((error) => {
+				setErrorMessage(error.message);
+			})
+			.then(() => {
+				console.log('User — Email — Updated!');
+				Alert.alert(
+					'Profile Updated!',
+					'Your profile has been updated successfully.'
+				);
+			});
+	};
+
+	const handleUpdate = () => {
+		if (newPassword && currentPassword !== newPassword) {
+			updateUserPassword();
+		}
+		if (newEmail && currentEmail !== newEmail) {
+			updateUserEmail();
+		}
 	};
 
 	let deleteUserDBndFB = ({ navigation }) => {
@@ -299,6 +338,30 @@ const ProfileEditScreen = () => {
 						secureTextEntry={true}
 					/>
 				</View>
+				<View style={styles.action}>
+					{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
+					<TextInput
+						placeholder='Current Email'
+						placeholderTextColor='#666666'
+						value={currentEmail}
+						onChangeText={setCurrentEmail}
+						autoCorrect={false}
+						style={styles.textInput}
+						// secureTextEntry={true}
+					/>
+				</View>
+				<View style={styles.action}>
+					{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
+					<TextInput
+						placeholder='New Email'
+						placeholderTextColor='#666666'
+						value={newEmail}
+						onChangeText={setNewEmail}
+						autoCorrect={false}
+						style={styles.textInput}
+						// secureTextEntry={true}
+					/>
+				</View>
 				{/* <View style={styles.action}>
 					{/* <Ionicons name='ios-clipboard-outline' color='#333333' size={20} /> */}
 				{/* <TextInput
@@ -324,34 +387,34 @@ const ProfileEditScreen = () => {
 						style={styles.textInput}
 					/>
 				</View>
-				<View style={styles.action}>
-					{/* <FontAwesome name='globe' color='#333333' size={20} /> */}
-					<TextInput
+				{/* <View style={styles.action}> */}
+				{/* <FontAwesome name='globe' color='#333333' size={20} /> */}
+				{/* <TextInput
 						placeholder='Country'
 						placeholderTextColor='#666666'
 						autoCorrect={false}
 						value={userData ? userData.country : ''}
 						onChangeText={(txt) => setUserData({ ...userData, country: txt })}
 						style={styles.textInput}
-					/>
-				</View>
-				<View style={styles.action}>
-					{/* <MaterialCommunityIcons
+					/> */}
+				{/* </View> */}
+				{/* <View style={styles.action}> */}
+				{/* <MaterialCommunityIcons
 						name='map-marker-outline'
 						color='#333333'
 						size={20}
 					/> */}
-					<TextInput
-						placeholder='City'
+				{/* <TextInput */}
+				{/* placeholder='City'
 						placeholderTextColor='#666666'
 						autoCorrect={false}
 						value={userData ? userData.city : ''}
 						onChangeText={(txt) => setUserData({ ...userData, city: txt })}
 						style={styles.textInput}
-					/>
-				</View>
+					/> */}
+				{/* </View> */}
 				<View style={[styles.action]}>
-					<FormButton buttonTitle='Update' onPress={updateUserPassword} />
+					<FormButton buttonTitle='Update' onPress={handleUpdate} />
 					<FormButton buttonTitle='Delete' onPress={deleteUserDBndFB} />
 				</View>
 			</Animated.View>
