@@ -49,7 +49,7 @@ import {
 // const db = getFirestore();
 
 const ProfileEditScreen = () => {
-	const { user, logout, auth, db, dbRef } = useContext(AuthenticationContext);
+	const { user, auth, db, dbRef, onLogout } = useContext(AuthenticationContext);
 	const [image, setImage] = useState(null);
 	const [uploading, setUploading] = useState(false);
 	const [transferred, setTransferred] = useState(0);
@@ -61,7 +61,7 @@ const ProfileEditScreen = () => {
 	let [currentPassword, setCurrentPassword] = React.useState('');
 	let [errorMessage, setErrorMessage] = React.useState('');
 
-	const uid = auth.currentUser.uid; //
+	// const uid = auth.currentUser.uid; //
 
 	// const handleUpdate = async () => {
 	// 	let imgUrl = await uploadImage();
@@ -115,6 +115,41 @@ const ProfileEditScreen = () => {
 					'Your profile has been updated successfully.'
 				);
 			});
+	};
+
+	let deleteUserDBndFB = ({ navigation }) => {
+		if (currentPassword === '') {
+			setErrorMessage('Must enter current password to delete account');
+		} else {
+			signInWithEmailAndPassword(auth, auth.currentUser.email, currentPassword)
+				.then((userCredential) => {
+					const user = userCredential.user;
+					console.log('DELETED user ID: ', user.uid);
+					// Get all todos for user and delete
+					let batch = writeBatch(db);
+					const q = query(
+						collection(db, 'users'),
+						where('userId', '==', user.uid)
+					);
+					getDocs(q).then((querySnapshot) => {
+						querySnapshot.forEach((doc) => {
+							batch.delete(doc.ref);
+						});
+						batch.commit();
+
+						deleteUser(user)
+							.then(() => {
+								onLogout();
+							})
+							.catch((error) => {
+								setErrorMessage(error.message);
+							});
+					});
+				})
+				.catch((error) => {
+					setErrorMessage(error.message);
+				});
+		}
 	};
 
 	const renderInner = () => (
@@ -216,6 +251,7 @@ const ProfileEditScreen = () => {
 						{userData ? userData.fname : ''} {userData ? userData.lname : ''}
 					</Text>
 					{/* <Text>{user.uid}</Text> */}
+					{errorMessage ? <Text>{errorMessage}</Text> : null}
 				</View>
 				<View style={styles.action}>
 					{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
@@ -263,9 +299,9 @@ const ProfileEditScreen = () => {
 						secureTextEntry={true}
 					/>
 				</View>
-				<View style={styles.action}>
+				{/* <View style={styles.action}>
 					{/* <Ionicons name='ios-clipboard-outline' color='#333333' size={20} /> */}
-					<TextInput
+				{/* <TextInput
 						multiline
 						numberOfLines={3}
 						placeholder='About Me'
@@ -274,8 +310,8 @@ const ProfileEditScreen = () => {
 						onChangeText={(txt) => setUserData({ ...userData, about: txt })}
 						autoCorrect={true}
 						style={[styles.textInput, { height: 40 }]}
-					/>
-				</View>
+					/> */}
+				{/* </View>  */}
 				<View style={styles.action}>
 					{/* <Feather name='phone' color='#333333' size={20} /> */}
 					<TextInput
@@ -314,7 +350,10 @@ const ProfileEditScreen = () => {
 						style={styles.textInput}
 					/>
 				</View>
-				<FormButton buttonTitle='Update' onPress={updateUserPassword} />
+				<View style={[styles.action]}>
+					<FormButton buttonTitle='Update' onPress={updateUserPassword} />
+					<FormButton buttonTitle='Delete' onPress={deleteUserDBndFB} />
+				</View>
 			</Animated.View>
 		</View>
 	);
@@ -389,6 +428,7 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		borderBottomColor: '#f2f2f2',
 		paddingBottom: 5,
+		justifyContent: 'space-between',
 	},
 	actionError: {
 		flexDirection: 'row',
