@@ -7,6 +7,7 @@ import { AccountNavigator } from './account.navigator';
 
 import { AuthenticationContext } from '../../services/authentication/authentication.context';
 import { onAuthStateChanged } from 'firebase/auth';
+import { onLog } from 'firebase/app';
 
 export const Navigation = () => {
 	const { auth, user, isAuthenticated, sendEmailVerification } = useContext(
@@ -26,15 +27,35 @@ export const Navigation = () => {
 		);
 	};
 
-	if (auth.currentUser) {
-		<AppNavigator />;
-	} else {
-		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				<AppNavigator />;
-			}
-		});
-	}
+	// if (auth.currentUser) {
+	// 	<AppNavigator />;
+	// } else {
+	// 	onAuthStateChanged(auth, (user) => {
+	// 		if (user) {
+	// 			<AppNavigator />;
+	// 		}
+	// 	});
+	// }
+
+	// if (auth.currentUser && isAuthenticated) {
+	// 	return (
+	// 		<>
+	// 			<AppNavigator />;
+	// 		</>
+	// 	);
+	// } else {
+	// 	onAuthStateChanged(auth, (user) => {
+	// 		if (user) {
+	// 			// User is signed in, see docs for a list of available properties
+	// 			// https://firebase.google.com/docs/reference/js/firebase.User
+	// 			const uid = user.uid;
+	// 			// ...
+	// 		} else {
+	// 			// User is signed out
+	// 			// ...
+	// 		}
+	// 	});
+	// }
 
 	return (
 		<NavigationContainer>

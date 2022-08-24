@@ -27,7 +27,7 @@ import {
 } from 'firebase/firestore';
 import { async } from '@firebase/util';
 
-const db = getFirestore();
+// const db = getFirestore();
 
 export const RegisterFinalScreen = ({ route, navigation }) => {
 	// const [firstName, setFirstName] = useState('');
@@ -48,9 +48,8 @@ export const RegisterFinalScreen = ({ route, navigation }) => {
 
 	const { firstName, lastName, zipCode, dateOfBirth, country } = route.params;
 	// console.log('DESTRCTURED: ', firstName, lastName);
-	const { onRegister, onLogin, error, isLoading, addUserToDb } = useContext(
-		AuthenticationContext
-	);
+	const { onRegister, onLogin, error, isLoading, addUserToDb, db, auth } =
+		useContext(AuthenticationContext);
 
 	const onPress = async () => {
 		try {
@@ -62,6 +61,7 @@ export const RegisterFinalScreen = ({ route, navigation }) => {
 				dob: dateOfBirth,
 				email: email,
 				password: password,
+				userId: auth.currentUser.uid,
 			});
 			console.log('DOCUMENT REFERENCE IS: ', docRef);
 			console.log('Document written with ID: ', docRef.id);
@@ -73,7 +73,25 @@ export const RegisterFinalScreen = ({ route, navigation }) => {
 		}
 	};
 
-	console.log('ROUTE PARAMS: ', route.params);
+	// setDoc()
+
+	// const docRef = doc(db, "countries", "my.custom.id@gmail.com" );
+
+	// const data = {
+	//    name: "Ottawa",
+	//    country: "Canada",
+	//    province: "ON"
+	// };
+
+	// setDoc(docRef, data)
+	// .then(() => {
+	//     console.log("Document has been added successfully);
+	// })
+	// .catch(error => {
+	//     console.log(error);
+	// })
+
+	// console.log('ROUTE PARAMS: ', route.params);
 
 	return (
 		// <KeyboardAvoidingView>

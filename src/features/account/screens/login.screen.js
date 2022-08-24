@@ -23,9 +23,15 @@ export const LoginScreen = ({ navigation }) => {
 	const [errorMessage, setErrorMessage] = useState(error);
 	const { onLogin, error, isLoading, auth } = useContext(AuthenticationContext);
 
-	if (auth.currentUser) {
-		navigation.navigate('Account Home');
-	}
+	// if (auth.currentUser) {
+	// 	navigation.navigate('Account Home');
+	// } else {
+	// 	onAuthStateChanged(auth, (user) => {
+	// 		if (user) {
+	// 			onLogin(email, password);
+	// 		}
+	// 	});
+	// }
 	return (
 		<AccountBackground>
 			<AccountCover />

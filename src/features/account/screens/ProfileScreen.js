@@ -11,12 +11,14 @@ import {
 import FormButton from '../../../components/UI/FormButton';
 
 // import { AuthContext } from '../navigation/AuthProvider';
+import { AuthenticationContext } from '../../../services/authentication/authentication.context';
 
 // import firestore from '@react-native-firebase/firestore';
 // import PostCard from '../components/PostCard';
 
 const ProfileScreen = ({ navigation, route }) => {
 	// const [user, logout] = useContext(AuthContext);
+	const { onLogout, user, auth } = useContext(AuthenticationContext);
 
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -53,7 +55,9 @@ const ProfileScreen = ({ navigation, route }) => {
 								}}>
 								<Text style={styles.userBtnTxt}>Edit</Text>
 							</TouchableOpacity>
-							<TouchableOpacity style={styles.userBtn} onPress={() => logout()}>
+							<TouchableOpacity
+								style={styles.userBtn}
+								onPress={() => onLogout()}>
 								<Text style={styles.userBtnTxt}>Logout</Text>
 							</TouchableOpacity>
 						</>

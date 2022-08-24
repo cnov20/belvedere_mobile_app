@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import LottieView from 'lottie-react-native';
 
 import { Spacer } from '../../../components/spacer/spacer.component';
@@ -10,8 +10,21 @@ import {
 	Title,
 	AnimationWrapper,
 } from '../components/account.styles';
+import { AuthenticationContext } from '../../../services/authentication/authentication.context';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const AccountScreen = ({ navigation }) => {
+	const { auth, onLogin } = useContext(AuthenticationContext);
+	// if (auth.currentUser) {
+	// 	// navigation.navigate('Account Home');
+	// 	onLogin(email, password);
+	// } else {
+	// 	onAuthStateChanged(auth, (user) => {
+	// 		if (user) {
+	// 			onLogin(email, password);
+	// 		}
+	// 	});
+	// }
 	return (
 		<AccountBackground>
 			<AccountCover />

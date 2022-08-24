@@ -7,6 +7,8 @@ import {
 	TextInput,
 	StyleSheet,
 	Alert,
+	ActivityIndicator,
+	// setIsRefreshing
 } from 'react-native';
 
 // import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -23,117 +25,98 @@ import Animated from 'react-native-reanimated';
 // import firestore from '@react-native-firebase/firestore';
 // import storage from '@react-native-firebase/storage';
 
+import { AuthenticationContext } from '../../../services/authentication/authentication.context';
+import {
+	addDoc,
+	deleteDoc,
+	doc,
+	getDoc,
+	getDocs,
+	getFirestore,
+	collection,
+	query,
+	where,
+	writeBatch,
+} from 'firebase/firestore';
+
+import {
+	signOut,
+	updatePassword,
+	signInWithEmailAndPassword,
+	deleteUser,
+} from 'firebase/auth';
+
+// const db = getFirestore();
+
 const ProfileEditScreen = () => {
-	// 	const { user, logout } = useContext(AuthContext);
+	const { user, logout, auth, db, dbRef } = useContext(AuthenticationContext);
 	const [image, setImage] = useState(null);
 	const [uploading, setUploading] = useState(false);
 	const [transferred, setTransferred] = useState(0);
 	const [userData, setUserData] = useState(null);
-	// 	const getUser = async () => {
-	// 		const currentUser = await firestore()
-	// 			.collection('users')
-	// 			.doc(user.uid)
-	// 			.get()
-	// 			.then((documentSnapshot) => {
-	// 				if (documentSnapshot.exists) {
-	// 					console.log('User Data', documentSnapshot.data());
-	// 					setUserData(documentSnapshot.data());
-	// 				}
-	// 			});
-	// 	};
-	// 	const handleUpdate = async () => {
-	// 		let imgUrl = await uploadImage();
-	// 		if (imgUrl == null && userData.userImg) {
-	// 			imgUrl = userData.userImg;
-	// 		}
-	// 		firestore()
-	// 			.collection('users')
-	// 			.doc(user.uid)
-	// 			.update({
-	// 				fname: userData.fname,
-	// 				lname: userData.lname,
-	// 				about: userData.about,
-	// 				phone: userData.phone,
-	// 				country: userData.country,
-	// 				city: userData.city,
-	// 				userImg: imgUrl,
-	// 			})
-	// 			.then(() => {
-	// 				console.log('User Updated!');
-	// 				Alert.alert(
-	// 					'Profile Updated!',
-	// 					'Your profile has been updated successfully.'
-	// 				);
-	// 			});
-	// 	};
-	// 	const uploadImage = async () => {
-	// 		if (image == null) {
-	// 			return null;
-	// 		}
-	// 		const uploadUri = image;
-	// 		let filename = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
-	// 		// Add timestamp to File Name
-	// 		const extension = filename.split('.').pop();
-	// 		const name = filename.split('.').slice(0, -1).join('.');
-	// 		filename = name + Date.now() + '.' + extension;
-	// 		setUploading(true);
-	// 		setTransferred(0);
-	// 		const storageRef = storage().ref(`photos/${filename}`);
-	// 		const task = storageRef.putFile(uploadUri);
-	// 		// Set transferred state
-	// 		task.on('state_changed', (taskSnapshot) => {
-	// 			console.log(
-	// 				`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`
-	// 			);
-	// 			setTransferred(
-	// 				Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
-	// 					100
+	const [users, setUsers] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	let [isRefreshing, setIsRefreshing] = React.useState(false);
+	let [newPassword, setNewPassword] = React.useState('');
+	let [currentPassword, setCurrentPassword] = React.useState('');
+	let [errorMessage, setErrorMessage] = React.useState('');
+
+	const uid = auth.currentUser.uid; //
+
+	// const handleUpdate = async () => {
+	// 	let imgUrl = await uploadImage();
+
+	// 	if (imgUrl == null && userData.userImg) {
+	// 		imgUrl = userData.userImg;
+	// 	}
+
+	// 	firestore()
+	// 		.collection('users')
+	// 		.doc(user.uid)
+	// 		.update({
+	// 			fname: userData.fname,
+	// 			lname: userData.lname,
+	// 			about: userData.about,
+	// 			phone: userData.phone,
+	// 			country: userData.country,
+	// 			city: userData.city,
+	// 			userImg: imgUrl,
+	// 		})
+	// 		.then(() => {
+	// 			console.log('User Updated!');
+	// 			Alert.alert(
+	// 				'Profile Updated!',
+	// 				'Your profile has been updated successfully.'
 	// 			);
 	// 		});
-	// 		try {
-	// 			await task;
-	// 			const url = await storageRef.getDownloadURL();
-	// 			setUploading(false);
-	// 			setImage(null);
-	// 			// Alert.alert(
-	// 			//   'Image uploaded!',
-	// 			//   'Your image has been uploaded to the Firebase Cloud Storage Successfully!',
-	// 			// );
-	// 			return url;
-	// 		} catch (e) {
-	// 			console.log(e);
-	// 			return null;
-	// 		}
-	// 	};
-	// 	useEffect(() => {
-	// 		getUser();
-	// 	}, []);
-	// const takePhotoFromCamera = () => {
-	// 	ImagePicker.openCamera({
-	// 		compressImageMaxWidth: 300,
-	// 		compressImageMaxHeight: 300,
-	// 		cropping: true,
-	// 		compressImageQuality: 0.7,
-	// 	}).then((image) => {
-	// 		console.log(image);
-	// 		const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
-	// 		setImage(imageUri);
-	// 		this.bs.current.snapTo(1);
-	// 	});
 	// };
-	// const choosePhotoFromLibrary = () => {
-	// 	ImagePicker.openPicker({
-	// 		width: 300,
-	// 		height: 300,
-	// 		cropping: true,
-	// 		compressImageQuality: 0.7,
-	// 	}).then((image) => {
-	// 		console.log(image);
-	// 		const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
-	// 		setImage(imageUri);
-	// 		this.bs.current.snapTo(1);
-	// 	});
-	// };
+
+	let updateUserPassword = () => {
+		signInWithEmailAndPassword(auth, auth.currentUser.email, currentPassword)
+			.then((userCredential) => {
+				const user = userCredential.user;
+				updatePassword(user, newPassword)
+					.then(() => {
+						setNewPassword('');
+						setErrorMessage('');
+						setCurrentPassword('');
+					})
+					.catch((error) => {
+						setErrorMessage(error.message);
+					});
+			})
+			.catch((error) => {
+				setErrorMessage(error.message);
+			})
+			.then(() => {
+				console.log('User Updated!');
+				Alert.alert(
+					'Profile Updated!',
+					'Your profile has been updated successfully.'
+				);
+			});
+	};
+
 	const renderInner = () => (
 		<View style={styles.panel}>
 			<View style={{ alignItems: 'center' }}>
@@ -168,6 +151,7 @@ const ProfileEditScreen = () => {
 	);
 	const bs = React.createRef();
 	const fall = new Animated.Value(1);
+
 	return (
 		<View style={styles.container}>
 			{/* <BottomSheet
@@ -256,6 +240,30 @@ const ProfileEditScreen = () => {
 					/>
 				</View>
 				<View style={styles.action}>
+					{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
+					<TextInput
+						placeholder='Current Password'
+						placeholderTextColor='#666666'
+						value={currentPassword}
+						onChangeText={setCurrentPassword}
+						autoCorrect={false}
+						style={styles.textInput}
+						secureTextEntry={true}
+					/>
+				</View>
+				<View style={styles.action}>
+					{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
+					<TextInput
+						placeholder='New Password'
+						placeholderTextColor='#666666'
+						value={newPassword}
+						onChangeText={setNewPassword}
+						autoCorrect={false}
+						style={styles.textInput}
+						secureTextEntry={true}
+					/>
+				</View>
+				<View style={styles.action}>
 					{/* <Ionicons name='ios-clipboard-outline' color='#333333' size={20} /> */}
 					<TextInput
 						multiline
@@ -306,8 +314,7 @@ const ProfileEditScreen = () => {
 						style={styles.textInput}
 					/>
 				</View>
-				<FormButton buttonTitle='Update' />
-				{/* onPress={handleUpdate} */}
+				<FormButton buttonTitle='Update' onPress={updateUserPassword} />
 			</Animated.View>
 		</View>
 	);

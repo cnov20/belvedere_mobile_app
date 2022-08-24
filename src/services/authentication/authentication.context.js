@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 // import * as firebase from 'firebase';
 import {
 	getAuth,
@@ -48,7 +48,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 auth.useDeviceLanguage();
 
-const db = getFirestore();
+const db = getFirestore(app);
+const dbRef = collection(db, 'users');
 
 export const AuthenticationContext = createContext();
 
@@ -57,6 +58,19 @@ export const AuthenticationContextProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 	const [error, setError] = useState(null);
 	const [emailVerified, setEmailVerified] = useState(null);
+
+	// useEffect({
+	// if (auth.currentUser) {
+	// 	// navigation.navigate('Account Home');
+	// 	onLogin(email, password);
+	// } else {
+	// 	onAuthStateChanged(auth, (user) => {
+	// 		if (user) {
+	// 			onLogin(email, password);
+	// 		}
+	// 	});
+	// }
+	// }, [auth, user])
 
 	const onLogin = (email, password) => {
 		setIsLoading(true);
@@ -149,6 +163,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 				auth,
 				user,
 				db,
+				dbRef,
 				isLoading,
 				error,
 				emailVerified,
