@@ -4,23 +4,37 @@ import React, {
 	useEffect,
 	useLayoutEffect,
 	useCallback,
+	useRef,
 } from 'react';
 import { Alert, View, Dimensions, StyleSheet } from 'react-native';
 import MapView, {
 	Marker,
 	PROVIDER_DEFAULT,
 	PROVIDER_GOOGLE,
+	getCamera,
+	animateCamera,
+	LatLng,
 } from 'react-native-maps';
 import { IconButton } from 'react-native-paper';
 
 import styled from 'styled-components/native';
 
-import { Search } from '../components/search.component';
+// import { Search } from '../components/search.component';
+// import InputAutoComple
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GOOGLE_API_KEY } from '../../../../environments';
+import Constants from 'expo-constants';
 
 const Map = styled(MapView)`
 	height: 100%;
+	width: 100%;
+`;
+
+const SearchContainer = styled.View`
+	padding: ${(props) => props.theme.space[3]};
+	position: absolute;
+	z-index: 999;
+	top: ${Constants.statusBarHeight};
 	width: 100%;
 `;
 
@@ -38,65 +52,163 @@ const INITIAL_POSITION = {
 export const MapScreen = ({ navigation }) => {
 	const [selectedLocation, setSelectedLocation] = useState();
 	const [region, setRegion] = useState();
-	// useCallback(, [navigation, selectedLocation])
+	const mapRef = useRef(null);
 
-	// function onRegionChange(region) {
-	// 	setRegion(region);
-	// }
+	const [searchKeyword, setSearchKeyword] = useState('');
+	const [origin, setOrigin] = useState('');
+	const [destination, setDestination] = useState('');
 
-	function selectLocationHandler(event) {
-		const lat = event.nativeEvent.coordinate.latitude;
-		const lng = event.nativeEvent.coordinate.longitude;
-
-		setSelectedLocation({ lat: lat, lng: lng });
-	}
-
-	const savePickedLocationHandler = useCallback(() => {
-		if (!selectedLocation) {
-			Alert.alert(
-				'No location picked!',
-				'You have to pick a location (by tapping on the map) first!'
-			);
-			return;
+	const moveTo = async (position) => {
+		const camera = await mapRef.current.getCamera();
+		if (camera) {
+			console.log('POSITION IN MOVE TO: ', position);
+			camera.center = position;
+			mapRef.current.animateCamera(camera, { duration: 1000 });
 		}
-		navigation.navigate('Location Finder', {
-			pickedLat: selectedLocation.lat,
-			pickedLng: selectedLocation.lng,
-		});
-	}, [navigation, selectedLocation]);
+	};
 
-	useLayoutEffect(() => {
-		navigation.setOptions({
-			headerRight: ({ tintColor }) => (
-				<IconButton
-					icon='save'
-					size={24}
-					color={tintColor}
-					onPress={savePickedLocationHandler}
-				/>
-			),
-		});
-	}, [navigation, savePickedLocationHandler]);
+	const onPlaceSelected = (data, details, label) => {
+		// const details = GooglePlaceDetail;
+		// flag = 'origin' | 'destination'
+		// const set = flag === 'origin' ? setOrigin : setDestination;
+		console.log('DETAILS ————— GEOMETRY', details.geometry.location);
+		let position = {
+			latitude: details.geometry.location.lat,
+			longitude: details.geometry.location.lng,
+		};
+		if (label === 'origin') setOrigin(position);
+		else {
+			setDestination(position);
+		}
+		console.log('POSITION post set —————', position);
+		moveTo(position);
+		console.log('POSITION MOVE TO — ', position);
+	};
 
 	return (
 		<>
-			<Search />
 			<Map
+				ref={mapRef}
 				provider={PROVIDER_GOOGLE}
-				initialRegion={INITIAL_POSITION}
-				region={region}
-				// onRegionChange={setRegion}
-				onPress={selectLocationHandler}>
-				{selectedLocation && (
-					<Marker
-						title='Picked Location'
-						coordinate={{
-							latitude: selectedLocation.lat,
-							longitude: selectedLocation.lng,
-						}}
-					/>
-				)}
-			</Map>
+				initialRegion={INITIAL_POSITION}></Map>
+			<SearchContainer>
+				<GooglePlacesAutocomplete
+					label={'origin'}
+					placeholder={'Origin'}
+					fetchDetails={true}
+					onPress={(data, details, label) => {
+						// 'details' is provided when fetchDetails = true
+						console.log('DATA ———— ', data);
+						console.log('DETAILS ——— ', details);
+						onPlaceSelected(data, details, label);
+					}}
+					query={{
+						key: GOOGLE_API_KEY,
+						language: 'en',
+					}}
+				/>
+				<GooglePlacesAutocomplete
+					label={'destination'}
+					placeholder={'Destination'}
+					fetchDetails={true}
+					onPress={(data, details, label) => {
+						// 'details' is provided when fetchDetails = true
+						console.log(data, details);
+						onPlaceSelected(data, details, label);
+					}}
+					query={{
+						key: GOOGLE_API_KEY,
+						language: 'en',
+					}}
+				/>
+			</SearchContainer>
 		</>
 	);
 };
+
+// const InputAutoComplete = (label, placeholder, onPlaceSelected) => {
+// 	return (
+// 		<>
+// 			{/* <Text>{label}</Text> */}
+// 			<View>
+// 				<
+// 			</View>
+// 		</>
+// 	);
+// };
+
+// region={region}
+// onRegionChange={setRegion}
+// onPress={selectLocationHandler}>
+// {selectedLocation && (
+// 	<Marker
+// 		title='Picked Location'
+// 		coordinate={{
+// 			latitude: selectedLocation.lat,
+// 			longitude: selectedLocation.lng,
+// 		}}
+// />
+
+// const mapRef =
+
+// useEffect(() => {
+// 	setSearchKeyword(keyword);
+// }, [keyword]);
+// useCallback(, [navigation, selectedLocation])
+
+// function onRegionChange(region) {
+// 	setRegion(region);
+// }
+
+// function selectLocationHandler(event) {
+// 	const lat = event.nativeEvent.coordinate.latitude;
+// 	const lng = event.nativeEvent.coordinate.longitude;
+
+// 	setSelectedLocation({ lat: lat, lng: lng });
+// }
+
+// const savePickedLocationHandler = useCallback(() => {
+// 	if (!selectedLocation) {
+// 		Alert.alert(
+// 			'No location picked!',
+// 			'You have to pick a location (by tapping on the map) first!'
+// 		);
+// 		return;
+// 	}
+// 	navigation.navigate('Location Finder', {
+// 		pickedLat: selectedLocation.lat,
+// 		pickedLng: selectedLocation.lng,
+// 	});
+// }, [navigation, selectedLocation]);
+
+// useLayoutEffect(() => {
+// 	navigation.setOptions({
+// 		headerRight: ({ tintColor }) => (
+// 			<IconButton
+// 				icon='save'
+// 				size={24}
+// 				color={tintColor}
+// 				onPress={savePickedLocationHandler}
+// 			/>
+// 		),
+// 	});
+// }, [navigation, savePickedLocationHandler]);
+
+{
+	/* <InputAutoComplete
+					label='Origin'
+					placeholder='Origin'
+					onPlaceSelected={(details) => {
+						onPlaceSelected(details, 'origin');
+					}}
+				/> */
+}
+{
+	/* <InputAutoComplete
+					label='Destination'
+					placeholder='Destination'
+					onPlaceSelected={function (details) {
+						onPlaceSelected(details, 'destination');
+					}}
+				/> */
+}
