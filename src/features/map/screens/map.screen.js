@@ -15,6 +15,8 @@ import MapView, {
 	animateCamera,
 	LatLng,
 } from 'react-native-maps';
+
+import MapViewDirections from 'react-native-maps-directions';
 import { IconButton } from 'react-native-paper';
 
 import styled from 'styled-components/native';
@@ -34,7 +36,7 @@ const SearchContainer = styled.View`
 	padding: ${(props) => props.theme.space[3]};
 	position: absolute;
 	z-index: 999;
-	top: ${Constants.statusBarHeight};
+	top: ${Constants.statusBarHeight}px;
 	width: 100%;
 `;
 
@@ -76,8 +78,12 @@ export const MapScreen = ({ navigation }) => {
 			latitude: details.geometry.location.lat,
 			longitude: details.geometry.location.lng,
 		};
-		if (label === 'origin') setOrigin(position);
-		else {
+		if (label === 'origin') {
+			console.log('POSITION PRE setOrigin — ');
+			setOrigin(position);
+			console.log('ORIGIN post setOrigin(position) — ', origin);
+		}
+		if (label === 'destination') {
 			setDestination(position);
 		}
 		console.log('POSITION post set —————', position);
@@ -90,17 +96,26 @@ export const MapScreen = ({ navigation }) => {
 			<Map
 				ref={mapRef}
 				provider={PROVIDER_GOOGLE}
-				initialRegion={INITIAL_POSITION}></Map>
+				initialRegion={INITIAL_POSITION}>
+				{/* {console.log('ORIGIN near marker render — ', origin)} */}
+				{origin && <Map.Marker coordinate={origin} />}
+				{destination && <Map.Marker coordinate={destination} />}
+				<MapViewDirections
+					origin={origin}
+					destination={destination}
+					apikey={GOOGLE_API_KEY}
+				/>
+			</Map>
 			<SearchContainer>
 				<GooglePlacesAutocomplete
-					label={'origin'}
+					label='origin'
 					placeholder={'Origin'}
 					fetchDetails={true}
-					onPress={(data, details, label) => {
+					onPress={(data, details) => {
 						// 'details' is provided when fetchDetails = true
 						console.log('DATA ———— ', data);
 						console.log('DETAILS ——— ', details);
-						onPlaceSelected(data, details, label);
+						onPlaceSelected(data, details, 'origin');
 					}}
 					query={{
 						key: GOOGLE_API_KEY,
@@ -108,13 +123,13 @@ export const MapScreen = ({ navigation }) => {
 					}}
 				/>
 				<GooglePlacesAutocomplete
-					label={'destination'}
+					label='destination'
 					placeholder={'Destination'}
 					fetchDetails={true}
-					onPress={(data, details, label) => {
+					onPress={(data, details) => {
 						// 'details' is provided when fetchDetails = true
 						console.log(data, details);
-						onPlaceSelected(data, details, label);
+						onPlaceSelected(data, details, 'destination');
 					}}
 					query={{
 						key: GOOGLE_API_KEY,
