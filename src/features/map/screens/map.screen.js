@@ -21,6 +21,7 @@ import { IconButton } from 'react-native-paper';
 
 import FormButton from '../../../components/UI/FormButton';
 import styled from 'styled-components/native';
+import { Text } from 'react-native-elements';
 
 // import { Search } from '../components/search.component';
 // import InputAutoComple
@@ -62,14 +63,25 @@ export const MapScreen = ({ navigation }) => {
 	const [origin, setOrigin] = useState('');
 	const [destination, setDestination] = useState('');
 	const [showDirections, setShowDirections] = useState(false);
+	const [distance, setDistance] = useState(0);
+	const [duration, setDuration] = useState(0);
 
-	const edgePaddingValue = 50;
+	const edgePaddingValue = 75;
 
 	const edgePadding = {
 		top: edgePaddingValue,
 		right: edgePaddingValue,
 		bottom: edgePaddingValue,
 		left: edgePaddingValue,
+	};
+
+	const traceRouteOnReady = (args) => {
+		if (args) {
+			// args.distance
+			// args.duration
+			setDistance(args.distance);
+			setDuration(args.duration);
+		}
 	};
 
 	const traceRoute = async () => {
@@ -127,6 +139,7 @@ export const MapScreen = ({ navigation }) => {
 						apikey={GOOGLE_API_KEY}
 						strokeColor='#6644ff'
 						strokeWidth={4}
+						onReady={traceRouteOnReady}
 					/>
 				)}
 			</Map>
@@ -160,7 +173,15 @@ export const MapScreen = ({ navigation }) => {
 						language: 'en',
 					}}
 				/>
-				<FormButton buttonTitle='Trace Route' onPress={traceRoute} />
+				<View style={{ flexDirection: 'row' }}>
+					<FormButton buttonTitle='Trace Route' onPress={traceRoute} />
+					{distance && duration ? (
+						<View>
+							<Text h4>Distance: {distance.toFixed(2)}</Text>
+							<Text h4>Distance: {Math.ceil(duration)} minutes</Text>
+						</View>
+					) : null}
+				</View>
 			</SearchContainer>
 		</>
 	);
