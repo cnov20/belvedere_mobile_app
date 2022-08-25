@@ -29,9 +29,9 @@ export default function App() {
 		<>
 			<ThemeProvider theme={theme}>
 				<AuthenticationContextProvider>
-					<SafeArea>
-						<Navigation />
-					</SafeArea>
+					{/* <SafeArea> */}
+					<Navigation />
+					{/* </SafeArea> */}
 					<ExpoStatusBar style='auto' />
 				</AuthenticationContextProvider>
 			</ThemeProvider>

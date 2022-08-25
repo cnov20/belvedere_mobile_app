@@ -19,6 +19,7 @@ import MapView, {
 import MapViewDirections from 'react-native-maps-directions';
 import { IconButton } from 'react-native-paper';
 
+import FormButton from '../../../components/UI/FormButton';
 import styled from 'styled-components/native';
 
 // import { Search } from '../components/search.component';
@@ -26,6 +27,7 @@ import styled from 'styled-components/native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GOOGLE_API_KEY } from '../../../../environments';
 import Constants from 'expo-constants';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Map = styled(MapView)`
 	height: 100%;
@@ -59,6 +61,24 @@ export const MapScreen = ({ navigation }) => {
 	const [searchKeyword, setSearchKeyword] = useState('');
 	const [origin, setOrigin] = useState('');
 	const [destination, setDestination] = useState('');
+	const [showDirections, setShowDirections] = useState(false);
+
+	const edgePaddingValue = 50;
+
+	const edgePadding = {
+		top: edgePaddingValue,
+		right: edgePaddingValue,
+		bottom: edgePaddingValue,
+		left: edgePaddingValue,
+	};
+
+	const traceRoute = async () => {
+		const camera = await mapRef.current;
+		if (origin && destination) {
+			setShowDirections(true);
+			mapRef.current.fitToCoordinates([origin, destination], { edgePadding });
+		}
+	};
 
 	const moveTo = async (position) => {
 		const camera = await mapRef.current.getCamera();
@@ -100,11 +120,15 @@ export const MapScreen = ({ navigation }) => {
 				{/* {console.log('ORIGIN near marker render — ', origin)} */}
 				{origin && <Map.Marker coordinate={origin} />}
 				{destination && <Map.Marker coordinate={destination} />}
-				<MapViewDirections
-					origin={origin}
-					destination={destination}
-					apikey={GOOGLE_API_KEY}
-				/>
+				{showDirections && origin && destination && (
+					<MapViewDirections
+						origin={origin}
+						destination={destination}
+						apikey={GOOGLE_API_KEY}
+						strokeColor='#6644ff'
+						strokeWidth={4}
+					/>
+				)}
 			</Map>
 			<SearchContainer>
 				<GooglePlacesAutocomplete
@@ -136,6 +160,7 @@ export const MapScreen = ({ navigation }) => {
 						language: 'en',
 					}}
 				/>
+				<FormButton buttonTitle='Trace Route' onPress={traceRoute} />
 			</SearchContainer>
 		</>
 	);
