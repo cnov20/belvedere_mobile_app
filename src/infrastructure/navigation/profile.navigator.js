@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import ProfileScreen from '../../features/account/screens/ProfileScreen';
+import ProfileScreen from '../../features/account/screens/account-profile.screen';
 import EditProfileScreen from '../../features/settings/screens/edit-profile.screen';
 import ProfileEditScreen from '../../features/account/screens/account-edit-profile.screen';
 const Stack = createStackNavigator();
@@ -23,14 +23,15 @@ export const ProfileNavigator = ({ navigation }) => {
 				name='Profile Edit'
 				component={ProfileEditScreen}
 				options={{
-					headerTitle: 'Edit Profile',
-					headerBackTitleVisible: false,
-					headerTitleAlign: 'center',
-					headerStyle: {
-						backgroundColor: '#fff',
-						shadowColor: '#fff',
-						elevation: 0,
-					},
+					// headerTitle: 'Edit Profile',
+					// headerBackTitleVisible: false,
+					// headerTitleAlign: 'center',
+					// headerStyle: {
+					// 	backgroundColor: '#fff',
+					// 	shadowColor: '#fff',
+					// 	elevation: 4,
+					// },
+					headerShown: false,
 				}}
 			/>
 		</Stack.Navigator>

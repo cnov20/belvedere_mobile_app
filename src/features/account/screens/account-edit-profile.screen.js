@@ -25,6 +25,11 @@ import Animated from 'react-native-reanimated';
 // import firestore from '@react-native-firebase/firestore';
 // import storage from '@react-native-firebase/storage';
 
+import {
+	AccountCardBackground,
+	AccountCover,
+} from '../components/account.styles';
+
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
 import {
 	addDoc,
@@ -227,8 +232,10 @@ const ProfileEditScreen = () => {
 	const fall = new Animated.Value(1);
 
 	return (
-		<View style={styles.container}>
-			{/* <BottomSheet
+		<AccountCardBackground>
+			{/* <AccountCover> */}
+			<View style={styles.container}>
+				{/* <BottomSheet
 				ref={this.bs}
 				snapPoints={[330, -5]}
 				renderContent={this.renderInner}
@@ -237,39 +244,39 @@ const ProfileEditScreen = () => {
 				callbackNode={this.fall}
 				enabledGestureInteraction={true}
 			/> */}
-			<Animated.View
-				style={{
-					margin: 20,
-					opacity: Animated.add(0.5, Animated.multiply(this.fall, 1.0)),
-				}}>
-				<View style={{ alignItems: 'center' }}>
-					<TouchableOpacity onPress={() => this.bs.current.snapTo(0)}>
-						<View
-							style={{
-								height: 100,
-								width: 100,
-								borderRadius: 15,
-								justifyContent: 'center',
-								alignItems: 'center',
-							}}>
-							<ImageBackground
-								source={{
-									uri: image
-										? image
-										: userData
-										? userData.userImg ||
-										  'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg'
-										: 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg',
-								}}
-								style={{ height: 100, width: 100 }}
-								imageStyle={{ borderRadius: 15 }}>
-								<View
-									style={{
-										flex: 1,
-										justifyContent: 'center',
-										alignItems: 'center',
-									}}>
-									{/* <MaterialCommunityIcons
+				<Animated.View
+					style={{
+						margin: 20,
+						opacity: Animated.add(0.5, Animated.multiply(this.fall, 1.0)),
+					}}>
+					<View style={{ alignItems: 'center' }}>
+						<TouchableOpacity onPress={() => this.bs.current.snapTo(0)}>
+							<View
+								style={{
+									height: 100,
+									width: 100,
+									borderRadius: 15,
+									justifyContent: 'center',
+									alignItems: 'center',
+								}}>
+								<ImageBackground
+									source={{
+										uri: image
+											? image
+											: userData
+											? userData.userImg ||
+											  'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg'
+											: 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg',
+									}}
+									style={{ height: 100, width: 100 }}
+									imageStyle={{ borderRadius: 15 }}>
+									<View
+										style={{
+											flex: 1,
+											justifyContent: 'center',
+											alignItems: 'center',
+										}}>
+										{/* <MaterialCommunityIcons
 										name='camera'
 										size={35}
 										color='#fff'
@@ -282,89 +289,89 @@ const ProfileEditScreen = () => {
 											borderRadius: 10,
 										}}
 									/> */}
-								</View>
-							</ImageBackground>
-						</View>
-					</TouchableOpacity>
-					<Text style={{ marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>
-						{userData ? userData.fname : ''} {userData ? userData.lname : ''}
-					</Text>
-					{/* <Text>{user.uid}</Text> */}
-					{errorMessage ? <Text>{errorMessage}</Text> : null}
-				</View>
-				<View style={styles.action}>
-					{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
-					<TextInput
-						placeholder='First Name'
-						placeholderTextColor='#666666'
-						autoCorrect={false}
-						value={userData ? userData.fname : ''}
-						onChangeText={(txt) => setUserData({ ...userData, fname: txt })}
-						style={styles.textInput}
-					/>
-				</View>
-				<View style={styles.action}>
-					{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
-					<TextInput
-						placeholder='Last Name'
-						placeholderTextColor='#666666'
-						value={userData ? userData.lname : ''}
-						onChangeText={(txt) => setUserData({ ...userData, lname: txt })}
-						autoCorrect={false}
-						style={styles.textInput}
-					/>
-				</View>
-				<View style={styles.action}>
-					{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
-					<TextInput
-						placeholder='Current Password'
-						placeholderTextColor='#666666'
-						value={currentPassword}
-						onChangeText={setCurrentPassword}
-						autoCorrect={false}
-						style={styles.textInput}
-						secureTextEntry={true}
-					/>
-				</View>
-				<View style={styles.action}>
-					{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
-					<TextInput
-						placeholder='New Password'
-						placeholderTextColor='#666666'
-						value={newPassword}
-						onChangeText={setNewPassword}
-						autoCorrect={false}
-						style={styles.textInput}
-						secureTextEntry={true}
-					/>
-				</View>
-				<View style={styles.action}>
-					{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
-					<TextInput
-						placeholder='Current Email'
-						placeholderTextColor='#666666'
-						value={currentEmail}
-						onChangeText={setCurrentEmail}
-						autoCorrect={false}
-						style={styles.textInput}
-						// secureTextEntry={true}
-					/>
-				</View>
-				<View style={styles.action}>
-					{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
-					<TextInput
-						placeholder='New Email'
-						placeholderTextColor='#666666'
-						value={newEmail}
-						onChangeText={setNewEmail}
-						autoCorrect={false}
-						style={styles.textInput}
-						// secureTextEntry={true}
-					/>
-				</View>
-				{/* <View style={styles.action}>
+									</View>
+								</ImageBackground>
+							</View>
+						</TouchableOpacity>
+						<Text style={{ marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>
+							{userData ? userData.fname : ''} {userData ? userData.lname : ''}
+						</Text>
+						{/* <Text>{user.uid}</Text> */}
+						{errorMessage ? <Text>{errorMessage}</Text> : null}
+					</View>
+					<View style={styles.action}>
+						{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
+						<TextInput
+							placeholder='First Name'
+							placeholderTextColor='#666666'
+							autoCorrect={false}
+							value={userData ? userData.fname : ''}
+							onChangeText={(txt) => setUserData({ ...userData, fname: txt })}
+							style={styles.textInput}
+						/>
+					</View>
+					<View style={styles.action}>
+						{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
+						<TextInput
+							placeholder='Last Name'
+							placeholderTextColor='#666666'
+							value={userData ? userData.lname : ''}
+							onChangeText={(txt) => setUserData({ ...userData, lname: txt })}
+							autoCorrect={false}
+							style={styles.textInput}
+						/>
+					</View>
+					<View style={styles.action}>
+						{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
+						<TextInput
+							placeholder='Current Password'
+							placeholderTextColor='#666666'
+							value={currentPassword}
+							onChangeText={setCurrentPassword}
+							autoCorrect={false}
+							style={styles.textInput}
+							secureTextEntry={true}
+						/>
+					</View>
+					<View style={styles.action}>
+						{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
+						<TextInput
+							placeholder='New Password'
+							placeholderTextColor='#666666'
+							value={newPassword}
+							onChangeText={setNewPassword}
+							autoCorrect={false}
+							style={styles.textInput}
+							secureTextEntry={true}
+						/>
+					</View>
+					<View style={styles.action}>
+						{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
+						<TextInput
+							placeholder='Current Email'
+							placeholderTextColor='#666666'
+							value={currentEmail}
+							onChangeText={setCurrentEmail}
+							autoCorrect={false}
+							style={styles.textInput}
+							// secureTextEntry={true}
+						/>
+					</View>
+					<View style={styles.action}>
+						{/* <FontAwesome name='user-o' color='#333333' size={20} /> */}
+						<TextInput
+							placeholder='New Email'
+							placeholderTextColor='#666666'
+							value={newEmail}
+							onChangeText={setNewEmail}
+							autoCorrect={false}
+							style={styles.textInput}
+							// secureTextEntry={true}
+						/>
+					</View>
+					{/* <View style={styles.action}>
 					{/* <Ionicons name='ios-clipboard-outline' color='#333333' size={20} /> */}
-				{/* <TextInput
+					{/* <TextInput
 						multiline
 						numberOfLines={3}
 						placeholder='About Me'
@@ -374,22 +381,22 @@ const ProfileEditScreen = () => {
 						autoCorrect={true}
 						style={[styles.textInput, { height: 40 }]}
 					/> */}
-				{/* </View>  */}
-				<View style={styles.action}>
-					{/* <Feather name='phone' color='#333333' size={20} /> */}
-					<TextInput
-						placeholder='Phone'
-						placeholderTextColor='#666666'
-						keyboardType='number-pad'
-						autoCorrect={false}
-						value={userData ? userData.phone : ''}
-						onChangeText={(txt) => setUserData({ ...userData, phone: txt })}
-						style={styles.textInput}
-					/>
-				</View>
-				{/* <View style={styles.action}> */}
-				{/* <FontAwesome name='globe' color='#333333' size={20} /> */}
-				{/* <TextInput
+					{/* </View>  */}
+					<View style={styles.action}>
+						{/* <Feather name='phone' color='#333333' size={20} /> */}
+						<TextInput
+							placeholder='Phone'
+							placeholderTextColor='#666666'
+							keyboardType='number-pad'
+							autoCorrect={false}
+							value={userData ? userData.phone : ''}
+							onChangeText={(txt) => setUserData({ ...userData, phone: txt })}
+							style={styles.textInput}
+						/>
+					</View>
+					{/* <View style={styles.action}> */}
+					{/* <FontAwesome name='globe' color='#333333' size={20} /> */}
+					{/* <TextInput
 						placeholder='Country'
 						placeholderTextColor='#666666'
 						autoCorrect={false}
@@ -397,28 +404,30 @@ const ProfileEditScreen = () => {
 						onChangeText={(txt) => setUserData({ ...userData, country: txt })}
 						style={styles.textInput}
 					/> */}
-				{/* </View> */}
-				{/* <View style={styles.action}> */}
-				{/* <MaterialCommunityIcons
+					{/* </View> */}
+					{/* <View style={styles.action}> */}
+					{/* <MaterialCommunityIcons
 						name='map-marker-outline'
 						color='#333333'
 						size={20}
 					/> */}
-				{/* <TextInput */}
-				{/* placeholder='City'
+					{/* <TextInput */}
+					{/* placeholder='City'
 						placeholderTextColor='#666666'
 						autoCorrect={false}
 						value={userData ? userData.city : ''}
 						onChangeText={(txt) => setUserData({ ...userData, city: txt })}
 						style={styles.textInput}
 					/> */}
-				{/* </View> */}
-				<View style={[styles.action]}>
-					<FormButton buttonTitle='Update' onPress={handleUpdate} />
-					<FormButton buttonTitle='Delete' onPress={deleteUserDBndFB} />
-				</View>
-			</Animated.View>
-		</View>
+					{/* </View> */}
+					<View style={[styles.action]}>
+						<FormButton buttonTitle='Update' onPress={handleUpdate} />
+						<FormButton buttonTitle='Delete' onPress={deleteUserDBndFB} />
+					</View>
+				</Animated.View>
+			</View>
+			{/* </AccountCover> */}
+		</AccountCardBackground>
 	);
 };
 
@@ -427,7 +436,7 @@ export default ProfileEditScreen;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		// backgroundColor: '#fff',
 	},
 	commandButton: {
 		padding: 15,

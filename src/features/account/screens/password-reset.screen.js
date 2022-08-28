@@ -85,7 +85,7 @@ export const ResetPassword = () => {
 				</Spacer>
 				<Spacer size='large'>
 					<AuthButton
-						icon='lock-open-outline'
+						// icon='lock-open-outline'
 						mode='contained'
 						onPress={() => doUserPasswordReset()}>
 						Reset Password

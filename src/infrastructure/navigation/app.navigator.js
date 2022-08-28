@@ -10,7 +10,9 @@ import { ProfileNavigator } from './profile.navigator';
 // // import { SettingsNavigator } from "./settings.navigator";
 import { MapScreen } from '../../features/map/screens/map.screen';
 import AccountHomeScreen from '../../features/account/screens/account-home.screen';
-import ProfileScreen from '../../features/account/screens/ProfileScreen';
+import ProfileScreen from '../../features/account/screens/account-profile.screen';
+import AccountInfoCard from '../../features/account/components/account-info-card.component';
+import { AccountBackground } from '../../features/account/components/account.styles';
 
 // // import { RestaurantsContextProvider } from '../../services/restaurants/restaurants.context';
 // // import { LocationContextProvider } from '../../services/location/location.context';
@@ -18,11 +20,11 @@ import ProfileScreen from '../../features/account/screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
-const TAB_ICON = {
-	Restaurants: 'md-restaurant',
-	Map: 'md-map',
-	Settings: 'md-settings',
-};
+// const TAB_ICON = {
+// 	Restaurants: 'md-restaurant',
+// 	Map: 'md-map',
+// 	Settings: 'md-settings',
+// };
 
 // const createScreenOptions = ({ route }) => {
 // 	const iconName = TAB_ICON[route.name];
@@ -39,13 +41,19 @@ export const AppNavigator = () => (
 		screenOptions={{
 			headerShown: false,
 			// header
+			tabBarIconStyle: { display: 'none' },
+			tabBarLabelPosition: 'beside-icon',
+			tabBarLabelStyle: {
+				fontWeight: '700',
+				fontSize: 12,
+			},
 		}}
 		tabBarOptions={{
 			activeTintColor: 'blue',
 			inactiveTintColor: 'gray',
 		}}>
 		{/* <Tab.Screen name='Restaurants' component={RestaurantsNavigator} />*/}
-		<Tab.Screen name='Account Home' component={DrawerNavigator} />
+		<Tab.Screen name='Account Home' component={ProfileNavigator} />
 		<Tab.Screen
 			name='Map'
 			component={MapScreen}
@@ -56,14 +64,12 @@ export const AppNavigator = () => (
 		<Tab.Screen
 			name='Profile'
 			component={ProfileNavigator}
-			options={
-				{
-					// tabBarLabel: 'Home',
-					// tabBarIcon: ({ color, size }) => (
-					// <Ionicons name='person-outline' color={color} size={size} />
-					// ),
-				}
-			}
+			options={{
+				tabBarLabel: 'Profile',
+				// tabBarIcon: ({ color, size }) => (
+				// 	<Ionicons name='person-outline' color={color} size={size} />
+				// ),
+			}}
 		/>
 	</Tab.Navigator>
 );

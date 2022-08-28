@@ -19,7 +19,7 @@ export const AccountCover = styled.View`
 `;
 
 export const AccountContainer = styled.View`
-	background-color: rgba(255, 255, 255, 0.25);
+	// background-color: rgba(255, 255, 255, 0.25);
 	padding: ${(props) => props.theme.space[4]};
 	margin-top: ${(props) => props.theme.space[2]};
 `;
@@ -27,8 +27,16 @@ export const AccountContainer = styled.View`
 export const AuthButton = styled(Button).attrs({
 	color: colors.brand.primary,
 })`
+	width: 250px;
 	padding: ${(props) => props.theme.space[2]};
+	align-items: center;
+	justify-content: right;
 `;
+
+// export const AuthButtonOpaque = styled.Button`
+// 	background-color: rgba(0, 255, 0, 0.5),
+// 	padding: ${(props) => props.theme.space[2]};
+// `;
 
 export const AuthInput = styled(TextInput).attrs({
 	color: colors.brand.primary,

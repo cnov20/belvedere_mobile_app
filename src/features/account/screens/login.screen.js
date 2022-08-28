@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-// import { Text } from 'react-native-paper';
+// import { Button } from 'react-native-paper';
 import {
 	AccountBackground,
 	AccountCover,
@@ -12,7 +12,7 @@ import {
 import { Text } from '../../../components/typography/text.component';
 import { Spacer } from '../../../components/spacer/spacer.component';
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
-
+import { View } from 'react-native';
 import { ActivityIndicator, Colors } from 'react-native-paper';
 // import { auth } from 'firebaseui';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -35,6 +35,12 @@ export const LoginScreen = ({ navigation }) => {
 	return (
 		<AccountBackground>
 			<AccountCover />
+			{/* <View
+				style={{
+					justifyContent: 'center', //Centered vertically
+					alignItems: 'center', // Centered horizontally
+					flex: 1,
+				}}></View> */}
 			<AccountContainer>
 				<AuthInput
 					label='E-mail'
@@ -56,42 +62,58 @@ export const LoginScreen = ({ navigation }) => {
 					/>
 				</Spacer>
 
-				<Spacer size='large'>
+				<Spacer size='xlarge'>
 					{!isLoading ? (
-						<AuthButton
-							icon='lock-open-outline'
-							mode='contained'
-							onPress={() => {
-								if (email != '' && password != '') {
-									onLogin(email, password);
-								} else {
-									error && (
-										<ErrorContainer size='large'>
-											<Text variant='error'>{errorMessage}</Text>
-										</ErrorContainer>
-									);
-									console.log('ERROR: ', error);
-								}
+						<View
+							style={{
+								justifyContent: 'center', //Centered vertically
+								alignItems: 'center', // Centered horizontally
+								// flex: 1,
 							}}>
-							Login
-						</AuthButton>
+							<AuthButton
+								// icon='lock-open-outline'
+								mode='outlined'
+								// compact={true}
+								onPress={() => {
+									if (email != '' && password != '') {
+										onLogin(email, password);
+									} else {
+										error && (
+											<ErrorContainer size='large'>
+												<Text variant='error'>{errorMessage}</Text>
+											</ErrorContainer>
+										);
+										console.log('ERROR: ', error);
+									}
+								}}>
+								Sign In
+							</AuthButton>
+						</View>
 					) : (
 						<ActivityIndicator animating={true} color={Colors.blue300} />
 					)}
 				</Spacer>
+				<Spacer size='large'>
+					<View
+						style={{
+							justifyContent: 'center', //Centered vertically
+							alignItems: 'center', // Centered horizontally
+							// flex: 1,
+						}}>
+						<AuthButton
+							mode='contained'
+							onPress={() => navigation.navigate('Reset Password')}>
+							Forgot Password
+						</AuthButton>
+					</View>
+				</Spacer>
 			</AccountContainer>
-			<Spacer size='large'>
-				<AuthButton
-					mode='contained'
-					onPress={() => navigation.navigate('Reset Password')}>
-					Forgot Password
-				</AuthButton>
-			</Spacer>
-			<Spacer size='large'>
-				<AuthButton mode='contained' onPress={() => navigation.goBack()}>
+
+			{/* <Spacer size='xxlarge'>
+				<AuthButton mode='outlined' onPress={() => navigation.goBack()}>
 					Back
 				</AuthButton>
-			</Spacer>
+			</Spacer> */}
 		</AccountBackground>
 	);
 };

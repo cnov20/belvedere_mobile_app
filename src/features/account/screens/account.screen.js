@@ -7,11 +7,13 @@ import {
 	AccountContainer,
 	AccountCover,
 	AuthButton,
+	AuthButtonOpaque,
 	Title,
 	AnimationWrapper,
 } from '../components/account.styles';
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
 import { onAuthStateChanged } from 'firebase/auth';
+import { View } from 'react-native-web';
 
 const AccountScreen = ({ navigation }) => {
 	const { auth, onLogin } = useContext(AuthenticationContext);
@@ -37,30 +39,32 @@ const AccountScreen = ({ navigation }) => {
 					source={require('../../../../assets/watermelon.json')}
 				/>
 			</AnimationWrapper>
-			<Title>Belvedere Vodka</Title>
-			<AccountContainer>
+			{/* <Title>Belvedere Vodka</Title> */}
+			{/* <AccountContainer> */}
+			{/* <View style={{ backgroundColor: 'rgba(255, 0, 255, 1.0)' }}> */}
+			<AuthButton
+				// /* // icon='lock-open-outline'
+				mode='outlined'
+				onPress={() => navigation.navigate('Login')}>
+				Sign In
+			</AuthButton>
+			{/* </View> */}
+			<Spacer size='large'>
 				<AuthButton
-					icon='lock-open-outline'
+					// icon='email'
 					mode='contained'
-					onPress={() => navigation.navigate('Login')}>
-					Login
+					onPress={() => navigation.navigate('Register')}>
+					Create Account
 				</AuthButton>
-				<Spacer size='large'>
-					<AuthButton
-						icon='email'
-						mode='contained'
-						onPress={() => navigation.navigate('Register')}>
-						Register
-					</AuthButton>
-				</Spacer>
-				{/* <GoogleSigninButton
+			</Spacer>
+			{/* <GoogleSigninButton
 					style={{ width: 192, height: 48 }}
 					size={GoogleSigninButton.Size.Wide}
 					color={GoogleSigninButton.Color.Dark}
 					onPress={this._signIn}
 					disabled={this.state.isSigninInProgress}
 				/> */}
-			</AccountContainer>
+			{/* x</AccountContainer> */}
 		</AccountBackground>
 	);
 };

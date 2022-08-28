@@ -131,10 +131,10 @@ const AccountInfoCard = () => {
 					{/* <SocialIcon type='facebook' /> */}
 					{/* <Icon name='rocket' size={30} color='#900' /> */}
 
+					{/* <Avatar.Icon icon='folder' />
 					<Avatar.Icon icon='folder' />
 					<Avatar.Icon icon='folder' />
-					<Avatar.Icon icon='folder' />
-					<Avatar.Icon icon='folder' />
+					<Avatar.Icon icon='folder' /> */}
 
 					{/* <Avatar.Text size={24} label='FB' /> */}
 				</View>

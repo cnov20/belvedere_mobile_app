@@ -23,6 +23,8 @@ import LocationFinderScreen from '../../features/account/screens/location-finder
 import HowThisWorksScreen from '../../features/account/screens/how-this-works.screen';
 import PrivacyPolicyScreen from '../../features/account/screens/privacy-policy.screen';
 import TermsAndConditionsScreen from '../../features/account/screens/terms-and-conditions.screen';
+import { ProfileNavigator } from './profile.navigator';
+import ProfileScreen from '../../features/account/screens/account-profile.screen';
 
 const Drawer = createDrawerNavigator();
 
@@ -38,7 +40,7 @@ export default function DrawerNavigator({ navigation }) {
 			}}>
 			<Drawer.Screen
 				name='Account Home'
-				component={AccountHomeScreen}
+				component={ProfileNavigator}
 				options={{
 					// headerStyle: {
 					// 	opacity: 1,
