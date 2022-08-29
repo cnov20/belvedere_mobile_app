@@ -9,13 +9,17 @@ import {
 } from 'react-native';
 
 import QRCode from 'react-native-qrcode-svg';
+import { AccountBackground } from '../components/account.styles';
+import { AccountCover } from '../components/account.styles';
 
 const DrinkOrderScreen = () => {
 	const [inputText, setInputText] = useState('');
 	const [qrvalue, setQrvalue] = useState('');
 
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
+		// <SafeAreaView style={{ flex: 1 }}>
+		<AccountBackground>
+			<AccountCover />
 			<View style={styles.container}>
 				<Text style={styles.titleStyle}>That's The Ticket!</Text>
 				<Text style={styles.titleStyle}>QR Code — Drink Order — Generator</Text>
@@ -50,14 +54,15 @@ const DrinkOrderScreen = () => {
 					Present this QR Code — to the — Belvedere Mobile Bar — to begin!
 				</Text>
 			</View>
-		</SafeAreaView>
+		</AccountBackground>
+		// </SafeAreaView>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: 'white',
+		// backgroundColor: 'white',
 		justifyContent: 'center',
 		alignItems: 'center',
 		textAlign: 'center',

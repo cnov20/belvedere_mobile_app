@@ -27,6 +27,7 @@ export const AccountContainer = styled.View`
 export const AuthButton = styled(Button).attrs({
 	color: colors.brand.primary,
 })`
+	// font-size: 10px;
 	width: 250px;
 	padding: ${(props) => props.theme.space[2]};
 	align-items: center;
@@ -71,7 +72,7 @@ export const AnimationWrapper = styled.View`
 export const AccountCardBackground = styled.ImageBackground.attrs({
 	source: require('../../../../assets/mwn-module-01-arm-with-bottle.jpeg'),
 })`
-	flex: 1;
+	// flex: 1;
 	// align-items: center;
 	// justify-content: center;
 `;

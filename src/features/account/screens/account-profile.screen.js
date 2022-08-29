@@ -17,7 +17,9 @@ import {
 	AccountCover,
 	CardContainer,
 	CardButton,
+	AuthButton,
 } from '../components/account.styles';
+import { Spacer } from '../../../components/spacer/spacer.component';
 
 // import { AuthContext } from '../navigation/AuthProvider';
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
@@ -31,65 +33,86 @@ const ProfileScreen = ({ navigation, route }) => {
 	const { onLogout, user, auth } = useContext(AuthenticationContext);
 
 	return (
-		<SafeAreaView style={styles.container}>
-			<AccountCardBackground>
-				{/* <AccountCover> */}
-				<CardContainer>
-					<Card style={{ flex: 2 }}>
-						<ScrollView
-							style={styles.container}
-							contentContainerStyle={{
-								justifyContent: 'center',
-								alignItems: 'center',
-							}}
-							showsVerticalScrollIndicator={false}>
-							<Image
-								style={styles.userImg}
-								source={require('../../../../assets/user-8.jpg')}></Image>
-							<Text style={styles.userName}>Jane(lle) Doe</Text>
-							<Text style={styles.aboutUser}>New York, NY</Text>
-							{/* <AccountInfoCard> */}
-							<View style={styles.userBtnWrapper}>
-								{route.params ? (
-									<>
-										<TouchableOpacity style={styles.userBtn} onPress={() => {}}>
-											<Text style={styles.userBtnTxt}>Message</Text>
-										</TouchableOpacity>
-										<TouchableOpacity style={styles.userBtn} onPress={() => {}}>
-											<Text style={styles.userBtnTxt}>Follow</Text>
-										</TouchableOpacity>
-									</>
-								) : (
-									<>
-										<TouchableOpacity
-											style={styles.userBtn}
-											onPress={() => {
-												navigation.navigate('Profile Edit');
-											}}>
-											<Text style={styles.userBtnTxt}>Edit</Text>
-										</TouchableOpacity>
-										<TouchableOpacity
-											style={styles.userBtn}
-											onPress={() => onLogout()}>
-											<Text style={styles.userBtnTxt}>Logout</Text>
-										</TouchableOpacity>
-									</>
-								)}
-							</View>
+		// <SafeAreaView>
+		<AccountCardBackground>
+			{/* <AccountCover> */}
+			<CardContainer>
+				<Card style={{ flex: 1 }}>
+					<ScrollView
+						style={styles.container}
+						contentContainerStyle={{
+							justifyContent: 'center',
+							alignItems: 'center',
+						}}
+						showsVerticalScrollIndicator={false}>
+						<Image
+							style={styles.userImg}
+							source={require('../../../../assets/user-8.jpg')}></Image>
+						<Text style={styles.userName}>Jane(lle) Doe</Text>
+						<Text style={styles.aboutUser}>New York, NY</Text>
+						{/* <AccountInfoCard> */}
+						<View style={styles.userBtnWrapper}>
+							{route.params ? (
+								<>
+									<TouchableOpacity style={styles.userBtn} onPress={() => {}}>
+										<Text style={styles.userBtnTxt}>Message</Text>
+									</TouchableOpacity>
+									<TouchableOpacity style={styles.userBtn} onPress={() => {}}>
+										<Text style={styles.userBtnTxt}>Follow</Text>
+									</TouchableOpacity>
+								</>
+							) : (
+								<>
+									<TouchableOpacity
+										style={styles.userBtn}
+										onPress={() => {
+											navigation.navigate('Profile Edit');
+										}}>
+										<Text style={styles.userBtnTxt}>Edit</Text>
+									</TouchableOpacity>
+									<TouchableOpacity
+										style={styles.userBtn}
+										onPress={() => onLogout()}>
+										<Text style={styles.userBtnTxt}>Logout</Text>
+									</TouchableOpacity>
+								</>
+							)}
+						</View>
 
-							<View style={styles.userInfoWrapper}>
-								<View style={styles.userInfoItem}>
-									<Text style={styles.userInfoTitle}>20</Text>
-									<Text style={styles.userInfoSubTitle}>Posts</Text>
-								</View>
+						<View style={styles.userInfoWrapper}>
+							<View style={styles.userInfoItem}>
+								<Card.Actions style={{ flexDirection: 'column' }}>
+									<Spacer size='large'>
+										<AuthButton
+											mode='contained'
+											onPress={() => navigation.navigate('Drink Order Screen')}>
+											Yes, Let's Order A Drink!
+										</AuthButton>
+									</Spacer>
+									<Spacer size='xlarge'>
+										<AuthButton
+											mode='contained'
+											onPress={() => navigation.navigate('Map')}>
+											Mobile Bar Experience — Locations
+										</AuthButton>
+									</Spacer>
+									<Spacer size='medium'>
+										<AuthButton
+											mode='contained'
+											onPress={() => navigation.navigate('How This Works')}>
+											How Does This Work?
+										</AuthButton>
+									</Spacer>
+								</Card.Actions>
 							</View>
-							{/* </AccountInfoCard> */}
-						</ScrollView>
-					</Card>
-				</CardContainer>
-				{/* </AccountCover> */}
-			</AccountCardBackground>
-		</SafeAreaView>
+						</View>
+						{/* </AccountInfoCard> */}
+					</ScrollView>
+				</Card>
+			</CardContainer>
+			{/* </AccountCover> */}
+		</AccountCardBackground>
+		// </SafeAreaView>
 	);
 };
 

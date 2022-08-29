@@ -28,6 +28,9 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.29,
 		shadowRadius: 4.65,
 		elevation: 7,
+		// justifyContent: 'center',
+		// alignItems: 'center',
+		// flex: 1,
 	},
 	image: {
 		width: ITEM_WIDTH,
@@ -43,7 +46,6 @@ const styles = StyleSheet.create({
 	body: {
 		color: '#222',
 		fontSize: 18,
-		paddingLeft: 20,
 		paddingLeft: 20,
 		paddingRight: 20,
 	},

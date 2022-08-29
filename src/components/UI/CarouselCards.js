@@ -9,7 +9,13 @@ const CarouselCards = () => {
 	const [index, setIndex] = React.useState(0);
 
 	return (
-		<View>
+		<View
+			style={{
+				// justifyContent: 'center',
+				// alignItems: 'center',
+				// flex: 1,
+				marginTop: 50,
+			}}>
 			<Carousel
 				layout='tinder'
 				layoutCardOffset={9}
@@ -31,7 +37,7 @@ const CarouselCards = () => {
 					height: 15,
 					borderRadius: 5,
 					marginHorizontal: 0,
-					backgroundColor: 'rgba(0, 0, 0, 0.92)',
+					backgroundColor: 'rgba(0, 0, 0, 0.95)',
 				}}
 				inactiveDotOpacity={0.4}
 				inactiveDotScale={0.6}
