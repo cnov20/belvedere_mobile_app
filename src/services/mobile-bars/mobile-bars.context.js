@@ -1,6 +1,13 @@
-import React, { useState, createContext, useEffect, useMemo } from 'react';
-
+import React, {
+	useState,
+	useContext,
+	createContext,
+	useEffect,
+	useMemo,
+} from 'react';
 import { mobileBarsRequest, resultsTransform } from './mobile-bars.service';
+
+import { LocationContext } from '../location/location.context';
 
 export const MobileBarsContext = createContext();
 
@@ -9,10 +16,13 @@ export const MobileBarsContextProvider = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 
-	const retrieveBars = () => {
+	const { location } = useContext(LocationContext);
+
+	const retrieveBars = (loc) => {
 		setIsLoading(true);
+		setBars([]);
 		setTimeout(() => {
-			mobileBarsRequest()
+			mobileBarsRequest(loc)
 				.then(resultsTransform)
 				.then((results) => {
 					setIsLoading(false);
@@ -25,8 +35,12 @@ export const MobileBarsContextProvider = ({ children }) => {
 		}, 2000);
 	};
 	useEffect(() => {
-		retrieveBars();
-	}, []);
+		if (location) {
+			console.log('LOCATION MB CONTEXT — ', location);
+			const locationString = `${location.lat},${location.lng}`;
+			retrieveBars(locationString);
+		}
+	}, [location]);
 
 	console.log('MOBILE BARS — ', bars);
 	return (

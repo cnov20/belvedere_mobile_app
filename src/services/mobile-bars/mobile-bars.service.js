@@ -1,7 +1,7 @@
 import { mocks, mockImages } from './mock';
 import camelize from 'camelize';
 
-export const mobileBarsRequest = (location = '37.7749295,-122.4194155') => {
+export const mobileBarsRequest = (location) => {
 	return new Promise((resolve, reject) => {
 		const mock = mocks[location];
 		if (!mock) {
@@ -19,6 +19,7 @@ export const resultsTransform = ({ results = [] }) => {
 
 		return {
 			...bar,
+			address: bar.vicinity,
 			isOpenNow: bar.opening_hours && bar.opening_hours.open_now,
 			isClosedTemporarily: bar.business_status === 'CLOSED_TEMPORARILY',
 		};
