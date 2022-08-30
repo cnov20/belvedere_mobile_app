@@ -20,6 +20,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import { IconButton } from 'react-native-paper';
 
 import FormButton from '../../../components/UI/FormButton';
+import { BelvedereMobileBarInfoCard } from '../components/belvedere-mobile-bar-info-card';
 import styled from 'styled-components/native';
 import { Text } from 'react-native-elements';
 

@@ -13,6 +13,7 @@ import AccountHomeScreen from '../../features/account/screens/account-home.scree
 import ProfileScreen from '../../features/account/screens/account-profile.screen';
 import AccountInfoCard from '../../features/account/components/account-info-card.component';
 import { AccountBackground } from '../../features/account/components/account.styles';
+import SearchResultsScreen from '../../features/map/screens/search-results.screen';
 
 // // import { RestaurantsContextProvider } from '../../services/restaurants/restaurants.context';
 // // import { LocationContextProvider } from '../../services/location/location.context';
@@ -66,7 +67,7 @@ export const AppNavigator = () => (
 		/>
 		<Tab.Screen
 			name='Map'
-			component={MapScreen}
+			component={SearchResultsScreen}
 			options={{ headerShown: false }}
 		/>
 		<Tab.Screen name='Settings' component={SettingsNavigator} />

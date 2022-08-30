@@ -16,6 +16,7 @@ import {
 import { Colors } from '../../../constants/colors';
 import { getMapPreview } from './location';
 import AccountInfoCard from '../../account/components/account-info-card.component';
+import { BelvedereMobileBarInfoCard } from './belvedere-mobile-bar-info-card';
 
 function LocationPicker({ onPickLocation }) {
 	const [pickedLocation, setPickedLocation] = useState();

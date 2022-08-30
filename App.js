@@ -8,6 +8,9 @@ import { ThemeProvider } from 'styled-components/native';
 import { Navigation } from './src/infrastructure/navigation';
 
 import { AuthenticationContextProvider } from './src/services/authentication/authentication.context';
+import { MobileBarsContextProvider } from './src/services/mobile-bars/mobile-bars.context';
+
+// import { mobileBarsRequest } from './src/services/mobile-bars/mobile-bars.service';
 
 // import {
 //   useFonts as useOswald,
@@ -29,9 +32,9 @@ export default function App() {
 		<>
 			<ThemeProvider theme={theme}>
 				<AuthenticationContextProvider>
-					{/* <SafeArea> */}
-					<Navigation />
-					{/* </SafeArea> */}
+					<MobileBarsContextProvider>
+						<Navigation />
+					</MobileBarsContextProvider>
 					<ExpoStatusBar style='auto' />
 				</AuthenticationContextProvider>
 			</ThemeProvider>
