@@ -7,6 +7,7 @@ import { LoginScreen } from '../../features/account/screens/login.screen';
 import { RegisterScreen } from '../../features/account/screens/register.screen';
 import { RegisterFinalScreen } from '../../features/account/screens/register-final.screen';
 import { ResetPassword } from '../../features/account/screens/password-reset.screen';
+import SearchResultsScreen from '../../features/map/screens/search-results.screen';
 
 const Stack = createStackNavigator();
 
@@ -16,7 +17,7 @@ export const AccountNavigator = () => (
 		screenOptions={{
 			headerShown: false,
 		}}>
-		<Stack.Screen name='Main' component={AccountScreen} />
+		<Stack.Screen name='Main' component={SearchResultsScreen} />
 		<Stack.Screen name='Login' component={LoginScreen} />
 		<Stack.Screen name='Register' component={RegisterScreen} />
 		<Stack.Screen name='Register Final' component={RegisterFinalScreen} />

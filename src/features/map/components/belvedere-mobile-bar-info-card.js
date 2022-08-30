@@ -24,14 +24,14 @@ const Address = styled(Text)`
 
 const Title = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body}
-  padding: ${(props) => props.theme.space[3]};
+  padding: ${(props) => props.theme.space[2]};
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.body};
   color: ${(props) => props.theme.colors.ui.primary};
 `;
 
 const Info = styled.View`
-	padding: ${(props) => props.theme.space[3]};
+	padding: ${(props) => props.theme.space[2]};
 `;
 
 const Rating = styled.View`
