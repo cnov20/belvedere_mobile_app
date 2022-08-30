@@ -31,20 +31,23 @@ const RestaurantList = styled(FlatList).attrs({
 // `;
 
 const SearchResultsScreen = () => {
-	const mobileBarsContext = useContext(MobileBarsContext);
-	console.log('MOBILE BARS CONTEXT————— ', mobileBarsContext);
+	const { isLoading, error, bars } = useContext(MobileBarsContext);
+	// console.log('MOBILE BARS CONTEXT————— ', MobileBarsContext);
 	return (
 		<>
 			<SearchContainer>
 				<Searchbar />
 			</SearchContainer>
 			<RestaurantList
-				data={mobileBarsContext.bars}
-				renderItem={() => (
-					<Spacer position='bottom' size='large'>
-						<BelvedereMobileBarInfoCard />
-					</Spacer>
-				)}
+				data={bars}
+				renderItem={({ item }) => {
+					console.log(item);
+					return (
+						<Spacer position='bottom' size='large'>
+							<BelvedereMobileBarInfoCard bar={item} />
+						</Spacer>
+					);
+				}}
 				keyExtractor={(item) => item.name}
 			/>
 		</>

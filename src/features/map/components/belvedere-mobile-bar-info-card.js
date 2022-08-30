@@ -50,7 +50,7 @@ const SectionEnd = styled.View`
 	justify-content: flex-end;
 `;
 
-export const BelvedereMobileBarInfoCard = ({ bars = {} }) => {
+export const BelvedereMobileBarInfoCard = ({ bar = {} }) => {
 	const {
 		name = 'Some Restaurant',
 		icon = 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png',
@@ -61,7 +61,7 @@ export const BelvedereMobileBarInfoCard = ({ bars = {} }) => {
 		isOpenNow = true,
 		rating = 4,
 		isClosedTemporarily = true,
-	} = bars;
+	} = bar;
 
 	const ratingArray = Array.from(new Array(Math.floor(rating)));
 
