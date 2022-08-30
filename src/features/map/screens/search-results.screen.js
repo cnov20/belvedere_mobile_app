@@ -17,6 +17,8 @@ import { Spacer } from '../../../components/spacer/spacer.component';
 import { BelvedereMobileBarInfoCard } from '../components/belvedere-mobile-bar-info-card';
 import { MobileBarsContext } from '../../../services/mobile-bars/mobile-bars.context';
 
+import { Search } from '../../mobile-bars/components/search.component';
+
 const SearchContainer = styled.View`
 	padding: ${(props) => props.theme.space[3]};
 `;
@@ -51,9 +53,7 @@ const SearchResultsScreen = () => {
 					<Loading size={50} animating={true} color={Colors.blue300} />
 				</LoadingContainer>
 			)}
-			<SearchContainer>
-				<Searchbar />
-			</SearchContainer>
+			<Search />
 			<RestaurantList
 				data={bars}
 				renderItem={({ item }) => {
