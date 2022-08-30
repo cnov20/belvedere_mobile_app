@@ -9,6 +9,7 @@ import { Navigation } from './src/infrastructure/navigation';
 
 import { AuthenticationContextProvider } from './src/services/authentication/authentication.context';
 import { MobileBarsContextProvider } from './src/services/mobile-bars/mobile-bars.context';
+import { LocationContextProvider } from './src/services/location/location.context';
 
 // import { mobileBarsRequest } from './src/services/mobile-bars/mobile-bars.service';
 
@@ -31,12 +32,14 @@ export default function App() {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<AuthenticationContextProvider>
-					<MobileBarsContextProvider>
-						<Navigation />
-					</MobileBarsContextProvider>
-					<ExpoStatusBar style='auto' />
-				</AuthenticationContextProvider>
+				<LocationContextProvider>
+					<AuthenticationContextProvider>
+						<MobileBarsContextProvider>
+							<Navigation />
+						</MobileBarsContextProvider>
+						<ExpoStatusBar style='auto' />
+					</AuthenticationContextProvider>
+				</LocationContextProvider>
 			</ThemeProvider>
 		</>
 	);
