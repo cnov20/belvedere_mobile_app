@@ -8,7 +8,7 @@ export const MobileBarDetailsScreen = ({ route }) => {
 	const { bar } = route.params;
 	return (
 		<SafeArea>
-			<BelvedereMobileBarInfoCard restaurant={bar} />
+			<BelvedereMobileBarInfoCard bar={bar} />
 		</SafeArea>
 	);
 };

@@ -34,6 +34,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { LocationContext } from '../../../services/location/location.context';
 import { MobileBarsContext } from '../../../services/mobile-bars/mobile-bars.context';
+import { MapCallout } from '../components/map-callout.component';
 
 const SearchContainer = styled.View`
 	padding: ${(props) => props.theme.space[3]};
@@ -59,7 +60,7 @@ const Map = styled(MapView)`
 	width: 100%;
 `;
 
-export const MapScreen = () => {
+export const MapScreen = ({ navigation }) => {
 	const { location } = useContext(LocationContext);
 	const { bars = [] } = useContext(MobileBarsContext);
 
@@ -85,7 +86,24 @@ export const MapScreen = () => {
 					longitudeDelta: 0.02,
 				}}>
 				{bars.map((bar) => {
-					return null;
+					return (
+						<MapView.Marker
+							key={bar.name}
+							title={bar.name}
+							coordinate={{
+								latitude: bar.geometry.location.lat,
+								longitude: bar.geometry.location.lng,
+							}}>
+							<MapView.Callout
+								onPress={() =>
+									navigation.navigate('MobileBarDetailsScreen', {
+										bar,
+									})
+								}>
+								<MapCallout bar={bar} />
+							</MapView.Callout>
+						</MapView.Marker>
+					);
 				})}
 			</Map>
 		</>
