@@ -6,6 +6,7 @@ import {
 	SafeAreaView,
 	StyleSheet,
 	View,
+	TouchableOpacity,
 } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import { ActivityIndicator, Colors } from 'react-native-paper';
@@ -14,7 +15,7 @@ import styled from 'styled-components/native';
 
 import { Spacer } from '../../../components/spacer/spacer.component';
 
-import { BelvedereMobileBarInfoCard } from '../components/belvedere-mobile-bar-info-card';
+import { BelvedereMobileBarInfoCard } from '../../mobile-bars/components/belvedere-mobile-bar-info-card';
 import { MobileBarsContext } from '../../../services/mobile-bars/mobile-bars.context';
 
 import { Search } from '../../mobile-bars/components/search.component';
@@ -43,7 +44,7 @@ const LoadingContainer = styled.View`
 	left: 50%;
 `;
 
-const SearchResultsScreen = () => {
+const SearchResultsScreen = ({ navigation }) => {
 	const { isLoading, error, bars } = useContext(MobileBarsContext);
 	// console.log('MOBILE BARS CONTEXT————— ', MobileBarsContext);
 	return (
@@ -59,9 +60,16 @@ const SearchResultsScreen = () => {
 				renderItem={({ item }) => {
 					console.log(item);
 					return (
-						<Spacer position='bottom' size='large'>
-							<BelvedereMobileBarInfoCard bar={item} />
-						</Spacer>
+						<TouchableOpacity
+							onPress={() =>
+								navigation.navigate('MobileBarDetailsScreen', {
+									bar: item,
+								})
+							}>
+							<Spacer position='bottom' size='large'>
+								<BelvedereMobileBarInfoCard bar={item} />
+							</Spacer>
+						</TouchableOpacity>
 					);
 				}}
 				keyExtractor={(item) => item.name}
