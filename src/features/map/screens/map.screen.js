@@ -32,10 +32,8 @@ import { GOOGLE_API_KEY } from '../../../../environments';
 import Constants from 'expo-constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-// const Map = styled(MapView)`
-// 	height: 100%;
-// 	width: 100%;
-// `;
+import { LocationContext } from '../../../services/location/location.context';
+import { MobileBarsContext } from '../../../services/mobile-bars/mobile-bars.context';
 
 const SearchContainer = styled.View`
 	padding: ${(props) => props.theme.space[3]};
@@ -61,12 +59,39 @@ const Map = styled(MapView)`
 	width: 100%;
 `;
 
-export const MapScreen = () => (
-	<>
-		<MapSearch />
-		<Map />
-	</>
-);
+export const MapScreen = () => {
+	const { location } = useContext(LocationContext);
+	const { bars = [] } = useContext(MobileBarsContext);
+
+	const [latDelta, setLatDelta] = useState(0);
+
+	const { lat, lng, viewport } = location;
+
+	useEffect(() => {
+		const northeastLat = viewport.northeast.lat;
+		const southwestLat = viewport.southwest.lat;
+
+		setLatDelta(northeastLat - southwestLat);
+	}, [location, viewport]);
+
+	return (
+		<>
+			<MapSearch />
+			<Map
+				region={{
+					latitude: lat,
+					longitude: lng,
+					latitudeDelta: latDelta,
+					longitudeDelta: 0.02,
+				}}>
+				{bars.map((bar) => {
+					return null;
+				})}
+			</Map>
+		</>
+	);
+};
+
 // export const MapScreen = ({ navigation }) => {
 // 	const [selectedLocation, setSelectedLocation] = useState();
 // 	const [region, setRegion] = useState();

@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SettingsNavigator } from './settings.navigator';
 import DrawerNavigator from './drawer.navigator';
 import { ProfileNavigator } from './profile.navigator';
+
 // // import { RestaurantsNavigator } from "./restaurants.navigator";
 // // import { SettingsNavigator } from "./settings.navigator";
 import { MapScreen } from '../../features/map/screens/map.screen';
@@ -14,6 +15,7 @@ import ProfileScreen from '../../features/account/screens/account-profile.screen
 import AccountInfoCard from '../../features/account/components/account-info-card.component';
 import { AccountBackground } from '../../features/account/components/account.styles';
 import SearchResultsScreen from '../../features/map/screens/search-results.screen';
+import { RestaurantsNavigator } from './mobile-bars.navigator';
 
 // // import { RestaurantsContextProvider } from '../../services/restaurants/restaurants.context';
 // // import { LocationContextProvider } from '../../services/location/location.context';
@@ -57,7 +59,7 @@ export const AppNavigator = () => (
 		{/* <Tab.Screen name='Account Home' component={ProfileNavigator} /> */}
 		<Tab.Screen
 			name='Search Results'
-			component={SearchResultsScreen}
+			component={RestaurantsNavigator}
 			options={{ headerShown: false }}
 		/>
 		<Tab.Screen
