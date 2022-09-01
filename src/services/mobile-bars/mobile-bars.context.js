@@ -21,19 +21,19 @@ export const MobileBarsContextProvider = ({ children }) => {
 	const retrieveBars = (loc) => {
 		setIsLoading(true);
 		setBars([]);
-		setTimeout(() => {
-			mobileBarsRequest(loc)
-				.then(resultsTransform)
-				.then((results) => {
-					setIsLoading(false);
-					setBars(results);
-				})
-				.catch((err) => {
-					setIsLoading(false);
-					setError(err);
-				});
-		}, 2000);
+
+		mobileBarsRequest(loc)
+			.then(resultsTransform)
+			.then((results) => {
+				setIsLoading(false);
+				setBars(results);
+			})
+			.catch((err) => {
+				setIsLoading(false);
+				setError(err);
+			});
 	};
+
 	useEffect(() => {
 		if (location) {
 			console.log('LOCATION MB CONTEXT — ', location);
