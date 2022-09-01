@@ -1,4 +1,5 @@
 import camelize from 'camelize';
+import { host } from '../../../src/components/utility/env';
 
 import { locations } from '../../../functions/geocode/geocode.mock';
 
@@ -12,11 +13,9 @@ import { locations } from '../../../functions/geocode/geocode.mock';
 // 	});
 // };
 
+// `http://localhost:5001/belvedere-mobile-app/us-central1/geocode?city=${searchTerm}`
 export const locationRequest = (searchTerm) => {
-	return fetch(
-		// `http://localhost:5001/belvedere-mobile-app/us-central1/geocode?city=${searchTerm}`
-		`https://ff6d-154-6-22-107.ngrok.io/belvedere-mobile-app/us-central1/geocode?city=${searchTerm}`
-	).then((res) => {
+	return fetch(`${host}/geocode?city=${searchTerm}`).then((res) => {
 		return res.json();
 	});
 };

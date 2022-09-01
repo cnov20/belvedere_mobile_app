@@ -1,5 +1,5 @@
-// import { mocks, mockImages } from './mock';
 import camelize from 'camelize';
+import { host } from '../../../src/components/utility/env';
 
 // export const mobileBarsRequest = (location) => {
 // 	return new Promise((resolve, reject) => {
@@ -11,11 +11,9 @@ import camelize from 'camelize';
 // 	});
 // };
 
+// `http://localhost:5001/belvedere-mobile-app/us-central1/geocode?city=${searchTerm}`
 export const mobileBarsRequest = (location) => {
-	return fetch(
-		// `http://localhost:5001/belvedere-mobile-app/us-central1/geocode?city=${searchTerm}`
-		`https://ff6d-154-6-22-107.ngrok.io/belvedere-mobile-app/us-central1/placesNearby?location=${location}`
-	).then((res) => {
+	return fetch(`${host}/placesNearby?location=${location}`).then((res) => {
 		return res.json();
 	});
 };
