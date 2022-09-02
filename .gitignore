@@ -10,9 +10,14 @@ npm-debug.*
 *.orig.*
 web-build/
 environments.js
+env.js
+env
 yarn-error.log
 
 # macOS
 .DS_Store
 
 */node_modules/**/* 
+firebase-debug.log
+ui-debug.log
+.runtimeconfig.json
