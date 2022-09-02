@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import { ActivityIndicator, Colors } from 'react-native-paper';
+import Constants from 'expo-constants';
 
 import styled from 'styled-components/native';
 
@@ -21,7 +22,12 @@ import { MobileBarsContext } from '../../../services/mobile-bars/mobile-bars.con
 import { Search } from '../../mobile-bars/components/search.component';
 
 const SearchContainer = styled.View`
+	// padding-top: 16px;
+	top: ${Constants.statusBarHeight}px;
 	padding: ${(props) => props.theme.space[3]};
+	// position: absolute;
+	z-index: 999;
+	width: 100%;
 `;
 
 const RestaurantList = styled(FlatList).attrs({
@@ -54,7 +60,9 @@ const SearchResultsScreen = ({ navigation }) => {
 					<Loading size={50} animating={true} color={Colors.blue300} />
 				</LoadingContainer>
 			)}
+			{/* <SearchContainer> */}
 			<Search />
+			{/* </SearchContainer> */}
 			<RestaurantList
 				data={bars}
 				renderItem={({ item }) => {

@@ -14,7 +14,7 @@ import { GOOGLE_API_KEY } from '../../../../environments';
 
 const SearchContainer = styled.View`
 	padding: ${(props) => props.theme.space[3]};
-	position: absolute;
+	// position: absolute;
 	z-index: 999;
 	top: ${Constants.statusBarHeight};
 	width: 100%;

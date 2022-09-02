@@ -1,5 +1,5 @@
 import camelize from 'camelize';
-import { host } from '../../../src/components/utility/env';
+import { host, isMock } from '../../../src/components/utility/env';
 
 // export const mobileBarsRequest = (location) => {
 // 	return new Promise((resolve, reject) => {
@@ -11,11 +11,14 @@ import { host } from '../../../src/components/utility/env';
 // 	});
 // };
 
-// `http://localhost:5001/belvedere-mobile-app/us-central1/geocode?city=${searchTerm}`
+// `http://localhost:5001/belvedere-mobile-app/us-central1/geocode?city=${searchTerm}&mock=${isMock}`
 export const mobileBarsRequest = (location) => {
-	return fetch(`${host}/placesNearby?location=${location}`).then((res) => {
-		return res.json();
-	});
+	return fetch(`${host}/placesNearby?location=${location}&mock=${isMock}`).then(
+		(res) => {
+			console.log(res);
+			return res.json();
+		}
+	);
 };
 
 export const resultsTransform = ({ results = [] }) => {

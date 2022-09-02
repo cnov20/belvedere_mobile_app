@@ -1,5 +1,5 @@
 import camelize from 'camelize';
-import { host } from '../../../src/components/utility/env';
+import { host, isMock } from '../../../src/components/utility/env';
 
 import { locations } from '../../../functions/geocode/geocode.mock';
 
@@ -13,11 +13,14 @@ import { locations } from '../../../functions/geocode/geocode.mock';
 // 	});
 // };
 
-// `http://localhost:5001/belvedere-mobile-app/us-central1/geocode?city=${searchTerm}`
+// `http://localhost:5001/belvedere-mobile-app/us-central1/geocode?city=${searchTerm}&mock=${isMock}`
 export const locationRequest = (searchTerm) => {
-	return fetch(`${host}/geocode?city=${searchTerm}`).then((res) => {
-		return res.json();
-	});
+	return fetch(`${host}/geocode?city=${searchTerm}&mock=${isMock}`).then(
+		(res) => {
+			console.log(res);
+			return res.json();
+		}
+	);
 };
 
 export const locationTransform = (result) => {
