@@ -67,7 +67,7 @@ export const ResetPassword = () => {
 					source={require('../../../../assets/watermelon.json')}
 				/>
 			</AnimationWrapper>
-			<Title>Belvedere Vodka</Title>
+			{/* <Title>Belvedere Vodka</Title> */}
 			<AccountContainer>
 				<Spacer size='large'>
 					<AuthInput
@@ -86,7 +86,7 @@ export const ResetPassword = () => {
 				<Spacer size='large'>
 					<AuthButton
 						// icon='lock-open-outline'
-						mode='contained'
+						mode='outlined'
 						onPress={() => doUserPasswordReset()}>
 						Reset Password
 					</AuthButton>

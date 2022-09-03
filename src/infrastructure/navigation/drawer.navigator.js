@@ -6,7 +6,11 @@ import {
 	DrawerItemList,
 	DrawerItem,
 } from '@react-navigation/drawer';
-import { NavigationContainer, DrawerActions } from '@react-navigation/native';
+import {
+	NavigationContainer,
+	DrawerActions,
+	useNavigation,
+} from '@react-navigation/native';
 
 import AccountHomeScreen from '../../features/account/screens/account-home.screen';
 import { SettingsScreen } from '../../features/settings/screens/settings.screen';
@@ -26,42 +30,86 @@ import TermsAndConditionsScreen from '../../features/account/screens/terms-and-c
 import { ProfileNavigator } from './profile.navigator';
 import ProfileScreen from '../../features/account/screens/account-profile.screen';
 
+// import { useNavigation } from '@react-navigation/native';
+
 const Drawer = createDrawerNavigator();
 
-export default function DrawerNavigator({ navigation }) {
+export default function DrawerNavigator() {
+	const navigation = useNavigation();
+
 	return (
 		// <NavigationContainer>
 		<Drawer.Navigator
 			drawerContent={(props) => <AccountDrawerContent {...props} />}
 			screenOptions={{
 				drawerPosition: 'left',
-				// headerLeftLabelVisible: false,
+				headerLeftLabelVisible: false,
+				// headerStatusBarHeight: true
+				headerShown: true,
+				headerTransparent: true,
+				headerTitle: '',
 				// headerShown: false,
-			}}>
-			<Drawer.Screen
-				name='Account Home'
-				component={ProfileNavigator}
-				options={{
-					// headerStyle: {
-					// 	opacity: 1,
-					// },
-					headerLeft: false,
-					headerRight: () => (
-						<TouchableOpacity
-							onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
+				// headerTitle: () => (
+				// 	// <Image
+				// 	// 	style={{ width: 50, height: 50, opacity: 0.5 }}
+				// 	// 	source={require('../../../assets/Belvedere-Logo.png')}
+				// 	// />
+				// ),
+
+				// headerLeft: () => {
+				// 	return (
+				// 		<TouchableOpacity onPress={() => null}>
+				// 			<Image
+				// 				source={require('../../../assets/drawer.png')}
+				// 				style={{
+				// 					width: 35,
+				// 					height: 35,
+				// 					marginRight: 20,
+				// 					marginTop: 20,
+				// 					// tintColor: '#1F73BD',
+				// 				}}
+				// 			/>
+				// 			{/* <Icon name='menu' type='material' size={30} color='black' /> */}
+				// 		</TouchableOpacity>
+				// 	);
+				// },
+				headerRight: () => {
+					return (
+						<TouchableOpacity onPress={() => navigation.actions.openDrawer()}>
 							<Image
-								source={require('../../../assets/drawer.png')}
+								// source={require('../../../assets/drawer.png')}
+								source={require('../../../assets/user-profile.jpg')}
+								// style={{
+								// 	width: 35,
+								// 	height: 35,
+								// 	marginRight: 10,
+								// 	// tintColor: '#1F73BD',
+								// }}
 								style={{
-									width: 35,
 									height: 35,
+									width: 35,
+									borderRadius: 25,
+									marginBottom: 10,
+									marginTop: 15,
 									marginRight: 10,
-									tintColor: '#1F73BD',
+									alignContent: 'center',
 								}}
 							/>
 							{/* <Icon name='menu' type='material' size={30} color='black' /> */}
 						</TouchableOpacity>
-					),
-				}}
+					);
+				},
+			}}>
+			<Drawer.Screen
+				name='Profile'
+				component={ProfileNavigator}
+				options={
+					{
+						// headerStyle: {
+						// 	opacity: 1,
+						// },
+					}
+				}
 			/>
 			{/* <Drawer.Screen name='Settings' component={SettingsScreen} /> */}
 			<Drawer.Screen name='Order A Drink' component={DrinkOrderScreen} />

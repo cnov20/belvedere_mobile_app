@@ -23,9 +23,9 @@ export const SettingsNavigator = ({ navigation }) => {
 				headerShown: false,
 			}}>
 			<SettingsStack.Screen
-				screenOptions={{
-					headerShown: false,
-				}}
+				// screenOptions={{
+				// 	headerShown: false,
+				// }}
 				name='Settings Tab'
 				component={SettingsScreen}
 			/>

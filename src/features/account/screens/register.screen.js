@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import LottieView from 'lottie-react-native';
+
 import {
 	AccountBackground,
 	AccountCover,
@@ -7,6 +9,7 @@ import {
 	AuthInput,
 	ErrorContainer,
 	Title,
+	AnimationWrapper,
 } from '../components/account.styles';
 import { Text } from '../../../components/typography/text.component';
 import { Spacer } from '../../../components/spacer/spacer.component';
@@ -48,8 +51,17 @@ export const RegisterScreen = ({ navigation }) => {
 	return (
 		<AccountBackground>
 			<AccountCover />
-			<Title>Belvedere Vodka</Title>
+			{/* <Title>Belvedere Vodka</Title> */}
 			<AccountContainer>
+				<AnimationWrapper>
+					<LottieView
+						key='animation'
+						autoPlay
+						loop
+						resizeMode='cover'
+						source={require('../../../../assets/5746-drinks.json')}
+					/>
+				</AnimationWrapper>
 				<AuthInput
 					label='First Name'
 					value={firstName}
@@ -105,7 +117,8 @@ export const RegisterScreen = ({ navigation }) => {
 				)}
 			</AccountContainer>
 			<Spacer size='large'>
-				<AuthButton icon='email' mode='contained' onPress={onPress}>
+				{/* icon='email' */}
+				<AuthButton mode='outlined' onPress={onPress}>
 					Next
 				</AuthButton>
 			</Spacer>

@@ -160,8 +160,10 @@ const ProfileEditScreen = () => {
 	const handleUpdate = () => {
 		if (newPassword && currentPassword !== newPassword) {
 			updateUserPassword();
-		}
-		if (newEmail && currentEmail !== newEmail) {
+		} else if (newEmail && currentEmail !== newEmail) {
+			updateUserEmail();
+		} else if (newPassword & newEmail) {
+			updateUserPassword();
 			updateUserEmail();
 		}
 	};

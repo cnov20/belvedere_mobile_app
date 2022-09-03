@@ -28,6 +28,7 @@ import {
 	collection,
 	addDoc,
 } from 'firebase/firestore';
+import { Alert } from 'react-native';
 // firebase.firestore();
 
 //import {...} from "firebase/functions";
@@ -98,10 +99,16 @@ export const AuthenticationContextProvider = ({ children }) => {
 			.then((u) => {
 				setUser(u);
 				// addUserToDb(u);
+				sendEmailVerification(auth.currentUser);
 				setIsLoading(false);
 			})
-			// sendEmailVerification(auth.currentUser)
-			//ensure we catch any errors at this stage to advise us if something does go wrong
+			.then(() => {
+				console.log('User — Password — Updated!');
+				Alert.alert(
+					'Account Created — Email verification sent!',
+					'Please check your email to verify your account.'
+				);
+			}) //ensure we catch any errors at this stage to advise us if something does go wrong
 			.catch((error) => {
 				// console.log(
 				// 	'Something went wrong with added user to firestore: ',

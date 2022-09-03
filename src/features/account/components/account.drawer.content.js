@@ -7,6 +7,7 @@ import {
 	DrawerItem,
 } from '@react-navigation/drawer';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
 // import { Drawer } from 'react-native-paper';
@@ -33,7 +34,7 @@ function AccountDrawerContent(props) {
 				<DrawerItem
 					label='Log out'
 					onPress={() => {
-						// AsyncStorage.clear();
+						AsyncStorage.clear();
 						onLogout();
 					}}
 					// style={{ flex: 1, justifyContent: 'flex-end' }}

@@ -66,12 +66,12 @@ export const SettingsScreen = ({ navigation }) => {
 				</Spacer>
 			</AvatarContainer>
 			<List.Section>
-				<SettingsItem
+				{/* <SettingsItem
 					title='Update — Profile Information'
 					description='Update/Change — email and password'
 					left={(props) => <List.Icon {...props} color='black' icon='heart' />}
-					onPress={() => navigation.navigate('Edit Profile')}
-				/>
+					onPress={() => navigation.navigate('AccountEditProfile')}
+				/> */}
 				<SettingsItem
 					title='App Notification — Settings'
 					description='Push notifications and reminders'

@@ -156,7 +156,7 @@ export default function EditProfileScreen({ navigation }) {
 					</Spacer>
 					<Spacer size='large'>
 						<AuthButton
-							icon='lock-open-outline'
+							// icon='lock-open-outline'
 							mode='contained'
 							// title='Continue'
 							// style={styles.buttonUf}

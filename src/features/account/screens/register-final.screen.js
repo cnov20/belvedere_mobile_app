@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import LottieView from 'lottie-react-native';
+
 import {
 	AccountBackground,
 	AccountCover,
@@ -7,6 +9,7 @@ import {
 	AuthInput,
 	ErrorContainer,
 	Title,
+	AnimationWrapper,
 } from '../components/account.styles';
 import { Text } from '../../../components/typography/text.component';
 import { Spacer } from '../../../components/spacer/spacer.component';
@@ -15,7 +18,7 @@ import { AuthContext } from '../../../infrastructure/navigation/AuthPovider';
 
 import { ActivityIndicator, Colors } from 'react-native-paper';
 
-import { KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView, View } from 'react-native';
 // import firestore from '@react-native-firebase/firestore';
 
 import {
@@ -97,7 +100,16 @@ export const RegisterFinalScreen = ({ route, navigation }) => {
 		// <KeyboardAvoidingView>
 		<AccountBackground>
 			<AccountCover />
-			<Title>Belvedere Vodka</Title>
+			{/* <Title>Belvedere Vodka</Title> */}
+			<AnimationWrapper>
+				<LottieView
+					key='animation'
+					autoPlay
+					loop
+					resizeMode='cover'
+					source={require('../../../../assets/5746-drinks.json')}
+				/>
+			</AnimationWrapper>
 			<AccountContainer>
 				<Text variant='error'>{validationMessage}</Text>
 				<Spacer size='large'>
@@ -141,37 +153,40 @@ export const RegisterFinalScreen = ({ route, navigation }) => {
 				)}
 				<Spacer size='large'>
 					{!isLoading ? (
-						<AuthButton
-							icon='email'
-							mode='contained'
-							onPress={onPress}
-							// register()
-							// 	.then((u) => {
-							// 	setDoc(doc(db, 'users', user.uid), {
-							// 		displayName: firstName,
-							// 		lastName: lastName,
-							// 		// photoURL: image,
-							// 		password: password,
-							// 		email: email,
-							// 	});
-							// 	u.user.updateProfile({
-							// 		displayName: firstName,
-							// 		// photoURL: image,
-							// 	});
-							// });
-						>
-							Register
-						</AuthButton>
+						<View style={{ paddingBottom: 15 }}>
+							<AuthButton
+								// icon='email'
+								mode='outlined'
+								onPress={onPress}
+								// register()
+								// 	.then((u) => {
+								// 	setDoc(doc(db, 'users', user.uid), {
+								// 		displayName: firstName,
+								// 		lastName: lastName,
+								// 		// photoURL: image,
+								// 		password: password,
+								// 		email: email,
+								// 	});
+								// 	u.user.updateProfile({
+								// 		displayName: firstName,
+								// 		// photoURL: image,
+								// 	});
+								// });
+							>
+								Register
+							</AuthButton>
+						</View>
 					) : (
 						<ActivityIndicator animating={true} color={Colors.blue300} />
 					)}
 				</Spacer>
-			</AccountContainer>
-			<Spacer size='large'>
 				<AuthButton mode='contained' onPress={() => navigation.goBack()}>
 					Back
 				</AuthButton>
-			</Spacer>
+			</AccountContainer>
+			{/* <Spacer size='large'> */}
+
+			{/* </Spacer> */}
 		</AccountBackground>
 		/* </KeyboardAvoidingView> */
 	);

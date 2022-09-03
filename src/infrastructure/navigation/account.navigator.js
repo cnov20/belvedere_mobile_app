@@ -18,7 +18,7 @@ export const AccountNavigator = () => (
 		screenOptions={{
 			headerShown: false,
 		}}>
-		<Stack.Screen name='Main' component={RestaurantsNavigator} />
+		<Stack.Screen name='Main' component={AccountScreen} />
 		<Stack.Screen name='Login' component={LoginScreen} />
 		<Stack.Screen name='Register' component={RegisterScreen} />
 		<Stack.Screen name='Register Final' component={RegisterFinalScreen} />

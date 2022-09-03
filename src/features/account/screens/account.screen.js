@@ -13,7 +13,7 @@ import {
 } from '../components/account.styles';
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
 import { onAuthStateChanged } from 'firebase/auth';
-import { View } from 'react-native-web';
+import { View } from 'react-native';
 
 const AccountScreen = ({ navigation }) => {
 	const { auth, onLogin } = useContext(AuthenticationContext);
@@ -36,7 +36,7 @@ const AccountScreen = ({ navigation }) => {
 					autoPlay
 					loop
 					resizeMode='cover'
-					source={require('../../../../assets/watermelon.json')}
+					source={require('../../../../assets/5746-drinks.json')}
 				/>
 			</AnimationWrapper>
 			{/* <Title>Belvedere Vodka</Title> */}

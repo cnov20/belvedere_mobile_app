@@ -16,6 +16,7 @@ import AccountInfoCard from '../../features/account/components/account-info-card
 import { AccountBackground } from '../../features/account/components/account.styles';
 import SearchResultsScreen from '../../features/map/screens/search-results.screen';
 import { RestaurantsNavigator } from './mobile-bars.navigator';
+// import { transparent } from 'react-native-paper/lib/javascript/styles/colors';
 
 // // import { RestaurantsContextProvider } from '../../services/restaurants/restaurants.context';
 // // import { LocationContextProvider } from '../../services/location/location.context';
@@ -38,6 +39,10 @@ const Tab = createBottomTabNavigator();
 // 	};
 // };
 
+function Drawer({ navigation }) {
+	return <DrawerNavigator></DrawerNavigator>;
+}
+
 export const AppNavigator = () => (
 	<Tab.Navigator
 		// screenOptions={createScreenOptions}
@@ -49,22 +54,18 @@ export const AppNavigator = () => (
 			tabBarLabelStyle: {
 				fontWeight: '700',
 				fontSize: 12,
+				backgroundColor: 'transparent',
 			},
 		}}
 		tabBarOptions={{
 			activeTintColor: 'blue',
 			inactiveTintColor: 'gray',
 		}}>
-		{/* <Tab.Screen name='Restaurants' component={RestaurantsNavigator} />*/}
-		{/* <Tab.Screen name='Account Home' component={ProfileNavigator} /> */}
+		{/* <Tab.Screen name='' component={DrawerNavigator} /> */}
+
 		<Tab.Screen
-			name='Search Results'
-			component={RestaurantsNavigator}
-			options={{ headerShown: false }}
-		/>
-		<Tab.Screen
-			name='Profile'
-			component={ProfileNavigator}
+			name='Account Home'
+			component={Drawer}
 			options={{
 				tabBarLabel: 'Profile',
 				// tabBarIcon: ({ color, size }) => (
@@ -72,6 +73,14 @@ export const AppNavigator = () => (
 				// ),
 			}}
 		/>
+		{/* <Tab.Screen name='Restaurants' component={RestaurantsNavigator} />*/}
+		{/* <Tab.Screen name='Account Home' component={ProfileNavigator} /> */}
+		<Tab.Screen
+			name='Search'
+			component={RestaurantsNavigator}
+			options={{ headerShown: false }}
+		/>
+
 		<Tab.Screen
 			name='Map'
 			component={MapScreen}

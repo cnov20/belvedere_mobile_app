@@ -85,7 +85,7 @@ const AccountInfoCard = () => {
 
 	return (
 		<CardContainer>
-			<Card style={{ flex: 2 }}>
+			<Card>
 				<Card.Title
 					title='Card Title'
 					subtitle='Card Subtitle'
@@ -104,9 +104,9 @@ const AccountInfoCard = () => {
 					<Spacer size='large'>
 						<CardButton
 							icon='lock-open-outline'
-							mode='contained'
+							mode='outlined'
 							onPress={() => navigation.navigate('Order A Drink')}>
-							Yes, Let's Order A Drink!
+							Yes, Order A Drink!
 						</CardButton>
 					</Spacer>
 					<Spacer size='xxlarge'>
@@ -114,7 +114,7 @@ const AccountInfoCard = () => {
 							icon='email'
 							mode='contained'
 							onPress={() => navigation.navigate('Location Finder')}>
-							Mobile Bar Experience — Locations
+							Mobile Bar — Locations
 						</CardButton>
 					</Spacer>
 					<Spacer size='medium'>
@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		padding: 16,
+		opacity: 1,
 	},
 	iconTitle: {
 		textAlign: 'center',

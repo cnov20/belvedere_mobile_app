@@ -31,7 +31,8 @@ export const AuthButton = styled(Button).attrs({
 	width: 250px;
 	padding: ${(props) => props.theme.space[2]};
 	align-items: center;
-	justify-content: right;
+	align-self: center;
+	justify-content: center;
 `;
 
 // export const AuthButtonOpaque = styled.Button`
@@ -40,10 +41,11 @@ export const AuthButton = styled(Button).attrs({
 // `;
 
 export const AuthInput = styled(TextInput).attrs({
-	color: colors.brand.primary,
+	color: colors.brand.secondary,
 	selectionColor: colors.brand.primary,
 	activeUnderlineColor: colors.brand.primary,
 })`
+	padding: ${(props) => props.theme.space[0]};
 	width: 300px;
 	// font-color: white;
 `;
@@ -72,6 +74,7 @@ export const AnimationWrapper = styled.View`
 export const AccountCardBackground = styled.ImageBackground.attrs({
 	source: require('../../../../assets/mwn-module-01-arm-with-bottle.jpeg'),
 })`
+	opacity: 1;
 	// flex: 1;
 	// align-items: center;
 	// justify-content: center;
@@ -86,7 +89,7 @@ export const CardButton = styled(Button).attrs({
 `;
 
 export const CardContainer = styled.View`
-	background-color: rgba(255, 255, 255, 0.25);
+	background-color: rgba(255, 255, 255, 0.5);
 	padding: ${(props) => props.theme.space[4]};
 	margin-top: ${(props) => props.theme.space[2]};
 	width: 100%;

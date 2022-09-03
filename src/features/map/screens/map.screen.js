@@ -79,6 +79,7 @@ export const MapScreen = ({ navigation }) => {
 		<>
 			<MapSearch />
 			<Map
+				provider={PROVIDER_GOOGLE}
 				region={{
 					latitude: lat,
 					longitude: lng,

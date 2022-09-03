@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import {
 	View,
 	Text,
@@ -27,13 +27,36 @@ import AccountInfoCard from '../components/account-info-card.component';
 
 // import firestore from '@react-native-firebase/firestore';
 // import PostCard from '../components/PostCard';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 const ProfileScreen = ({ navigation, route }) => {
 	// const [user, logout] = useContext(AuthContext);
 	const { onLogout, user, auth } = useContext(AuthenticationContext);
 
+	const [photo, setPhoto] = useState(null);
+
+	// if (user || auth) {
+	// 	const currentUser = auth.currentUser;
+	// 	console.log(currentUser);
+	// }
+
+	const currentUser = auth.currentUser;
+
+	const getProfilePicture = async (currentUser) => {
+		const photoUri = await AsyncStorage.getItem(`${currentUser.uid}-photo`);
+		setPhoto(photoUri);
+	};
+
+	useFocusEffect(
+		useCallback(() => {
+			getProfilePicture(currentUser);
+		}, [currentUser])
+	);
+
 	return (
 		// <SafeAreaView>
+
 		<AccountCardBackground>
 			{/* <AccountCover> */}
 			<CardContainer>
@@ -47,8 +70,10 @@ const ProfileScreen = ({ navigation, route }) => {
 						showsVerticalScrollIndicator={false}>
 						<Image
 							style={styles.userImg}
-							source={require('../../../../assets/user-8.jpg')}></Image>
-						<Text style={styles.userName}>Jane(lle) Doe</Text>
+							source={require('../../../../assets/user-8.jpg')}
+							// source={{ uri: photo }}
+						></Image>
+						<Text style={styles.userName}>Jan(n)e(lle) Doe</Text>
 						<Text style={styles.aboutUser}>New York, NY</Text>
 						{/* <AccountInfoCard> */}
 						<View style={styles.userBtnWrapper}>
@@ -84,21 +109,21 @@ const ProfileScreen = ({ navigation, route }) => {
 								<Card.Actions style={{ flexDirection: 'column' }}>
 									<Spacer size='large'>
 										<AuthButton
-											mode='contained'
+											mode='outlined'
 											onPress={() => navigation.navigate('Drink Order Screen')}>
-											Yes, Let's Order A Drink!
+											Yes, Order A Drink!
 										</AuthButton>
 									</Spacer>
 									<Spacer size='xlarge'>
 										<AuthButton
 											mode='contained'
 											onPress={() => navigation.navigate('Map')}>
-											Mobile Bar Experience — Locations
+											Mobile Bar — Locations
 										</AuthButton>
 									</Spacer>
 									<Spacer size='medium'>
 										<AuthButton
-											mode='contained'
+											mode='outlined'
 											onPress={() => navigation.navigate('How This Works')}>
 											How Does This Work?
 										</AuthButton>
@@ -123,8 +148,8 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		// backgroundColor: '#fff',
 		padding: 20,
+		// opacity: 0.25,
 	},
 	userImg: {
 		height: 150,

@@ -8,12 +8,15 @@ import {
 	AuthInput,
 	ErrorContainer,
 	Title,
+	AnimationWrapper,
 } from '../components/account.styles';
 import { Text } from '../../../components/typography/text.component';
 import { Spacer } from '../../../components/spacer/spacer.component';
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
 import { View } from 'react-native';
 import { ActivityIndicator, Colors } from 'react-native-paper';
+import LottieView from 'lottie-react-native';
+
 // import { auth } from 'firebaseui';
 import { onAuthStateChanged } from 'firebase/auth';
 
@@ -35,6 +38,15 @@ export const LoginScreen = ({ navigation }) => {
 	return (
 		<AccountBackground>
 			<AccountCover />
+			<AnimationWrapper>
+				<LottieView
+					key='animation'
+					autoPlay
+					loop
+					resizeMode='cover'
+					source={require('../../../../assets/5746-drinks.json')}
+				/>
+			</AnimationWrapper>
 			{/* <View
 				style={{
 					justifyContent: 'center', //Centered vertically
