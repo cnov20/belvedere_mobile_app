@@ -53,7 +53,8 @@ export const LoginScreen = ({ navigation }) => {
 					alignItems: 'center', // Centered horizontally
 					flex: 1,
 				}}></View> */}
-			<AccountContainer>
+			{/* <AccountContainer> */}
+			<Spacer size='xlarge'>
 				<AuthInput
 					label='E-mail'
 					value={email}
@@ -62,50 +63,21 @@ export const LoginScreen = ({ navigation }) => {
 					autoCapitalize='none'
 					onChangeText={(u) => setEmail(u)}
 				/>
-				<Spacer size='large'>
-					<AuthInput
-						label='Password'
-						value={password}
-						textContentType='password'
-						secureTextEntry
-						autoCapitalize='none'
-						// secure
-						onChangeText={(p) => setPassword(p)}
-					/>
-				</Spacer>
+			</Spacer>
+			<Spacer size='large'>
+				<AuthInput
+					label='Password'
+					value={password}
+					textContentType='password'
+					secureTextEntry
+					autoCapitalize='none'
+					// secure
+					onChangeText={(p) => setPassword(p)}
+				/>
+			</Spacer>
 
-				<Spacer size='xlarge'>
-					{!isLoading ? (
-						<View
-							style={{
-								justifyContent: 'center', //Centered vertically
-								alignItems: 'center', // Centered horizontally
-								// flex: 1,
-							}}>
-							<AuthButton
-								// icon='lock-open-outline'
-								mode='outlined'
-								// compact={true}
-								onPress={() => {
-									if (email != '' && password != '') {
-										onLogin(email, password);
-									} else {
-										error && (
-											<ErrorContainer size='large'>
-												<Text variant='error'>{errorMessage}</Text>
-											</ErrorContainer>
-										);
-										console.log('ERROR: ', error);
-									}
-								}}>
-								Sign In
-							</AuthButton>
-						</View>
-					) : (
-						<ActivityIndicator animating={true} color={Colors.blue300} />
-					)}
-				</Spacer>
-				<Spacer size='large'>
+			<Spacer size='xlarge'>
+				{!isLoading ? (
 					<View
 						style={{
 							justifyContent: 'center', //Centered vertically
@@ -113,13 +85,43 @@ export const LoginScreen = ({ navigation }) => {
 							// flex: 1,
 						}}>
 						<AuthButton
-							mode='contained'
-							onPress={() => navigation.navigate('Reset Password')}>
-							Forgot Password
+							// icon='lock-open-outline'
+							mode='outlined'
+							// compact={true}
+							onPress={() => {
+								if (email != '' && password != '') {
+									onLogin(email, password);
+								} else {
+									error && (
+										<ErrorContainer size='large'>
+											<Text variant='error'>{errorMessage}</Text>
+										</ErrorContainer>
+									);
+									console.log('ERROR: ', error);
+								}
+							}}>
+							Sign In
 						</AuthButton>
 					</View>
-				</Spacer>
-			</AccountContainer>
+				) : (
+					<ActivityIndicator animating={true} color={Colors.blue300} />
+				)}
+			</Spacer>
+			<Spacer size='large'>
+				<View
+					style={{
+						justifyContent: 'center', //Centered vertically
+						alignItems: 'center', // Centered horizontally
+						// flex: 1,
+					}}>
+					<AuthButton
+						mode='contained'
+						onPress={() => navigation.navigate('Reset Password')}>
+						Forgot Password
+					</AuthButton>
+				</View>
+			</Spacer>
+			{/* </AccountContainer> */}
 
 			{/* <Spacer size='xxlarge'>
 				<AuthButton mode='outlined' onPress={() => navigation.goBack()}>

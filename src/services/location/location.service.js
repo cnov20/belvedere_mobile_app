@@ -17,15 +17,16 @@ import { locations } from '../../../functions/geocode/geocode.mock';
 export const locationRequest = (searchTerm) => {
 	return fetch(`${host}/geocode?city=${searchTerm}&mock=${isMock}`).then(
 		(res) => {
-			console.log(res);
+			// console.log(res);
+			console.log('POST RESPONSE: ' + JSON.stringify(res));
 			return res.json();
 		}
 	);
 };
 
 export const locationTransform = (result) => {
-	console.log(result);
-
+	// console.log(result);
+	// console.log('POST RESPONSE: ' + JSON.stringify(result));
 	const formattedResponse = camelize(result);
 	const { geometry = {} } = formattedResponse.results[0];
 	const { lat, lng } = geometry.location;

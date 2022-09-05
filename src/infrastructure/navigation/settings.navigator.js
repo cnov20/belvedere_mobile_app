@@ -29,7 +29,7 @@ export const SettingsNavigator = ({ navigation }) => {
 				name='Settings Tab'
 				component={SettingsScreen}
 			/>
-			<SettingsStack.Screen name='Favourites' component={() => null} />
+			{/* <SettingsStack.Screen name='Favourites' component={() => null} /> */}
 			<SettingsStack.Screen name='Camera' component={CameraScreen} />
 			<SettingsStack.Screen name='Edit Profile' component={EditProfileScreen} />
 			<SettingsStack.Screen

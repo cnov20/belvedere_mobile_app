@@ -36,13 +36,16 @@ export const MobileBarsContextProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (location) {
-			console.log('LOCATION MB CONTEXT — ', location);
+			// console.log('LOCATION MB CONTEXT — ', location);
+			console.log(
+				'POST RESPONSE — LOCATION MB CONTEXT: ' + JSON.stringify(location)
+			);
 			const locationString = `${location.lat},${location.lng}`;
 			retrieveBars(locationString);
 		}
 	}, [location]);
 
-	console.log('MOBILE BARS — ', bars);
+	// console.log('MOBILE BARS — ', bars);
 	return (
 		<MobileBarsContext.Provider
 			value={{

@@ -18,6 +18,8 @@ import { getMapPreview } from './location';
 import AccountInfoCard from '../../account/components/account-info-card.component';
 import { BelvedereMobileBarInfoCard } from '../../mobile-bars/components/belvedere-mobile-bar-info-card';
 
+import { Spacer } from '../../../components/spacer/spacer.component';
+
 function LocationPicker({ onPickLocation }) {
 	const [pickedLocation, setPickedLocation] = useState();
 
@@ -98,15 +100,19 @@ function LocationPicker({ onPickLocation }) {
 		<View>
 			<View style={styles.mapPreview}>{locationPreview}</View>
 			<View style={styles.actions}>
-				<AuthButton
-					title='location'
-					mode='contained'
-					onPress={getLocationHandler}>
-					Locate User
-				</AuthButton>
-				<AuthButton title='map' mode='contained' onPress={pickOnMapHandler}>
-					Pick on Map
-				</AuthButton>
+				<Spacer size='large'>
+					<AuthButton
+						title='location'
+						mode='outlined'
+						onPress={getLocationHandler}>
+						Locate User
+					</AuthButton>
+				</Spacer>
+				<Spacer size='large'>
+					<AuthButton title='map' mode='contained' onPress={pickOnMapHandler}>
+						Pick on Map
+					</AuthButton>
+				</Spacer>
 			</View>
 		</View>
 	);
@@ -125,7 +131,7 @@ const styles = StyleSheet.create({
 		borderRadius: 4,
 	},
 	actions: {
-		flexDirection: 'row',
+		// flexDirection: 'row',
 		justifyContent: 'space-around',
 		alignItems: 'center',
 	},

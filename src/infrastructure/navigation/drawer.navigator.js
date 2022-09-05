@@ -27,8 +27,9 @@ import LocationFinderScreen from '../../features/account/screens/location-finder
 import HowThisWorksScreen from '../../features/account/screens/how-this-works.screen';
 import PrivacyPolicyScreen from '../../features/account/screens/privacy-policy.screen';
 import TermsAndConditionsScreen from '../../features/account/screens/terms-and-conditions.screen';
-import { ProfileNavigator } from './profile.navigator';
+// import { ProfileNavigator } from './profile.navigator';
 import ProfileScreen from '../../features/account/screens/account-profile.screen';
+import { ProfileNavigator } from './profile.navigator';
 
 // import { useNavigation } from '@react-navigation/native';
 

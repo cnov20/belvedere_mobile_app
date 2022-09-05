@@ -36,18 +36,20 @@ const AccountScreen = ({ navigation }) => {
 					autoPlay
 					loop
 					resizeMode='cover'
-					source={require('../../../../assets/5746-drinks.json')}
+					source={require('../../../../assets/89840-summer-drink.json')}
 				/>
 			</AnimationWrapper>
 			{/* <Title>Belvedere Vodka</Title> */}
 			{/* <AccountContainer> */}
 			{/* <View style={{ backgroundColor: 'rgba(255, 0, 255, 1.0)' }}> */}
-			<AuthButton
-				// /* // icon='lock-open-outline'
-				mode='outlined'
-				onPress={() => navigation.navigate('Login')}>
-				Sign In
-			</AuthButton>
+			<Spacer size='xxlarge'>
+				<AuthButton
+					// /* // icon='lock-open-outline'
+					mode='outlined'
+					onPress={() => navigation.navigate('Login')}>
+					Sign In
+				</AuthButton>
+			</Spacer>
 			{/* </View> */}
 			<Spacer size='large'>
 				<AuthButton

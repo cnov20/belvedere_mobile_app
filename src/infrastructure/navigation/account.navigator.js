@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 
 export const AccountNavigator = () => (
 	<Stack.Navigator
-		headerMode='none'
+		// headerMode='none'
 		screenOptions={{
 			headerShown: false,
 		}}>

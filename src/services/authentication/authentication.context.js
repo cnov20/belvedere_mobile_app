@@ -2,6 +2,7 @@ import React, { useState, createContext, useEffect } from 'react';
 // import * as firebase from 'firebase';
 import {
 	getAuth,
+	initializeAuth,
 	onAuthStateChanged,
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
@@ -12,7 +13,7 @@ import {
 import { loginRequest } from './authentication.service';
 
 // Import the functions you need from the SDKs you need
-import { initializeApp, getApps } from 'firebase/app';
+import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAnalytics, logEvent } from 'firebase/analytics';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -29,6 +30,10 @@ import {
 	addDoc,
 } from 'firebase/firestore';
 import { Alert } from 'react-native';
+
+import { getReactNativePersistence } from 'firebase/auth/react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 // firebase.firestore();
 
 //import {...} from "firebase/functions";
@@ -44,9 +49,23 @@ const firebaseConfig = {
 	measurementId: 'G-FFMLBM5V3M',
 };
 
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase
+let app;
+let auth;
+if (getApps().length < 1) {
+	app = initializeApp(firebaseConfig);
+	auth = initializeAuth(app, {
+		persistence: getReactNativePersistence(AsyncStorage),
+	});
+} else {
+	app = getApp();
+	auth = getAuth();
+}
 
-const auth = getAuth();
+// const app = initializeApp(firebaseConfig);
+
+// const auth = getAuth();
+
 auth.useDeviceLanguage();
 
 const db = getFirestore(app);
@@ -167,6 +186,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 		<AuthenticationContext.Provider
 			value={{
 				isAuthenticated: !!user,
+				app,
 				auth,
 				user,
 				db,

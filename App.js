@@ -14,21 +14,26 @@ import { LocationContextProvider } from './src/services/location/location.contex
 // import { mobileBarsRequest } from './src/services/mobile-bars/mobile-bars.service';
 
 // import {
-//   useFonts as useOswald,
-//   Oswald_400Regular,
-// } from "@expo-google-fonts/oswald";
-// import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
+// 	useFonts as useOswald,
+// 	Oswald_400Regular,
+// } from '@expo-google-fonts/oswald';
+
+// import { useFonts as useLato, Lato_400Regular } from '@expo-google-fonts/lato';
 
 import { theme } from './src/infrastructure/theme';
 
-// Initialize Firebase
-// if (getApps().length < 1) {
-// 	const app = initializeApp(firebaseConfig);
-// 	// initializeApp(firebaseConfig);
-// 	// Initialize other firebase products here
-// }
-
 export default function App() {
+	// const [oswaldLoaded] = useOswald({
+	// 	Oswald_400Regular,
+	// });
+
+	// const [latoLoaded] = useLato({
+	// 	Lato_400Regular,
+	// });
+
+	// if (!oswaldLoaded || !latoLoaded) {
+	// 	return null;
+	// }
 	return (
 		<>
 			<ThemeProvider theme={theme}>

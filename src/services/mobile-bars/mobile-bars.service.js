@@ -15,7 +15,8 @@ import { host, isMock } from '../../../src/components/utility/env';
 export const mobileBarsRequest = (location) => {
 	return fetch(`${host}/placesNearby?location=${location}&mock=${isMock}`).then(
 		(res) => {
-			console.log(res);
+			// console.log(res);
+			console.log('POST RESPONSE: ' + JSON.stringify(res));
 			return res.json();
 		}
 	);

@@ -64,7 +64,7 @@ export const ResetPassword = () => {
 					autoPlay
 					loop
 					resizeMode='cover'
-					source={require('../../../../assets/watermelon.json')}
+					source={require('../../../../assets/89840-summer-drink.json')}
 				/>
 			</AnimationWrapper>
 			{/* <Title>Belvedere Vodka</Title> */}
