@@ -16,6 +16,7 @@ import AccountInfoCard from '../../features/account/components/account-info-card
 import { AccountBackground } from '../../features/account/components/account.styles';
 import SearchResultsScreen from '../../features/map/screens/search-results.screen';
 import { RestaurantsNavigator } from './mobile-bars.navigator';
+import { LocationPickerMapScreen } from '../../features/map/screens/location-picker-map.screen';
 // import { transparent } from 'react-native-paper/lib/javascript/styles/colors';
 
 // // import { RestaurantsContextProvider } from '../../services/restaurants/restaurants.context';
@@ -84,6 +85,11 @@ export const AppNavigator = () => (
 		<Tab.Screen
 			name='Map'
 			component={MapScreen}
+			options={{ headerShown: false }}
+		/>
+		<Tab.Screen
+			name='Locate'
+			component={LocationPickerMapScreen}
 			options={{ headerShown: false }}
 		/>
 		<Tab.Screen name='Settings' component={SettingsNavigator} />

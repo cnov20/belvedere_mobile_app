@@ -36,10 +36,10 @@ const ProfileScreen = ({ navigation, route }) => {
 
 	const [photo, setPhoto] = useState(null);
 
-	// if (user || auth) {
-	// 	const currentUser = auth.currentUser;
-	// 	console.log(currentUser);
-	// }
+	if (user || auth) {
+		const currentUser = auth.currentUser;
+		console.log(currentUser);
+	}
 
 	const currentUser = auth.currentUser;
 
@@ -68,11 +68,18 @@ const ProfileScreen = ({ navigation, route }) => {
 							alignItems: 'center',
 						}}
 						showsVerticalScrollIndicator={false}>
-						<Image
-							style={styles.userImg}
-							source={require('../../../../assets/user-8.jpg')}
-							// source={{ uri: photo }}
-						></Image>
+						{photo ? (
+							<>
+								<Image style={styles.userImg} source={{ uri: photo }}></Image>
+							</>
+						) : (
+							<>
+								<Image
+									style={styles.userImg}
+									source={require('../../../../assets/user-8.jpg')}></Image>
+							</>
+						)}
+
 						<Text style={styles.userName}>Jan(n)e(lle) Doe</Text>
 						<Text style={styles.aboutUser}>New York, NY</Text>
 						{/* <AccountInfoCard> */}

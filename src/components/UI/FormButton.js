@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#2e64e5',
 		padding: 10,
 		alignItems: 'center',
-		justifyContent: 'space-between',
+		justifyContent: 'ween',
 		borderRadius: 3,
 	},
 	buttonText: {

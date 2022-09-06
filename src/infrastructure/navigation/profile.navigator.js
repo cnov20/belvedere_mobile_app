@@ -12,7 +12,10 @@ import DrinkOrderScreen from '../../features/account/screens/drink-order.screen'
 import LocationFinderScreen from '../../features/account/screens/location-finder';
 import HowThisWorksScreen from '../../features/account/screens/how-this-works.screen';
 
+import { LocationPickerMapScreen } from '../../features/map/screens/location-picker-map.screen';
+
 import { useNavigation } from '@react-navigation/native';
+import { MapScreen } from '../../features/map/screens/map.screen';
 
 const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
@@ -72,8 +75,8 @@ export const ProfileNavigator = ({ navigation }) => {
 				}}
 			/>
 			<Stack.Screen
-				name='Location Finder'
-				component={LocationFinderScreen}
+				name='Map'
+				component={MapScreen}
 				options={{
 					headerShown: false,
 				}}
@@ -85,6 +88,10 @@ export const ProfileNavigator = ({ navigation }) => {
 					headerShown: false,
 				}}
 			/>
+			<Stack.Screen
+				name='Location Picker Map'
+				component={LocationPickerMapScreen}
+				options={{ headerShown: false }}></Stack.Screen>
 		</Stack.Navigator>
 	);
 };
