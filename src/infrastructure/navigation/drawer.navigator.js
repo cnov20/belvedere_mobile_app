@@ -76,7 +76,8 @@ export default function DrawerNavigator() {
 				// },
 				headerRight: () => {
 					return (
-						<TouchableOpacity onPress={() => navigation.actions.openDrawer()}>
+						<TouchableOpacity
+							onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
 							<Image
 								// source={require('../../../assets/drawer.png')}
 								source={require('../../../assets/user-profile.jpg')}

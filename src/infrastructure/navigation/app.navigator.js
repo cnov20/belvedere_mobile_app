@@ -56,14 +56,12 @@ export const AppNavigator = () => (
 				fontWeight: '700',
 				fontSize: 12,
 				backgroundColor: 'transparent',
+				activeTintColor: 'blue',
+				inactiveTintColor: 'gray',
 			},
-		}}
-		tabBarOptions={{
-			activeTintColor: 'blue',
-			inactiveTintColor: 'gray',
 		}}>
+		{/* // tabBarOptions={{}} */}
 		{/* <Tab.Screen name='' component={DrawerNavigator} /> */}
-
 		<Tab.Screen
 			name='Account Home'
 			component={Drawer}
@@ -81,17 +79,16 @@ export const AppNavigator = () => (
 			component={RestaurantsNavigator}
 			options={{ headerShown: false }}
 		/>
-
 		<Tab.Screen
 			name='Map'
 			component={MapScreen}
 			options={{ headerShown: false }}
 		/>
-		<Tab.Screen
+		{/* <Tab.Screen
 			name='Locate'
 			component={LocationPickerMapScreen}
 			options={{ headerShown: false }}
-		/>
+		/> */}
 		<Tab.Screen name='Settings' component={SettingsNavigator} />
 		{/* <Tab.Screen name='Profile' component={ProfileScreen} /> */}
 	</Tab.Navigator>
