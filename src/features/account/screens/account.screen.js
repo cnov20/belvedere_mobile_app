@@ -45,7 +45,7 @@ const AccountScreen = ({ navigation }) => {
 			<Spacer size='xxlarge'>
 				<AuthButton
 					// /* // icon='lock-open-outline'
-					mode='outlined'
+					mode='contained'
 					onPress={() => navigation.navigate('Login')}>
 					Sign In
 				</AuthButton>
@@ -54,7 +54,7 @@ const AccountScreen = ({ navigation }) => {
 			<Spacer size='large'>
 				<AuthButton
 					// icon='email'
-					mode='contained'
+					mode='outlined'
 					onPress={() => navigation.navigate('Register')}>
 					Create Account
 				</AuthButton>

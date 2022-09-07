@@ -2,6 +2,8 @@
   "expo": {
     "name": "belvedere_mobile_app",
     "slug": "belvedere_mobile_app",
+    "owner": "eye-def",
+    // "privacy": unlisted,
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -32,9 +34,10 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
+    }
     // "plugins": [
     //   "@react-native-google-signin/google-signin"
     // ]
+    // "privacy": “unlisted”
   }
 }
